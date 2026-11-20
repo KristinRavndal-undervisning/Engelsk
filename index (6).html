@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Language Features Lab · English 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f3ee; --paper:#fffdf9; --ink:#1e2227; --muted:#5a6370; --line:#e2ddd2;
+  --accent:#24557d; --accent-soft:#e5eef6;
+  --green:#2a7a4b; --green-soft:#e0f3e7; --green-hl:#b5e5c4;
+  --amber:#8a5300; --amber-soft:#fdf1dc;
+  --red:#a23838; --red-soft:#fbe8e6;
+  --radius:12px;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+a{color:var(--accent)}
+button{font-family:inherit;font-size:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.topbar{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+.brand{font-weight:700;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--accent)}
+.topbar .meta{color:var(--muted);font-size:.9rem}
+h1,h2,h3{line-height:1.25;letter-spacing:-.01em}
+h1{font-size:2rem;margin:0 0 .4em}
+h2{font-size:1.35rem;margin:0 0 .6em}
+h3{font-size:1.05rem;margin:0 0 .4em}
+.muted{color:var(--muted)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;padding:10px 16px;border-radius:999px;cursor:pointer;font-weight:600;text-decoration:none;transition:background .15s}
+.btn:hover{background:#1b4466}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.small{font-size:.88rem}
+
+/* ---------- Home ---------- */
+.hero{padding:48px 0 28px}
+.hero p.lead{font-size:1.15rem;max-width:720px;color:#343a42}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+.examtask{font-family:var(--serif);background:#fbfaf6;border-left:4px solid var(--accent);padding:14px 18px;border-radius:6px;font-size:.95rem}
+.examtask p{margin:.35em 0}
+.structure{list-style:none;padding:0;margin:0;counter-reset:s}
+.structure li{position:relative;padding:10px 0 10px 46px;border-bottom:1px dashed var(--line)}
+.structure li:last-child{border-bottom:0}
+.structure li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:10px;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:flex;align-items:center;justify-content:center}
+.pill{display:inline-block;font-size:.78rem;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.tasks{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin:16px 0 50px}
+.taskcard{display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}
+.taskcard:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.07)}
+.taskcard h3{font-size:1.2rem;margin:4px 0 0}
+.taskcard .go{margin-top:auto;color:var(--accent);font-weight:600}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:30px;align-items:center}
+.hero-art{width:100%;max-width:380px;justify-self:end}
+.taskcard.tinted{background:var(--tint);border-top:4px solid var(--stripe)}
+.taskhead-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.taskhead-row .btn{padding:8px 14px;font-size:.9rem;margin-top:4px}
+.checks label.off{opacity:.45;cursor:not-allowed}
+.taskcard.soon{border-style:dashed;background:transparent;color:var(--muted);justify-content:center;align-items:center;text-align:center;min-height:170px}
+.steps-how{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+.steps-how div{background:#fbfaf6;border:1px solid var(--line);border-radius:10px;padding:14px;font-size:.93rem}
+.steps-how b{display:block;margin-bottom:4px;color:var(--accent)}
+
+/* ---------- Task ---------- */
+.taskhead{padding:30px 0 10px}
+.taskhead .examtask{max-width:820px;margin-top:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:start;margin:18px 0}
+.source{position:sticky;top:70px;max-height:calc(100vh - 86px);overflow:auto}
+.source .context{font-size:.9rem;color:var(--muted);background:#f7f5ef;border-radius:8px;padding:10px 14px;margin-bottom:16px}
+.source h2{font-family:var(--serif);font-size:1.5rem;margin-bottom:.2em}
+.source .byline{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+#srcText{font-family:var(--serif);font-size:1.05rem;line-height:1.75;cursor:pointer;user-select:none;-webkit-user-select:none}
+#srcText p{margin:0 0 1em}
+#srcText.locked{cursor:default}
+.seg.hl{background:var(--green-hl);border-radius:3px;box-shadow:0 0 0 2px var(--green-hl);transition:background .2s}
+.srcnote{font-family:var(--sans);font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:6px}
+
+.step{margin-bottom:18px}
+.step .label{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.opt{text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;line-height:1.45;color:var(--ink);transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+.opt.wrong{border-color:#e7b9b4;background:var(--red-soft);color:#6d2b2b}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opt:disabled{cursor:default}
+.fb{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:.95rem}
+.fb.bad{background:var(--amber-soft);color:#5d3a00;border:1px solid #f1d5a3}
+.fb.good{background:var(--green-soft);color:#174d2e;border:1px solid #b9e0c6}
+.fb.info{background:var(--accent-soft);color:#173b59;border:1px solid #c7d9ea}
+.fb b{display:block;margin-bottom:2px}
+.solved{display:flex;gap:10px;align-items:flex-start;background:var(--green-soft);border-radius:10px;padding:12px 14px;margin-top:10px}
+.solved .tick{color:var(--green);font-weight:700}
+
+.flist{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.fbtn{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;font-weight:500;color:var(--ink);transition:all .15s}
+.fbtn:hover:not(:disabled){border-color:var(--accent)}
+.fbtn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.fbtn.done{background:var(--green-soft);border-color:#9fd3b1;color:var(--green)}
+.fbtn.done::before{content:"✓ "}
+.fbtn:disabled{opacity:.5;cursor:not-allowed}
+.lockednote{font-size:.9rem;color:var(--muted);margin-top:8px}
+#panel{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.def{background:#f7f5ef;border-radius:8px;padding:10px 14px;font-size:.93rem;margin:8px 0}
+.instr{font-weight:600;margin:10px 0 4px}
+.quote{font-family:var(--serif);font-style:italic;background:var(--green-soft);border-left:3px solid var(--green);padding:8px 12px;border-radius:6px;margin:8px 0}
+
+/* analysis */
+.section{margin:34px 0}
+.acards{display:grid;gap:14px}
+.acard{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--green);border-radius:var(--radius);padding:16px 18px}
+.acard .row{display:grid;grid-template-columns:120px 1fr;gap:10px;margin:4px 0;font-size:.95rem}
+.acard .row .k{font-weight:600;color:var(--muted)}
+.acard .row .v.q{font-family:var(--serif);font-style:italic}
+.acard.mm{border-left-color:var(--accent)}
+.empty{color:var(--muted);font-style:italic}
+
+.invite{background:linear-gradient(135deg,#e5eef6,#e0f3e7);border:1px solid #c9dbe7;border-radius:var(--radius);padding:20px 22px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+
+/* writing */
+.checks{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+.checks label{display:flex;gap:8px;align-items:center;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.checks input{accent-color:var(--accent)}
+.wbox{margin-bottom:18px}
+.wbox h3{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.wbox h3 .wc{font-weight:400;font-size:.82rem;color:var(--muted)}
+.wbox .hint{font-size:.9rem;color:var(--muted);margin:0 0 6px}
+.wbox textarea{width:100%;min-height:120px;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-family:var(--serif);font-size:1rem;line-height:1.6;resize:vertical;background:#fff;color:var(--ink)}
+.wbox textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.ref{font-size:.88rem;background:#f7f5ef;border-radius:8px;padding:8px 12px;margin-bottom:8px}
+.ref summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.ref div{margin-top:6px}
+.checklist{font-size:.85rem;color:var(--muted);margin:4px 0 8px}
+.checklist span{display:inline-block;margin-right:12px}
+.wtotal{position:sticky;bottom:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 -4px 18px rgba(0,0,0,.05)}
+.wtotal .count b{font-size:1.15rem}
+.wtotal .count.ok b{color:var(--green)}
+.wtotal .actions{display:flex;gap:10px;flex-wrap:wrap}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;margin:6px 0 14px}
+.model p{font-family:var(--serif);line-height:1.75;margin:0 0 1em}
+.m-msg{background:#e5eef6;border-radius:3px;padding:0 2px}
+.m-term{font-weight:700;color:var(--accent)}
+.m-quote{font-style:italic;background:#fdf1dc;border-radius:3px;padding:0 2px}
+.m-effect{background:var(--green-soft);border-radius:3px;padding:0 2px}
+.model .mwc{font-family:var(--sans);font-size:.88rem;color:var(--muted)}
+
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120%);background:#1e2227;color:#fff;padding:12px 18px;border-radius:12px;max-width:min(92vw,520px);font-size:.95rem;z-index:50;transition:transform .25s;display:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+footer{color:var(--muted);font-size:.85rem;padding:30px 0 40px;border-top:1px solid var(--line);margin-top:40px}
+#printArea{display:none}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .source{position:static;max-height:none}
+  .grid2{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-art{max-width:260px;justify-self:center}
+  .steps-how{grid-template-columns:1fr 1fr}
+  .toast{display:block}
+  .acard .row{grid-template-columns:1fr;gap:0}
+}
+
+@media print{
+  body{background:#fff;font-size:11pt}
+  #app,.toast{display:none!important}
+  #printArea{display:block}
+  #printArea h1{font-size:18pt;margin:0 0 4pt}
+  #printArea h2{font-size:13pt;margin:16pt 0 6pt;border-bottom:1px solid #999;padding-bottom:3pt}
+  #printArea h3{font-size:11pt;margin:10pt 0 3pt}
+  #printArea .pmeta{color:#444;margin-bottom:10pt}
+  #printArea .pcard{border:1px solid #bbb;border-radius:6px;padding:8pt 10pt;margin:0 0 8pt;page-break-inside:avoid}
+  #printArea .pcard p{margin:2pt 0}
+  #printArea .ptext p{font-family:Georgia,serif;line-height:1.55;margin:0 0 8pt}
+  #printArea .plabel{font-family:Arial,sans-serif;font-size:8.5pt;color:#666;text-transform:uppercase;letter-spacing:.05em;margin:8pt 0 1pt}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="printArea"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   TASK DATA
+   ---------------------------------------------------------------------
+   To add a new task, copy the object inside TASKS and change the content.
+
+   Text markup in "paragraphs":
+     [featureId:text]         marks an example of a feature. Marks can be nested.
+     [featureId=label:text]   same, with a short label used inside the effect
+                              explanations (e.g. a repetition series labelled
+                              with the repeated phrase, or a long quote
+                              shortened to its key words).
+   A feature with "auto" (a regular expression) is marked automatically
+   wherever the pattern appears (useful for pronouns).
+
+   Every real example of a feature in the text must be marked, so that all
+   examples count as correct answers.
+   ===================================================================== */
+const TASKS = [
+{
+  id: "task-1",
+  number: 1,
+  title: "Keep the Doors Open",
+  type: "Speech",
+  summary: "A 17-year-old student speaks to the town council about a plan to close the local youth centre.",
+  context: "The following speech was given by Maya Collins (17) at a public meeting of Eastbrook Town Council. The councillors were discussing a proposal to close the Northside Youth Centre in order to save money.",
+  byline: "Speech by Maya Collins, Eastbrook Town Council meeting",
+  properNouns: ["Maya", "Eastbrook", "Northside", "Daniel"],   // keep capital letter when quoted inside a sentence
+  paragraphs: [
+    "Good evening, councillors, and thank you for giving me the chance to speak tonight. My name is Maya Collins, and I am seventeen years old. For the last five years, the Northside Youth Centre has been [met:my second home].",
+    "Tonight, you will vote on a proposal to close the centre in order to save £180,000 a year. On paper, that probably looks like a sensible decision. Budgets are tight, and councils across the country are being forced to make difficult choices. [short:I understand that.] However, I would like you to look beyond the numbers for a few minutes, because some things cannot be measured in pounds.",
+    "[met=a lifeline:The centre is not just a building. [short:It is a lifeline.]] For many of [we=For many of us:us], it is the only place [we=the only place we can go:we] can go after school that is warm, safe and free. [rep=Where else:[rq:Where else in Eastbrook can a fourteen-year-old spend an evening without spending money?] [rq:Where else can you get help with your maths homework, play table tennis and talk to an adult who actually listens, all under one roof?]]",
+    "[rep=I have seen:I have seen shy kids walk through those doors and slowly [met:find their voices]. I have seen friends who were struggling at home finally find [met:somewhere to breathe]. I have seen boys who were always in trouble at school discover that they were brilliant at music, at football or at cooking. And I have seen myself change.]",
+    "When I first came here, I was twelve. I had just moved to Eastbrook, and I did not know a single person. [short:Nobody noticed me.] Then one of the youth workers, Daniel, asked if I wanted to help paint a mural on the back wall. [short:That mural is still there.] [short:So am I.]",
+    "If the centre closes, the young people who use it will not disappear. They will simply end up somewhere else: in empty car parks, at bus stops, or alone in their bedrooms, scrolling through their phones until two in the morning. [rq:Is that really the cheaper option?] Study after study has shown that money spent on young people today saves money on health care, policing and social services tomorrow. [met=the safety net that catches us before we fall:The youth centre is the safety net that catches [we=catches us before we fall:us] before [we=catches us before we fall:we] fall.]",
+    "[we=We are not asking for much:We] are not asking for much. [we=We are asking you to keep the doors open:We] are asking you to [met:keep the doors open]. [rep=Keep the doors open:[met:Keep the doors open] for the shy kid who has not [met:found her voice] yet. [met:Keep the doors open] for the boy who has nowhere else to go on a Friday night. [met:Keep the doors open] for the next twelve-year-old who moves to Eastbrook and does not know a single person.]",
+    "[rq:When you look back on this decision in ten years, what do you want to be able to say?] I hope you will be able to say that you chose to invest in [we=you chose to invest in us:us]. [short:[we=We are worth it:We] are worth it.] Thank you."
+  ],
+
+  mainMessage: [
+    { correct: true,
+      text: "The council should keep the youth centre open, because it gives young people a safe place to belong and grow, and closing it would cost the community more than it saves.",
+      feedback: "Well done! This answer covers what Maya wants (keep the centre open) and her main reasons (young people need it, and closing it would be more expensive in the long run)." },
+    { correct: false,
+      text: "The youth centre helped Maya make friends after she moved to Eastbrook, so the centre is very important to her personally.",
+      feedback: "Maya's own story is an important part of the speech, but it is only an example. She uses it to support a bigger point. What does she want the council to do?" },
+    { correct: false,
+      text: "The youth centre is more important than the council's budget, so money should never be a reason to make decisions about young people.",
+      feedback: "Look again at the second paragraph. Maya actually says she understands that budgets are tight. She does not reject the money argument. Instead, she argues that closing the centre would not really save money." },
+    { correct: false,
+      text: "Young people today spend too much time alone with their phones, and adults need to do more to get them away from their screens.",
+      feedback: "Phones are mentioned once, as an example of what might happen if the centre closes. That is a detail, not the main message of the whole speech." }
+  ],
+
+  /* In the effect options, {ex} is replaced by the example(s) the student found.
+     All options for one feature start the same way, so the example gives nothing away. */
+  features: [
+    { id: "met", term: "Metaphor", modelTerm: "metaphor", listName: "metaphor",
+      definition: "A metaphor describes something as if it were something else, without using \"like\" or \"as\". It creates a picture in the listener's mind.",
+      tip: "Tip: look for words and phrases that should not be taken literally.",
+      effects: [
+        { correct: true,
+          text: "Through metaphors such as {ex}, Maya shows that young people depend on the centre to feel safe and to grow. Closing it therefore seems harmful, not just a way to save money.",
+          feedback: "Exactly. The metaphor changes how the councillors see the centre. It is no longer just a building that costs money, but something young people need." },
+        { correct: false,
+          text: "Through metaphors such as {ex}, Maya makes her speech more poetic and beautiful. This makes it more enjoyable to listen to, so the councillors pay closer attention.",
+          feedback: "Metaphors can make language more vivid, but \"more beautiful\" does not explain how they support Maya's message. What does the metaphor make the councillors believe about the centre?" },
+        { correct: false,
+          text: "Through metaphors such as {ex}, Maya shows that the building is old and needs repairs. This explains why the centre is so expensive for the council to keep running.",
+          feedback: "Maya is not talking about the physical building here. Look again at what your metaphor actually describes." },
+        { correct: false,
+          text: "Through metaphors such as {ex}, Maya makes her language sound formal and professional. This helps a teenager to be taken seriously by the adults who will decide.",
+          feedback: "Formality has more to do with word choice and tone. A metaphor works by comparing one thing to another. What does your metaphor compare, and why?" }
+      ],
+      model: "Maya says that the centre <span class=\"m-quote\">\"is not just a building. It is a lifeline.\"</span> A lifeline is something that keeps a person alive in a dangerous situation. <span class=\"m-effect\">The metaphor shows that the centre is essential for many young people. As a result, closing it seems harmful rather than just a practical budget decision, which strengthens her argument.</span>"
+    },
+    { id: "rep", term: "Repetition (anaphora)", modelTerm: "repetition", listName: "repetition",
+      definition: "Repetition means using the same word, phrase or sentence structure more than once. When several sentences in a row begin with the same words, it is called anaphora.",
+      tip: "Tip: look for a group of sentences that begin with the same words.",
+      effects: [
+        { correct: true,
+          text: "Through the repetition of {ex}, Maya builds up her point step by step and creates a strong rhythm. This makes the message easy to remember and her argument very hard to ignore.",
+          feedback: "Yes! The repetition creates rhythm and emphasis. The listeners hear the key idea so many times that it stays with them." },
+        { correct: false,
+          text: "Through the repetition of {ex}, Maya shows that she is nervous and has lost track of what she has said. This makes her seem honest and more like an ordinary teenager.",
+          feedback: "In a prepared speech, repetition is almost always a deliberate choice. Think about what the repeated phrase does to the listener." },
+        { correct: false,
+          text: "Through the repetition of {ex}, Maya makes the speech longer and gains more time to talk. This gives her a better chance to include all her arguments before the council votes.",
+          feedback: "Length is not really the point. Think about how the repeated words build up and stay in the listeners' minds." },
+        { correct: false,
+          text: "Through the repetition of {ex}, Maya helps the councillors understand difficult words, because they hear them several times. This makes sure that nobody misunderstands her main point.",
+          feedback: "The repeated words are actually very simple. Their purpose has more to do with rhythm, emphasis and emotion. Try again." }
+      ],
+      model: "Three sentences in a row begin with <span class=\"m-quote\">\"I have seen\"</span>, and near the end of the speech, three sentences begin with <span class=\"m-quote\">\"Keep the doors open\"</span>. <span class=\"m-effect\">The repetition creates a strong rhythm and builds up the examples, so the listeners remember them. As a result, her demand becomes very difficult to ignore.</span>"
+    },
+    { id: "rq", term: "Rhetorical questions", modelTerm: "rhetorical questions", listName: "rhetorical questions",
+      definition: "A rhetorical question is asked for effect. The speaker does not expect an answer, because the answer seems obvious.",
+      tip: "Tip: look for questions that Maya does not expect anyone to answer.",
+      effects: [
+        { correct: true,
+          text: "By asking {ex}, Maya makes the councillors think about the question themselves instead of just listening. They are led towards her conclusion, which is more convincing than simply being told.",
+          feedback: "Spot on. The question leads the listeners to Maya's conclusion, which is often more convincing than simply telling them." },
+        { correct: false,
+          text: "By asking {ex}, Maya shows that she is unsure of the answer herself. She wants the councillors to explain the situation to her before they make their decision.",
+          feedback: "A rhetorical question is not asked to get an answer. Maya already knows what the answer is. What does she want the listeners to realise?" },
+        { correct: false,
+          text: "By asking {ex}, Maya invites the councillors to answer out loud during the meeting. This turns the speech into a conversation, so both sides can share their opinions.",
+          feedback: "Close. The question does involve the audience, but nobody is expected to answer out loud. It is meant to make the listeners think and reach a conclusion." },
+        { correct: false,
+          text: "By asking {ex}, Maya keeps the speech neutral and avoids giving her own opinion. The councillors are free to decide for themselves without feeling any pressure.",
+          feedback: "The question is not neutral. It is designed so that there is only one reasonable answer, and that answer supports Maya's view." }
+      ],
+      model: "Maya asks, <span class=\"m-quote\">\"Where else in Eastbrook can a fourteen-year-old spend an evening without spending money?\"</span> The answer is obvious, since there is nowhere else. <span class=\"m-effect\">The question makes the councillors reach the same conclusion as Maya on their own. This makes her argument more convincing than if she had simply stated it.</span>"
+    },
+    { id: "we", term: "Inclusive \"we\" (we, us)", modelTerm: "inclusive pronouns", listName: "inclusive pronouns",
+      definition: "Inclusive pronouns such as we, us and our include the speaker in a group. They show who the speaker is speaking for.",
+      tip: "Tip: look for the words we and us.",
+      quoteSentence: true, // the analysis card shows the whole sentence around the clicked word
+      oneExample: true,   // the effect is the same every time, so one example is enough
+      effects: [
+        { correct: true,
+          text: "By using inclusive pronouns, as in {ex}, Maya speaks for all the young people who use the centre. They sound like a united group, so the closure clearly affects many people, not just her.",
+          feedback: "Excellent. With \"we\", Maya is no longer one teenager with an opinion. She speaks for a whole group." },
+        { correct: false,
+          text: "By using inclusive pronouns, as in {ex}, Maya shows that the speech is mainly about her own experiences. The councillors learn how she feels, which makes the speech more private.",
+          feedback: "\"We\" is not about Maya alone. Who else is included in the word?" },
+        { correct: false,
+          text: "By using inclusive pronouns, as in {ex}, Maya makes her language informal and relaxed. This shows that she is a teenager and helps her connect with young people in the audience.",
+          feedback: "Maya's speech is fairly formal, and the audience is mainly the council. Think about which group \"we\" refers to and why that matters." },
+        { correct: false,
+          text: "By using inclusive pronouns, as in {ex}, Maya includes the councillors in the group of young people. This reminds them that they were once young and makes them remember their own youth.",
+          feedback: "Close, but look at who \"we\" actually refers to. Maya says \"we\" to the councillors, not about them." }
+      ],
+      model: "Maya often uses <span class=\"m-quote\">\"we\"</span> and <span class=\"m-quote\">\"us\"</span>, as in <span class=\"m-quote\">\"For many of us\"</span>. <span class=\"m-effect\">These words show that she speaks for all the young people who use the centre. They appear as a united group, so the councillors understand that the closure affects many people, not only Maya.</span>"
+    },
+    { id: "short", term: "Short sentences", modelTerm: "short sentences", listName: "short sentences",
+      definition: "Short sentences contain only a few words. They stand out when the sentences around them are longer, and they are often used to emphasise a key point.",
+      tip: "Tip: look for very short sentences, often only three to five words, that stand out from the longer ones.",
+      effects: [
+        { correct: true,
+          text: "With short sentences such as {ex}, Maya makes key points stand out against the longer sentences around them. This gives the points extra weight and makes the listeners stop and think about them.",
+          feedback: "Great! The contrast between long and short sentences makes the most important points stand out." },
+        { correct: false,
+          text: "With short sentences such as {ex}, Maya shows that she is running out of time. She has to finish her points quickly so that the council has enough time left to vote.",
+          feedback: "The short sentences are carefully placed, not rushed. Look at where they appear. Do they come right after or before important points?" },
+        { correct: false,
+          text: "With short sentences such as {ex}, Maya makes the speech easier to follow for young people in the audience. They can understand her even if they are not used to formal language.",
+          feedback: "The audience is mainly the council, not young people. Short sentences can be clear, but their main job here is to create emphasis." },
+        { correct: false,
+          text: "With short sentences such as {ex}, Maya sounds calm and neutral about the decision. This shows the council that she can stay objective even though the centre matters to her.",
+          feedback: "In a speech, short sentences are rarely just neutral. Look at where your example appears. Does it make a point stand out?" }
+      ],
+      model: "Sentences such as <span class=\"m-quote\">\"Nobody noticed me.\"</span> and <span class=\"m-quote\">\"We are worth it.\"</span> stand out because most of the other sentences are long. <span class=\"m-effect\">The short sentences give these points extra weight and emotional force, which makes them easy to remember and helps the councillors understand how much the centre means to young people.</span>"
+    }
+  ],
+
+  modelIntro: "The attached text is a <span class=\"m-term\">speech</span> by seventeen-year-old Maya Collins to a town council that is considering closing the local youth centre. <span class=\"m-msg\">The main message is that the council should keep the youth centre open, because it gives young people a safe place to belong and grow, and closing it would cost the community more than it saves.</span>",
+
+  /* Opening sentence of each model paragraph, chosen by position. {X} = feature name. */
+  modelOpeners: [
+    "One language feature that strengthens the message is the use of {X}.",
+    "Another important language feature in the speech is the use of {X}."
+  ],
+  modelLastOpener: "Finally, Maya also makes effective use of {X}.",
+
+  modelConclusion: function(list, n){
+    if (n === 1) {
+      return "In conclusion, Maya uses " + list + " to persuade the councillors. This language feature makes the speech more convincing and strengthens the message that the youth centre should stay open.";
+    }
+    return "In conclusion, Maya uses " + list + " to persuade the councillors. Together, these language features make the speech memorable and convincing, and they strengthen the message that the youth centre should stay open.";
+  }
+}
+];
+
+/* Maximum number of language features in the written answer and the model answer. */
+const MAX_WRITE = 3;
+
+/* =====================================================================
+   HELPERS
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const words = s => (s.trim().match(/\S+/g) || []).length;
+const stripTags = s => s.replace(/<[^>]+>/g, "");
+const joinList = arr => arr.length <= 1 ? (arr[0] || "") : arr.slice(0, -1).join(", ") + " and " + arr[arr.length - 1];
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+let toastTimer;
+function toast(msg) {
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 3600);
+}
+
+/* Front page illustration and task card colours */
+const TINTS = [["#edf3f8", "#8eafca"], ["#eef5f0", "#8fbda0"], ["#f8f3ea", "#d2b07c"], ["#f4eff6", "#b19bc0"]];
+const HERO_ART = `
+<svg class="hero-art" viewBox="0 0 380 290" role="img" aria-label="Illustration: a text with highlighted phrases, a speech bubble and a magnifying glass">
+  <ellipse cx="200" cy="152" rx="168" ry="126" fill="#e9eff4"/>
+  <circle cx="58" cy="210" r="5" fill="#d9e5ee"/><circle cx="340" cy="70" r="7" fill="#e0ece4"/><circle cx="320" cy="262" r="4" fill="#f1e2c6"/>
+  <g transform="rotate(-5 190 155)">
+    <rect x="102" y="44" width="186" height="222" rx="10" fill="#fffdf9" stroke="#d8d1c3" stroke-width="1.5"/>
+    <rect x="124" y="68" width="84" height="9" rx="4.5" fill="#c3d3e1"/>
+    <g fill="#e7e2d7">
+      <rect x="124" y="94" width="142" height="7" rx="3.5"/>
+      <rect x="124" y="111" width="128" height="7" rx="3.5"/>
+      <rect x="124" y="128" width="138" height="7" rx="3.5"/>
+      <rect x="124" y="145" width="110" height="7" rx="3.5"/>
+      <rect x="124" y="170" width="140" height="7" rx="3.5"/>
+      <rect x="124" y="187" width="122" height="7" rx="3.5"/>
+      <rect x="124" y="204" width="136" height="7" rx="3.5"/>
+      <rect x="124" y="221" width="96" height="7" rx="3.5"/>
+      <rect x="124" y="238" width="118" height="7" rx="3.5"/>
+    </g>
+    <rect x="150" y="108" width="70" height="13" rx="4" fill="#b9e3c7" opacity=".9"/>
+    <rect x="122" y="142" width="58" height="13" rx="4" fill="#f4dfb6" opacity=".95"/>
+    <rect x="176" y="201" width="62" height="13" rx="4" fill="#cfe0ef"/>
+  </g>
+  <g>
+    <path d="M30 34 h92 a14 14 0 0 1 14 14 v30 a14 14 0 0 1 -14 14 h-58 l-16 14 v-14 h-18 a14 14 0 0 1 -14 -14 v-30 a14 14 0 0 1 14 -14z" fill="#fffdf9" stroke="#9fb8cc" stroke-width="1.5"/>
+    <text x="76" y="78" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#8aa7bf">“ ”</text>
+  </g>
+  <g>
+    <circle cx="292" cy="196" r="36" fill="#ffffff" fill-opacity=".6" stroke="#24557d" stroke-width="3.5"/>
+    <rect x="266" y="189" width="52" height="14" rx="5" fill="#b5e5c4"/>
+    <line x1="318" y1="222" x2="346" y2="250" stroke="#24557d" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+  </g>
+  <path d="M336 118 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#e3c48f"/>
+  <path d="M60 140 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="#9fc6ad"/>
+</svg>`;
+
+/* =====================================================================
+   HOME PAGE
+   ===================================================================== */
+function renderHome() {
+  document.title = "Language Features Lab · English 1";
+  $("#app").innerHTML = `
+  <header class="topbar"><div class="wrap"><a class="brand" href="#">Language Features <span>Lab</span></a><span class="meta">English 1 exam practice</span></div></header>
+  <main class="wrap">
+    <section class="hero hero-grid">
+      <div>
+        <span class="pill">English 1 · Exam practice</span>
+        <h1 style="margin-top:12px">Find the message. Spot the features. Explain the effect.</h1>
+        <p class="lead">This page helps you practise one of the most common exam tasks in English 1: identifying the main message of a text and explaining how language features make that message stronger.</p>
+      </div>
+      ${HERO_ART}
+    </section>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>The exam task</h2>
+        <p class="muted small">This is how the task is usually worded:</p>
+        <div class="examtask">
+          <p><b>Task 1</b> (recommended length: 200–300 words)</p>
+          <p><b>1a</b> State the main message in the attached text. Write 1–3 sentences.</p>
+          <p><b>1b</b> Explain how language features are used to enhance the message in the attached text. Use relevant terminology and refer to examples from the text in your answer.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>A strong answer follows a pattern</h2>
+        <ol class="structure">
+          <li><b>Short introduction.</b> Present the text and state the main message (task 1a).</li>
+          <li><b>Three body paragraphs.</b> Each paragraph explains one language feature. Name it with the correct <b>term</b>, give an <b>example or quote</b> from the text, and, most importantly, explain the <b>effect</b>: how does it make the message stronger?</li>
+          <li><b>Very short conclusion.</b> Point out that, together, the language features strengthen the message.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card" style="margin:20px 0">
+      <h2>How each task works</h2>
+      <div class="steps-how">
+        <div><b>1. Main message</b>Read the text and choose the best description of its main message.</div>
+        <div><b>2. Find examples</b>Choose a language feature from the list and click on an example of it in the text.</div>
+        <div><b>3. Explain the effect</b>Choose the most precise explanation of how the feature strengthens the message.</div>
+        <div><b>4. Write your answer</b>Use your findings to write a full answer, save it as a PDF and compare it with a model answer.</div>
+      </div>
+      <p class="small muted" style="margin:14px 0 0">If you choose a wrong answer, you will get a hint and can try again. You will not be given the answer, so you have to work it out yourself. Your progress is saved in this browser.</p>
+    </div>
+
+    <h2 style="margin-top:36px">Tasks</h2>
+    <div class="tasks">
+      ${TASKS.map(t => `
+        <a class="card taskcard tinted" href="#${t.id}" style="--tint:${TINTS[(t.number - 1) % TINTS.length][0]};--stripe:${TINTS[(t.number - 1) % TINTS.length][1]}">
+          <span><span class="pill">Task ${t.number}</span> <span class="pill" style="background:#f1ede4;color:#5a6370">${esc(t.type)}</span></span>
+          <h3>${esc(t.title)}</h3>
+          <p class="muted small" style="margin:0">${esc(t.summary)}</p>
+          <span class="go">Start task →</span>
+        </a>`).join("")}
+      <div class="card taskcard soon"><div><b>More tasks coming soon</b><br><span class="small">New speeches and opinion pieces will be added here.</span></div></div>
+    </div>
+    <footer>Made for exam practice in English 1. All texts are fictional and written for practice.</footer>
+  </main>`;
+}
+
+/* =====================================================================
+   TASK PAGE
+   ===================================================================== */
+let T, S, cur;   // task, saved state, current (unsaved) state
+
+const storeKey = () => "lfl-v2-" + T.id;
+function freshState() {
+  return { mm: false, done: [], writing: false, include: [], texts: {}, name: "" };
+}
+function save() { store.set(storeKey(), S); }
+const feat = id => T.features.find(f => f.id === id);
+const clean = s => s.replace(/\s+/g, " ").trim();
+const newCur = f => ({ f: f || null, stage: f ? "click" : null, spans: [], items: [], quotes: [], effects: [], tried: [], msg: null, solvedEffect: null });
+
+/* Short version of a long quote, for cards and lists */
+function shortQuote(q) {
+  const w = q.split(" ");
+  return w.length > 24 ? w.slice(0, 12).join(" ") + " … " + w.slice(-6).join(" ") : q;
+}
+/* The student's example(s), formatted for use inside an explanation */
+const inlineQuote = t => {
+  t = t.replace(/\.$/, "");
+  const first = t.split(/[\s,]/)[0];
+  const keep = first === "I" || (T.properNouns || []).includes(first);
+  return keep ? t : t.charAt(0).toLowerCase() + t.slice(1);
+};
+const fmtEx = items => joinList(items.map(t => '"' + inlineQuote(t) + '"'));
+const effText = d => feat(d.id).effects.find(x => x.correct).text.replace("{ex}", d.ex);
+
+function buildParagraph(src) {
+  const p = document.createElement("p");
+  const stack = [p]; let buf = "";
+  const flush = () => { if (buf) { stack[stack.length - 1].appendChild(document.createTextNode(buf)); buf = ""; } };
+  for (let i = 0; i < src.length; i++) {
+    const c = src[i];
+    if (c === "[") {
+      flush();
+      const k = src.indexOf(":", i);
+      const [id, label] = src.slice(i + 1, k).split("=");
+      const span = document.createElement("span");
+      span.className = "seg"; span.dataset.f = id;
+      if (label) span.dataset.l = label;
+      stack[stack.length - 1].appendChild(span); stack.push(span); i = k;
+    } else if (c === "]") { flush(); stack.pop(); }
+    else buf += c;
+  }
+  flush();
+  return p;
+}
+function autoTag(root, fid, re) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const t = node.nodeValue; re.lastIndex = 0;
+    if (!re.test(t)) return;
+    re.lastIndex = 0;
+    const frag = document.createDocumentFragment(); let last = 0, m;
+    while ((m = re.exec(t))) {
+      if (m.index > last) frag.appendChild(document.createTextNode(t.slice(last, m.index)));
+      const s = document.createElement("span"); s.className = "seg"; s.dataset.f = fid; s.textContent = m[0];
+      frag.appendChild(s); last = m.index + m[0].length;
+    }
+    if (last < t.length) frag.appendChild(document.createTextNode(t.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  });
+}
+/* The whole sentence around a clicked word (used for single-word features like "we") */
+function sentenceAround(span) {
+  const p = span.closest("p"); let off = 0;
+  const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+  while (w.nextNode()) { const n = w.currentNode; if (span.contains(n)) break; off += n.nodeValue.length; }
+  const t = p.textContent; let start = 0;
+  for (const m of t.slice(0, off).matchAll(/[.?!]\s+/g)) start = m.index + m[0].length;
+  const r = /[.?!](\s|$)/.exec(t.slice(off));
+  return clean(t.slice(start, r ? off + r.index + 1 : t.length));
+}
+const exampleItem = span => span.dataset.l || (cur.f.auto ? sentenceAround(span) : clean(span.textContent));
+const quoteOf = span => (cur.f.auto || cur.f.quoteSentence) ? sentenceAround(span) : clean(span.textContent);
+const exampleCount = fid => $$(`#srcText [data-f="${fid}"]`).length;
+
+function renderTask(task) {
+  T = task;
+  S = Object.assign(freshState(), store.get(storeKey()) || {});
+  S.done = S.done.filter(d => feat(d.id) && d.quotes);
+  cur = newCur();
+  document.title = T.title + " · Language Features Lab";
+
+  $("#app").innerHTML = `
+  <header class="topbar"><div class="wrap"><a class="brand" href="#">← Language Features <span>Lab</span></a><span class="meta">Task ${T.number} · ${esc(T.type)}</span></div></header>
+  <main class="wrap">
+    <div class="taskhead">
+      <div class="taskhead-row">
+        <h1>Task ${T.number}: ${esc(T.title)}</h1>
+        <button class="btn ghost" id="resetBtn" title="Delete your choices and your text, and start again">↺ Reset task</button>
+      </div>
+      <div class="examtask">
+        <p><b>1a</b> State the main message in the attached text. Write 1–3 sentences.</p>
+        <p><b>1b</b> Explain how language features are used to enhance the message in the attached text. Use relevant terminology and refer to examples from the text in your answer.</p>
+      </div>
+    </div>
+
+    <div class="layout">
+      <section class="card source" aria-label="Attached text">
+        <div class="context">${esc(T.context)}</div>
+        <h2>${esc(T.title)}</h2>
+        <div class="byline">${esc(T.byline)}</div>
+        <div id="srcText"></div>
+        <div class="srcnote">Click on a word in the text to choose an example.</div>
+      </section>
+
+      <section>
+        <div class="card step" id="stepMM"></div>
+        <div class="card step" id="stepF"></div>
+      </section>
+    </div>
+
+    <section class="section" id="analysis"></section>
+    <section class="section" id="invite"></section>
+    <section class="section" id="writing"></section>
+    <section class="section" id="model"></section>
+
+    <footer><a href="#">← Back to all tasks</a></footer>
+  </main>`;
+
+  const src = $("#srcText");
+  T.paragraphs.forEach(p => src.appendChild(buildParagraph(p)));
+  T.features.forEach(f => { if (f.auto) autoTag(src, f.id, new RegExp(f.auto.source, "g")); });
+  src.addEventListener("click", onTextClick);
+
+  $("#resetBtn").addEventListener("click", () => {
+    if (confirm("Reset this task? Your choices and your text will be deleted.")) {
+      store.del(storeKey()); renderTask(T); window.scrollTo(0, 0);
+    }
+  });
+
+  renderMM(); renderFeatures(); renderAnalysis(); renderInvite(); renderWriting();
+}
+
+/* ---------- Step 1: main message ---------- */
+function renderMM() {
+  const box = $("#stepMM");
+  const correct = T.mainMessage.find(o => o.correct);
+  if (S.mm) {
+    box.innerHTML = `<div class="label">Step 1 · Task 1a</div><h3>Main message</h3>
+      <div class="solved"><span class="tick">✓</span><div>${esc(correct.text)}</div></div>`;
+    return;
+  }
+  const opts = shuffle(T.mainMessage);
+  box.innerHTML = `<div class="label">Step 1 · Task 1a</div>
+    <h3>What is the main message of the ${esc(T.type.toLowerCase())}?</h3>
+    <p class="muted small" style="margin:0">Read the whole text first. Then choose the answer that describes the main message most precisely.</p>
+    <div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}">${esc(o.text)}</button>`).join("")}</div>
+    <div id="mmFb"></div>`;
+  $$(".opt", box).forEach(b => b.addEventListener("click", () => {
+    const o = opts[+b.dataset.i];
+    if (o.correct) {
+      b.classList.add("right");
+      $$(".opt", box).forEach(x => x.disabled = true);
+      $("#mmFb").innerHTML = `<div class="fb good"><b>Correct!</b>${esc(o.feedback)}</div>
+        <div style="margin-top:12px"><button class="btn" id="mmNext">Continue to language features →</button></div>`;
+      S.mm = true; save();
+      $("#mmNext").addEventListener("click", () => {
+        renderMM(); renderFeatures(); renderAnalysis();
+        $("#stepF").scrollIntoView({ block: "start" });
+      });
+    } else {
+      b.classList.add("wrong"); b.disabled = true;
+      $("#mmFb").innerHTML = `<div class="fb bad"><b>Not quite. Try again!</b>${esc(o.feedback)}</div>`;
+    }
+  }));
+}
+
+/* ---------- Step 2: language features ---------- */
+function renderFeatures() {
+  const box = $("#stepF");
+  $("#srcText").classList.toggle("locked", !S.mm);
+  if (!S.mm) { box.style.display = "none"; box.innerHTML = ""; return; }
+  box.style.display = "";
+  box.innerHTML = `<div class="label">Step 2 · Task 1b</div>
+    <h3>Language features</h3>
+    <p class="muted small" style="margin:0">Choose a feature. Then find an example of it in the text and explain its effect. Work with as many features as you like.</p>
+    <div class="flist">${T.features.map(f => {
+      const done = S.done.some(d => d.id === f.id);
+      const active = cur.f && cur.f.id === f.id;
+      return `<button class="fbtn ${done ? "done" : ""} ${active ? "active" : ""}" data-id="${f.id}" ${done ? "disabled" : ""}>${esc(f.term)}</button>`;
+    }).join("")}</div>
+    ${S.done.length === T.features.length ? `<div class="fb good" style="margin-top:14px"><b>All features analysed!</b>Great work. Scroll down to write your answer.</div>` : ""}
+    <div id="panel"></div>`;
+  $$(".fbtn", box).forEach(b => b.addEventListener("click", () => selectFeature(b.dataset.id)));
+  renderPanel();
+}
+
+function selectFeature(id) {
+  clearHighlight();
+  cur = newCur(feat(id));
+  renderFeatures();
+}
+
+function clearHighlight() { $$("#srcText .hl").forEach(e => e.classList.remove("hl")); }
+function showHighlights() { clearHighlight(); cur.spans.forEach(s => s.classList.add("hl")); }
+
+const wrongMsgs = [
+  "Not quite. That part is not an example of {T}. Have another look, or choose a different feature from the list.",
+  "Good try, but that is not an example of {T}. Try again, or pick another feature if you prefer.",
+  "Hmm, not this time. That part does not show {T}. Look again, or choose a different feature."
+];
+
+function goEffect() {
+  cur.items = cur.spans.map(exampleItem);
+  cur.quotes = cur.spans.map(quoteOf);
+  cur.stage = "effect"; cur.effects = shuffle(cur.f.effects); cur.tried = []; cur.msg = null;
+  renderPanel();
+}
+
+function onTextClick(e) {
+  if (!S.mm) { toast("Start with step 1: choose the main message first."); return; }
+  if (!cur.f) { toast("Choose a language feature from the list first."); return; }
+  let el = e.target, match = null;
+  while (el && el.id !== "srcText") {
+    if (el.dataset && el.dataset.f === cur.f.id) { match = el; break; }
+    el = el.parentElement;
+  }
+  if (cur.stage === "more") { toast("Choose whether you want to find another example."); return; }
+  if (cur.stage === "effect" || cur.stage === "solved") {
+    toast("You have already found your example. Now choose the best explanation of the effect."); return;
+  }
+  if (!match) {
+    const m = wrongMsgs[Math.floor(Math.random() * wrongMsgs.length)].replace("{T}", cur.f.term.toLowerCase());
+    cur.msg = { kind: "bad", text: m, tip: cur.f.tip };
+    renderPanel(); toast(m); return;
+  }
+  if (cur.stage === "click2") {
+    if (cur.spans.includes(match)) {
+      cur.msg = { kind: "bad", text: "You have already chosen this example. Can you find a different one?", tip: cur.f.tip };
+      renderPanel(); toast(cur.msg.text); return;
+    }
+    cur.spans.push(match); showHighlights();
+    toast("Well spotted! Now choose the best explanation of the effect.");
+    goEffect(); return;
+  }
+  // first example
+  cur.spans = [match]; showHighlights(); cur.msg = null;
+  if (!cur.f.oneExample && exampleCount(cur.f.id) > 1) {
+    cur.stage = "more"; renderPanel(); toast("Well spotted!");
+  } else {
+    toast("Well spotted! Now choose the best explanation of the effect.");
+    goEffect();
+  }
+}
+
+function renderPanel() {
+  const p = $("#panel"); if (!p) return;
+  if (!cur.f) { p.innerHTML = `<p class="muted">Choose a language feature from the list above.</p>`; return; }
+  const f = cur.f, name = f.term.toLowerCase();
+  const tryAgain = cur.msg && cur.msg.kind === "bad" && cur.msg.tip
+    ? `<div class="fb bad"><b>Try again</b>${esc(cur.msg.text)}<div class="small" style="margin-top:6px">${esc(cur.msg.tip)}</div></div>` : "";
+  const quoteBoxes = () => cur.spans.map(s => `<div class="quote">"${esc(shortQuote(quoteOf(s)))}"</div>`).join("");
+
+  if (cur.stage === "click") {
+    p.innerHTML = `<h3>${esc(f.term)}</h3>
+      <div class="def">${esc(f.definition)}</div>
+      <p class="instr">👉 Click on an example of ${esc(name)} in the text.</p>${tryAgain}`;
+    return;
+  }
+  if (cur.stage === "more") {
+    p.innerHTML = `<h3>${esc(f.term)}</h3>
+      <div class="fb good"><b>Well spotted!</b>That is an example of ${esc(name)}.</div>
+      ${quoteBoxes()}
+      <p class="instr">There is more than one example in the text. Can you find another one?</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn" id="findMore">Find another example</button>
+        <button class="btn ghost" id="oneOnly">Continue with one example</button>
+      </div>`;
+    $("#findMore").addEventListener("click", () => { cur.stage = "click2"; cur.msg = null; renderPanel(); });
+    $("#oneOnly").addEventListener("click", goEffect);
+    return;
+  }
+  if (cur.stage === "click2") {
+    p.innerHTML = `<h3>${esc(f.term)}</h3>
+      <p class="small muted" style="margin:0">Your first example:</p>
+      ${quoteBoxes()}
+      <p class="instr">👉 Click on another example of ${esc(name)} in the text.</p>${tryAgain}
+      <div style="margin-top:10px"><button class="btn ghost" id="oneOnly">Continue with one example</button></div>`;
+    $("#oneOnly").addEventListener("click", goEffect);
+    return;
+  }
+  // effect or solved stage
+  const ex = fmtEx(cur.items);
+  p.innerHTML = `<h3>${esc(f.term)}</h3>
+    <p class="small muted" style="margin:0">Your example${cur.spans.length > 1 ? "s" : ""}:</p>
+    ${quoteBoxes()}
+    <p class="instr">Which explanation describes the effect best?</p>
+    <div class="opts">${cur.effects.map((o, i) => {
+      const cls = cur.solvedEffect === i ? "right" : (cur.tried.includes(i) ? "wrong" : "");
+      const dis = cur.stage === "solved" || cur.tried.includes(i);
+      return `<button class="opt ${cls}" data-i="${i}" ${dis ? "disabled" : ""}>${esc(o.text.replace("{ex}", ex))}</button>`;
+    }).join("")}</div>
+    <div id="effFb">${cur.msg ? `<div class="fb ${cur.msg.kind}"><b>${cur.msg.kind === "good" ? "Correct!" : "Not quite. Try again!"}</b>${esc(cur.msg.text)}</div>` : ""}</div>
+    ${cur.stage === "solved" ? `<div style="margin-top:12px"><button class="btn" id="saveF">Save to my analysis ✓</button></div>` : ""}`;
+  $$(".opt", p).forEach(b => b.addEventListener("click", () => {
+    const i = +b.dataset.i, o = cur.effects[i];
+    if (o.correct) { cur.stage = "solved"; cur.solvedEffect = i; cur.msg = { kind: "good", text: o.feedback }; }
+    else { cur.tried.push(i); cur.msg = { kind: "bad", text: o.feedback }; }
+    renderPanel();
+  }));
+  const sb = $("#saveF");
+  if (sb) sb.addEventListener("click", () => {
+    S.done.push({ id: f.id, quotes: cur.quotes, ex: ex });
+    if (S.writing && !S.include.includes(f.id) && S.include.length < MAX_WRITE) S.include.push(f.id);
+    save();
+    clearHighlight();
+    cur = newCur();
+    renderFeatures(); renderAnalysis(); renderInvite(); renderWriting();
+    toast("Saved! You can choose a new feature now.");
+  });
+}
+
+/* ---------- Analysis ---------- */
+function renderAnalysis() {
+  const box = $("#analysis");
+  if (!S.mm) { box.innerHTML = ""; return; }
+  const correct = T.mainMessage.find(o => o.correct);
+  box.innerHTML = `<h2>My analysis</h2>
+    <div class="acards">
+      <div class="acard mm"><div class="row"><span class="k">Main message</span><span class="v">${esc(correct.text)}</span></div></div>
+      ${S.done.length ? S.done.map(d => {
+        const f = feat(d.id);
+        return `<div class="acard">
+          <div class="row"><span class="k">Feature</span><span class="v"><b>${esc(f.term)}</b></span></div>
+          <div class="row"><span class="k">Example${d.quotes.length > 1 ? "s" : ""}</span><span class="v q">${d.quotes.map(q => `"${esc(shortQuote(q))}"`).join("<br>")}</span></div>
+          <div class="row"><span class="k">Effect</span><span class="v">${esc(effText(d))}</span></div>
+        </div>`;
+      }).join("") : `<p class="empty">Your analysed language features will appear here.</p>`}
+    </div>`;
+}
+
+/* ---------- Invitation to write ---------- */
+function renderInvite() {
+  const box = $("#invite");
+  if (S.done.length < 2 || S.writing) { box.innerHTML = ""; return; }
+  box.innerHTML = `<div class="invite">
+      <div><h3 style="margin:0 0 4px">Ready to write?</h3>
+      <span class="muted">You have analysed ${S.done.length} language features. You can keep analysing more, or start building your answer now.</span></div>
+      <button class="btn" id="startW">Start writing my answer →</button>
+    </div>`;
+  $("#startW").addEventListener("click", () => {
+    S.writing = true; S.include = S.done.map(d => d.id).slice(0, MAX_WRITE); save();
+    renderInvite(); renderWriting();
+    $("#writing").scrollIntoView({ block: "start" });
+  });
+}
+
+/* ---------- Writing ---------- */
+function totalWords() {
+  let n = words(S.texts.intro || "") + words(S.texts.concl || "");
+  S.include.forEach(id => n += words(S.texts[id] || ""));
+  return n;
+}
+function renderWriting() {
+  const box = $("#writing");
+  if (!S.writing) { box.innerHTML = ""; $("#model").innerHTML = ""; return; }
+  S.include = S.include.filter(id => S.done.some(d => d.id === id)).slice(0, MAX_WRITE);
+  const doneIds = S.done.map(d => d.id);
+  const full = S.include.length >= MAX_WRITE;
+  box.innerHTML = `<h2>Write my answer</h2>
+    <div class="card">
+      <div class="wbox" style="max-width:360px">
+        <h3>Name</h3>
+        <input id="nameIn" type="text" value="${esc(S.name || "")}" placeholder="Your name (for the PDF)" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:1rem">
+      </div>
+      <h3>Which language features do you want to write about?</h3>
+      <p class="hint muted small" style="margin:0">Choose up to three features. Three features are usually a good choice for 200–300 words.</p>
+      <div class="checks">${doneIds.map(id => {
+        const on = S.include.includes(id);
+        return `<label class="${!on && full ? "off" : ""}"><input type="checkbox" data-id="${id}" ${on ? "checked" : ""} ${!on && full ? "disabled" : ""}> ${esc(feat(id).term)}</label>`;
+      }).join("")}</div>
+
+      <div class="wbox">
+        <h3>Introduction <span class="wc" data-wc="intro"></span></h3>
+        <p class="hint">Present the text (text type, speaker, situation) and state the main message in 1–3 sentences.</p>
+        <textarea data-k="intro" placeholder="The attached text is a speech by ...">${esc(S.texts.intro || "")}</textarea>
+      </div>
+
+      ${S.include.map((id, idx) => {
+        const f = feat(id), d = S.done.find(x => x.id === id);
+        return `<div class="wbox">
+          <h3>Paragraph ${idx + 1}: ${esc(f.term)} <span class="wc" data-wc="${id}"></span></h3>
+          <details class="ref"><summary>Show my analysis of this feature</summary>
+            <div><b>Example${d.quotes.length > 1 ? "s" : ""}:</b> <i>${d.quotes.map(q => `"${esc(shortQuote(q))}"`).join(" · ")}</i></div>
+            <div><b>Effect:</b> ${esc(effText(d))}</div>
+          </details>
+          <div class="checklist"><span>☐ Name the feature (terminology)</span><span>☐ Quote or refer to an example</span><span>☐ Explain the effect on the message</span></div>
+          <textarea data-k="${id}" placeholder="One language feature that ... uses is ...">${esc(S.texts[id] || "")}</textarea>
+        </div>`;
+      }).join("")}
+
+      <div class="wbox">
+        <h3>Conclusion <span class="wc" data-wc="concl"></span></h3>
+        <p class="hint">Keep it very short. Sum up how the language features together strengthen the message.</p>
+        <textarea data-k="concl" style="min-height:80px" placeholder="In conclusion, ...">${esc(S.texts.concl || "")}</textarea>
+      </div>
+
+      <div class="wtotal">
+        <span class="count" id="wcount"></span>
+        <span class="actions">
+          <button class="btn ghost" id="printBtn">Save as PDF</button>
+          <button class="btn" id="modelBtn">Show model answer</button>
+        </span>
+      </div>
+      <p class="small muted" id="modelNote" style="margin:10px 0 0"></p>
+    </div>`;
+
+  $("#nameIn").addEventListener("input", e => { S.name = e.target.value; save(); });
+  $$(".checks input", box).forEach(c => c.addEventListener("change", () => {
+    S.include = doneIds.filter(id => $(`.checks input[data-id="${id}"]`, box).checked).slice(0, MAX_WRITE);
+    save(); renderWriting();
+  }));
+  $$("textarea", box).forEach(t => t.addEventListener("input", () => { S.texts[t.dataset.k] = t.value; save(); updateCounts(); }));
+  $("#printBtn").addEventListener("click", savePdf);
+  $("#modelBtn").addEventListener("click", () => { renderModel(); $("#model").scrollIntoView({ block: "start" }); });
+  updateCounts();
+  if ($("#model").innerHTML) renderModel();
+}
+function updateCounts() {
+  $$("[data-wc]").forEach(s => { const n = words(S.texts[s.dataset.wc] || ""); s.textContent = n ? n + " words" : ""; });
+  const n = totalWords();
+  const c = $("#wcount");
+  c.className = "count" + (n >= 200 && n <= 300 ? " ok" : "");
+  c.innerHTML = `<b>${n}</b> words <span class="muted small">· recommended 200–300</span>`;
+  const mb = $("#modelBtn"), need = 100;
+  mb.disabled = n < need;
+  $("#modelNote").textContent = n < need ? `Write at least ${need} words of your own before you compare with the model answer (${need - n} to go).` : "";
+}
+
+/* ---------- Model answer ---------- */
+function modelParts() {
+  const ids = (S.include.length ? S.include : S.done.map(d => d.id)).slice(0, MAX_WRITE);
+  const n = ids.length;
+  const paras = ids.map((id, i) => {
+    const f = feat(id);
+    let opener = (n > 1 && i === n - 1) ? T.modelLastOpener : (T.modelOpeners[i] || T.modelOpeners[T.modelOpeners.length - 1]);
+    opener = opener.replace("{X}", `<span class="m-term">${f.modelTerm}</span>`);
+    return { term: f.term, html: opener + " " + f.model };
+  });
+  const concl = T.modelConclusion(joinList(ids.map(id => feat(id).listName)), n);
+  return { intro: T.modelIntro, paras, concl };
+}
+function renderModel() {
+  const m = modelParts();
+  const all = [m.intro, ...m.paras.map(p => p.html), m.concl];
+  const n = all.reduce((a, h) => a + words(stripTags(h)), 0);
+  $("#model").innerHTML = `<h2>Model answer</h2>
+    <div class="card model">
+      <p class="mwc" style="font-family:var(--sans)">This model answer uses the same language features that you chose. Compare it with your own text. Did you include terminology, examples and a clear explanation of the effect?</p>
+      <div class="legend"><span><span class="m-msg">Main message</span></span><span><span class="m-term">Terminology</span></span><span><span class="m-quote">Example from the text</span></span><span><span class="m-effect">Effect on the message</span></span></div>
+      ${all.map(h => `<p>${h}</p>`).join("")}
+      <p class="mwc">${n} words</p>
+    </div>`;
+}
+
+/* ---------- Print / PDF ---------- */
+function buildPrint() {
+  const correct = T.mainMessage.find(o => o.correct);
+  const para = s => esc(s || "").split(/\n\s*\n/).map(x => `<p>${x.replace(/\n/g, "<br>")}</p>`).join("") || "<p><i>(empty)</i></p>";
+  const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  $("#printArea").innerHTML = `
+    <h1>Task ${T.number}: ${esc(T.title)}</h1>
+    <div class="pmeta">${S.name ? "<b>" + esc(S.name) + "</b> · " : ""}${today} · ${esc(T.byline)}</div>
+
+    <h2>Part 1: My analysis</h2>
+    <div class="pcard"><p><b>Main message:</b> ${esc(correct.text)}</p></div>
+    ${S.done.map(d => {
+      const f = feat(d.id);
+      return `<div class="pcard"><p><b>${esc(f.term)}</b></p><p><i>Example${d.quotes.length > 1 ? "s" : ""}:</i> ${d.quotes.map(q => `"${esc(shortQuote(q))}"`).join(" · ")}</p><p><i>Effect:</i> ${esc(effText(d))}</p></div>`;
+    }).join("")}
+
+    <h2>Part 2: My answer</h2>
+    <div class="ptext">
+      <div class="plabel">Introduction</div>${para(S.texts.intro)}
+      ${S.include.map(id => `<div class="plabel">${esc(feat(id).term)}</div>${para(S.texts[id])}`).join("")}
+      <div class="plabel">Conclusion</div>${para(S.texts.concl)}
+    </div>
+    <p style="color:#555;font-size:9pt;margin-top:10pt">Word count: ${totalWords()} (recommended 200–300)</p>`;
+}
+/* ---------- Save as PDF (downloads a file directly) ---------- */
+function loadJsPDF() {
+  return new Promise((resolve, reject) => {
+    if (window.jspdf) return resolve(window.jspdf);
+    const sc = document.createElement("script");
+    sc.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+    sc.onload = () => window.jspdf ? resolve(window.jspdf) : reject();
+    sc.onerror = reject;
+    document.head.appendChild(sc);
+  });
+}
+async function savePdf() {
+  const btn = $("#printBtn"), label = btn.textContent;
+  btn.disabled = true; btn.textContent = "Creating PDF …";
+  try {
+    const { jsPDF } = await loadJsPDF();
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const M = 20, W = 170, BOTTOM = 280;
+    let y = M;
+    const write = (str, o = {}) => {
+      const size = o.size || 11, lh = size * 0.3528 * 1.45, x = M + (o.indent || 0);
+      doc.setFont(o.font || "helvetica", o.style || "normal");
+      doc.setFontSize(size);
+      doc.setTextColor(...(o.color || [30, 34, 39]));
+      doc.splitTextToSize(String(str), W - (o.indent || 0)).forEach(line => {
+        if (y + lh > BOTTOM) { doc.addPage(); y = M; }
+        doc.text(line, x, y + lh * 0.75); y += lh;
+      });
+      y += o.after || 0;
+    };
+    const heading = str => {
+      if (y > BOTTOM - 20) { doc.addPage(); y = M; }
+      y += 4; write(str, { size: 13, style: "bold", after: 1 });
+      doc.setDrawColor(150); doc.setLineWidth(0.3); doc.line(M, y, M + W, y); y += 4;
+    };
+    const userParas = t => (t || "").split(/\n+/).map(x => x.trim()).filter(Boolean);
+    const correct = T.mainMessage.find(o => o.correct);
+    const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+    write(`Task ${T.number}: ${T.title}`, { size: 18, style: "bold", after: 1 });
+    write((S.name ? S.name + "  ·  " : "") + today + "  ·  " + T.byline, { size: 10, color: [90, 99, 112], after: 3 });
+
+    heading("Part 1: My analysis");
+    write("Main message", { style: "bold", size: 10.5 });
+    write(correct.text, { size: 10.5, after: 4 });
+    S.done.forEach(d => {
+      const f = feat(d.id);
+      write(f.term, { style: "bold", size: 10.5 });
+      write((d.quotes.length > 1 ? "Examples: " : "Example: ") + d.quotes.map(q => `"${shortQuote(q)}"`).join("  ·  "), { size: 10.5, style: "italic", indent: 4 });
+      write("Effect: " + effText(d), { size: 10.5, indent: 4, after: 4 });
+    });
+
+    heading("Part 2: My answer");
+    const section = (lbl, txt) => {
+      write(lbl.toUpperCase(), { size: 8, color: [110, 110, 110] });
+      const ps = userParas(txt);
+      (ps.length ? ps : ["(empty)"]).forEach(pp => write(pp, { font: "times", size: 12, after: 2 }));
+      y += 1;
+    };
+    section("Introduction", S.texts.intro);
+    S.include.forEach(id => section(feat(id).term, S.texts[id]));
+    section("Conclusion", S.texts.concl);
+    write(`Word count: ${totalWords()} (recommended 200–300)`, { size: 9, color: [90, 90, 90] });
+
+    const slug = s => s.replace(/[^\wÀ-ſ]+/g, "-").replace(/^-|-$/g, "");
+    doc.save(`Task-${T.number}-${slug(T.title)}${S.name ? "-" + slug(S.name) : ""}.pdf`);
+  } catch (e) {
+    // If the PDF tool cannot be loaded (e.g. no internet), fall back to the browser's print dialog
+    buildPrint(); window.print();
+  } finally {
+    btn.disabled = false; btn.textContent = label;
+  }
+}
+
+window.addEventListener("beforeprint", () => { if (T && S && S.writing) buildPrint(); });
+
+/* =====================================================================
+   ROUTER
+   ===================================================================== */
+function route() {
+  const id = location.hash.replace(/^#/, "");
+  const task = TASKS.find(t => t.id === id);
+  if (task) renderTask(task); else { T = null; renderHome(); }
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
