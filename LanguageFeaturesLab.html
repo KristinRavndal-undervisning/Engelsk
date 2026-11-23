@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -199,6 +200,9 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 40px;border-top:1px so
                               explanations (e.g. a repetition series labelled
                               with the repeated phrase, or a long quote
                               shortened to its key words).
+     [featureId=label|display:text]
+                              same, with a separate text shown in the
+                              analysis, the writing section and the PDF.
    A feature with "auto" (a regular expression) is marked automatically
    wherever the pattern appears (useful for pronouns).
 
@@ -207,8 +211,143 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 40px;border-top:1px so
    ===================================================================== */
 const TASKS = [
 {
-  id: "task-1",
+  id: "protect-online",
   number: 1,
+  title: "Time to Protect Young People Online",
+  type: "Opinion piece",
+  summary: "A school counsellor argues for stricter rules on teenagers' use of social media.",
+  context: "The following opinion piece by Hannah Price, a school counsellor, was published in a local newspaper. It was written during a public debate about whether there should be stricter rules for teenagers' use of social media.",
+  byline: "Opinion piece by Hannah Price, school counsellor",
+  properNouns: ["Hannah", "Price"],
+  paragraphs: [
+    "Every week, students come into my office feeling [emo=anxious, exhausted and lonely:anxious, exhausted and lonely]. Many of them have not slept properly for days, because they have been scrolling on their phones until long after midnight. When I ask them why they cannot stop, they often say that they feel [emo:trapped].",
+    "This should not surprise anyone. Social media apps are not designed to help young people. They are designed to keep them watching. [sim:Like a slot machine in a casino], the endless feed rewards every swipe with something new. [rq:If adults struggle to put their phones down, how can we expect a thirteen-year-old to manage it alone?]",
+    "Some people argue that rules are old-fashioned and that parents should decide for themselves. However, [you=you would never let a child drive a car:you] would never let a child drive a car or buy alcohol just because the parents said it was fine. [rq:Why should social media be any different?]",
+    "Stricter rules would not shut teenagers out of the internet. They would mean a higher age limit, real age checks and no endless scrolling for users under sixteen. Today, we send children online [sim:like swimmers into deep water without a lifeguard].",
+    "A childhood should not be [emo:stolen] by an algorithm. If [you=If you are a parent, a teacher or a politician:you] are a parent, a teacher or a politician, [you=you can help to change this:you] can help to change this. Talk to [you=Talk to your local representative:your] local representative and support stricter rules. Stricter rules will not solve every problem, but they are a good place to start."
+  ],
+
+  mainMessage: [
+    { correct: true,
+      text: "There should be stricter rules for teenagers' use of social media, because the apps are designed to be hard to stop using and are harming young people's well-being.",
+      feedback: "Well done! This answer covers what Price wants (stricter rules) and her main reason (the apps are designed to keep young people hooked, and this harms them)." },
+    { correct: false,
+      text: "Teenagers should spend less time on their phones in the evening, because many students do not get enough sleep and feel tired when they come to school.",
+      feedback: "Lack of sleep is an important example in the text, but it is only one part of it. What does Price want to change, and who should change it?" },
+    { correct: false,
+      text: "Parents are the ones responsible for their children's use of social media, so they should set clear rules at home instead of waiting for politicians to act.",
+      feedback: "Look again at the third paragraph. Price mentions this view, but only to argue against it. What does she think about leaving the decision to parents?" },
+    { correct: false,
+      text: "Social media should be banned for everyone under the age of sixteen, because the internet is far too dangerous for young people to use at all.",
+      feedback: "This goes further than Price does. In the fourth paragraph, she says that stricter rules would not shut teenagers out of the internet." }
+  ],
+
+  /* In the effect options, {ex} is replaced by the example the student found.
+     All options for one feature start the same way, so the example gives nothing away. */
+  features: [
+    { id: "emo", term: "Emotive language", modelTerm: "emotive language", listName: "emotive language",
+      definition: "Emotive language is word choice that is meant to make the reader feel something, for example worry, sympathy or anger.",
+      tip: "Tip: look for strong words that describe feelings or make the situation sound serious.",
+      oneExample: true,
+      effects: [
+        { correct: true,
+          text: "By using emotive words such as {ex}, the writer makes the reader feel worried and sympathetic towards young people. The problem seems serious and urgent, which makes stricter rules seem necessary.",
+          feedback: "Exactly. The strong words create feelings in the reader, and those feelings make the reader more open to Price's argument." },
+        { correct: false,
+          text: "By using emotive words such as {ex}, the writer shows that she is angry with young people for using their phones too much. This makes the reader take her side against the teenagers.",
+          feedback: "Price is not angry with the young people. Look at how she describes them. Is she criticising them, or worried about them?" },
+        { correct: false,
+          text: "By using emotive words such as {ex}, the writer makes the text more neutral and scientific. As a result, the reader trusts the information more than in other opinion pieces.",
+          feedback: "Emotive language is the opposite of neutral. It is used to create feelings, not to sound scientific. Try again." },
+        { correct: false,
+          text: "By using emotive words such as {ex}, the writer describes exactly how her students feel. The text therefore becomes a report from her office rather than an argument for change.",
+          feedback: "Close. The words do describe how students feel. However, the text is still an argument. Why does Price want the reader to know about these feelings?" }
+      ],
+      model: "Price describes students who feel <span class=\"m-quote\">\"anxious, exhausted and lonely\"</span> and says that many of them feel <span class=\"m-quote\">\"trapped\"</span>. <span class=\"m-effect\">These strong words make the reader feel worried and sympathetic towards young people. As a result, the problem seems serious and urgent, which makes stricter rules seem necessary.</span>"
+    },
+    { id: "rq", term: "Rhetorical questions", modelTerm: "rhetorical questions", listName: "rhetorical questions",
+      oneName: "a rhetorical question",
+      definition: "A rhetorical question is asked for effect. The writer does not expect an answer, because the answer seems obvious.",
+      tip: "Tip: look for questions that the writer does not expect anyone to answer.",
+      oneExample: true,
+      effects: [
+        { correct: true,
+          text: "By asking {ex}, the writer makes the reader think about the question instead of just reading on. The reader reaches her conclusion on their own, which is more convincing than simply being told.",
+          feedback: "Spot on. The question leads the reader to Price's conclusion, which is often more convincing than simply stating it." },
+        { correct: false,
+          text: "By asking {ex}, the writer shows that she does not know the answer herself. She wants the readers to send their opinions to the newspaper so that she can learn more.",
+          feedback: "A rhetorical question is not asked to get an answer. Price already knows what she thinks. What does she want the reader to realise?" },
+        { correct: false,
+          text: "By asking {ex}, the writer keeps the text neutral and avoids giving her own opinion. The readers are free to decide for themselves without being influenced by her.",
+          feedback: "The question is not neutral. It is designed so that there is only one reasonable answer, and that answer supports Price's view." },
+        { correct: false,
+          text: "By asking {ex}, the writer makes the text more difficult to read. As a result, only adults who are already interested in the topic will keep reading to the end.",
+          feedback: "Rhetorical questions usually make a text more engaging, not more difficult. Think about what the question makes the reader do." }
+      ],
+      model: "Price asks, <span class=\"m-quote\">\"Why should social media be any different?\"</span> She does not expect an answer, because she has just compared social media to driving a car and buying alcohol. <span class=\"m-effect\">The question makes the reader reach the same conclusion as Price on their own, which makes her argument more convincing.</span>"
+    },
+    { id: "sim", term: "Simile", modelTerm: "similes", listName: "similes",
+      definition: "A simile compares two things by using \"like\" or \"as\". It helps the reader see something in a new way.",
+      tip: "Tip: look for a comparison with the word \"like\".",
+      oneExample: true,
+      effects: [
+        { correct: true,
+          text: "Through the simile {ex}, the writer makes the reader see social media as something dangerous that young people cannot handle on their own. This makes the need for protection easy to understand.",
+          feedback: "Yes! The comparison turns an abstract problem into a picture that everyone understands, and the picture shows danger." },
+        { correct: false,
+          text: "Through the simile {ex}, the writer shows that social media can be fun and exciting, just like games and sports, as long as there are adults present to keep an eye on it.",
+          feedback: "Look at what social media is compared to. Is the picture meant to sound fun, or is it meant to sound risky?" },
+        { correct: false,
+          text: "Through the simile {ex}, the writer makes the text more entertaining and less serious, so that young readers enjoy the opinion piece and keep reading to the end.",
+          feedback: "The simile does create a picture, but the picture is serious, not entertaining. What does it tell the reader about social media?" },
+        { correct: false,
+          text: "Through the simile {ex}, the writer explains exactly how the apps work technically, so that the reader understands the computer code and the design that lie behind social media.",
+          feedback: "A simile does not give technical details. It compares two things to create a picture in the reader's mind. Try again." }
+      ],
+      model: "Price compares the endless feed to <span class=\"m-quote\">\"a slot machine in a casino\"</span>. <span class=\"m-effect\">The simile shows that social media is designed to be hard to stop using, in the same way as gambling. This makes the reader understand why young people need protection and why stricter rules are reasonable.</span>"
+    },
+    { id: "you", term: "Direct address (you)", modelTerm: "direct address", listName: "direct address",
+      definition: "Direct address means that the writer speaks directly to the reader, often by using \"you\" and \"your\".",
+      tip: "Tip: look for the words you and your.",
+      oneExample: true,
+      quoteSentence: true, // the analysis card shows the whole sentence around the clicked word
+      effects: [
+        { correct: true,
+          text: "By speaking directly to the reader, as in {ex}, the writer makes the reader feel personally involved. The reader can help to solve the problem, so they are more likely to support stricter rules.",
+          feedback: "Excellent. When the writer says \"you\", the reader can no longer think that the problem belongs to somebody else." },
+        { correct: false,
+          text: "By speaking directly to the reader, as in {ex}, the writer shows that the text is written only for parents. Readers without children understand that the topic does not concern them.",
+          feedback: "Look at the last paragraph again. Who does Price say can help? It is not only parents." },
+        { correct: false,
+          text: "By speaking directly to the reader, as in {ex}, the writer makes the text sound like a private letter to one friend. This makes it much more informal than a normal opinion piece.",
+          feedback: "The text is still a public opinion piece in a newspaper. Think about what \"you\" does to the reader's sense of responsibility." },
+        { correct: false,
+          text: "By speaking directly to the reader, as in {ex}, the writer blames the reader for the problems young people have with social media. The reader feels so guilty that they stop reading.",
+          feedback: "Price is not trying to make the reader feel guilty and stop reading. She wants the reader to act. Try again." }
+      ],
+      model: "Price speaks directly to the reader in sentences such as <span class=\"m-quote\">\"If you are a parent, a teacher or a politician, you can help to change this.\"</span> <span class=\"m-effect\">This makes the reader feel personally involved and responsible. As a result, the problem becomes something the reader can help to solve, and the reader is encouraged to support stricter rules.</span>"
+    }
+  ],
+
+  modelIntro: "The attached text is an <span class=\"m-term\">opinion piece</span> by Hannah Price, a school counsellor, about young people and social media. <span class=\"m-msg\">The main message is that there should be stricter rules for teenagers' use of social media, because the apps are designed to be hard to stop using and are harming young people's well-being.</span>",
+
+  /* Opening sentence of each model paragraph, chosen by position. {X} = feature name. */
+  modelOpeners: [
+    "One language feature that strengthens the message is the use of {X}.",
+    "Another important language feature in the text is the use of {X}."
+  ],
+  modelLastOpener: "Finally, the writer also makes effective use of {X}.",
+
+  modelConclusion: function(list, n){
+    if (n === 1) {
+      return "In conclusion, Price uses " + list + " to persuade her readers. This language feature makes the text more convincing and strengthens the message that young people need stricter rules for social media.";
+    }
+    return "In conclusion, Price uses " + list + " to persuade her readers. Together, these language features make the text engaging and convincing, and they strengthen the message that young people need stricter rules for social media.";
+  }
+},
+{
+  id: "doors-open",
+  number: 2,
   title: "Keep the Doors Open",
   type: "Speech",
   summary: "A 17-year-old student speaks to the town council about a plan to close the local youth centre.",
@@ -218,11 +357,11 @@ const TASKS = [
   paragraphs: [
     "Good evening, councillors, and thank you for giving me the chance to speak tonight. My name is Maya Collins, and I am seventeen years old. For the last five years, the Northside Youth Centre has been [met:my second home].",
     "Tonight, you will vote on a proposal to close the centre in order to save £180,000 a year. On paper, that probably looks like a sensible decision. Budgets are tight, and councils across the country are being forced to make difficult choices. [short:I understand that.] However, I would like you to look beyond the numbers for a few minutes, because some things cannot be measured in pounds.",
-    "[met=a lifeline:The centre is not just a building. [short:It is a lifeline.]] For many of [we=For many of us:us], it is the only place [we=the only place we can go:we] can go after school that is warm, safe and free. [rep=Where else:[rq:Where else in Eastbrook can a fourteen-year-old spend an evening without spending money?] [rq:Where else can you get help with your maths homework, play table tennis and talk to an adult who actually listens, all under one roof?]]",
-    "[rep=I have seen:I have seen shy kids walk through those doors and slowly [met:find their voices]. I have seen friends who were struggling at home finally find [met:somewhere to breathe]. I have seen boys who were always in trouble at school discover that they were brilliant at music, at football or at cooking. And I have seen myself change.]",
+    "[met=a lifeline:The centre is not just a building. [short:It is a lifeline.]] For many of [we=For many of us:us], it is the only place [we=the only place we can go:we] can go after school that is warm, safe and free. [rep=Where else|Where else in Eastbrook can a fourteen-year-old spend an evening … ? Where else can you get help …:[rq:Where else in Eastbrook can a fourteen-year-old spend an evening without spending money?] [rq=Where else can you get help with your maths homework … all under one roof?:Where else can you get help with your maths homework, play table tennis and talk to an adult who actually listens, all under one roof?]]",
+    "[rep=I have seen|I have seen shy kids … . I have seen friends who …:I have seen shy kids walk through those doors and slowly [met:find their voices]. I have seen friends who were struggling at home finally find [met:somewhere to breathe]. I have seen boys who were always in trouble at school discover that they were brilliant at music, at football or at cooking. And I have seen myself change.]",
     "When I first came here, I was twelve. I had just moved to Eastbrook, and I did not know a single person. [short:Nobody noticed me.] Then one of the youth workers, Daniel, asked if I wanted to help paint a mural on the back wall. [short:That mural is still there.] [short:So am I.]",
     "If the centre closes, the young people who use it will not disappear. They will simply end up somewhere else: in empty car parks, at bus stops, or alone in their bedrooms, scrolling through their phones until two in the morning. [rq:Is that really the cheaper option?] Study after study has shown that money spent on young people today saves money on health care, policing and social services tomorrow. [met=the safety net that catches us before we fall:The youth centre is the safety net that catches [we=catches us before we fall:us] before [we=catches us before we fall:we] fall.]",
-    "[we=We are not asking for much:We] are not asking for much. [we=We are asking you to keep the doors open:We] are asking you to [met:keep the doors open]. [rep=Keep the doors open:[met:Keep the doors open] for the shy kid who has not [met:found her voice] yet. [met:Keep the doors open] for the boy who has nowhere else to go on a Friday night. [met:Keep the doors open] for the next twelve-year-old who moves to Eastbrook and does not know a single person.]",
+    "[we=We are not asking for much:We] are not asking for much. [we=We are asking you to keep the doors open:We] are asking you to [met:keep the doors open]. [rep=Keep the doors open|Keep the doors open for the shy kid … . Keep the doors open for the boy …:[met:Keep the doors open] for the shy kid who has not [met:found her voice] yet. [met:Keep the doors open] for the boy who has nowhere else to go on a Friday night. [met:Keep the doors open] for the next twelve-year-old who moves to Eastbrook and does not know a single person.]",
     "[rq:When you look back on this decision in ten years, what do you want to be able to say?] I hope you will be able to say that you chose to invest in [we=you chose to invest in us:us]. [short:[we=We are worth it:We] are worth it.] Thank you."
   ],
 
@@ -263,26 +402,28 @@ const TASKS = [
       ],
       model: "Maya says that the centre <span class=\"m-quote\">\"is not just a building. It is a lifeline.\"</span> A lifeline is something that keeps a person alive in a dangerous situation. <span class=\"m-effect\">The metaphor shows that the centre is essential for many young people. As a result, closing it seems harmful rather than just a practical budget decision, which strengthens her argument.</span>"
     },
-    { id: "rep", term: "Repetition (anaphora)", modelTerm: "repetition", listName: "repetition",
-      definition: "Repetition means using the same word, phrase or sentence structure more than once. When several sentences in a row begin with the same words, it is called anaphora.",
+    { id: "rep", term: "Anaphora", modelTerm: "anaphora", listName: "anaphora",
+      keepCase: true,   // the phrases start sentences, so they keep their capital letter when quoted
+      definition: "Anaphora is the repetition of the same word or phrase at the beginning of several sentences in a row.",
       tip: "Tip: look for a group of sentences that begin with the same words.",
       effects: [
         { correct: true,
-          text: "Through the repetition of {ex}, Maya builds up her point step by step and creates a strong rhythm. This makes the message easy to remember and her argument very hard to ignore.",
+          text: "By starting several sentences with {ex}, Maya builds up her point step by step and creates a strong rhythm. This makes the message easy to remember and her argument very hard to ignore.",
           feedback: "Yes! The repetition creates rhythm and emphasis. The listeners hear the key idea so many times that it stays with them." },
         { correct: false,
-          text: "Through the repetition of {ex}, Maya shows that she is nervous and has lost track of what she has said. This makes her seem honest and more like an ordinary teenager.",
+          text: "By starting several sentences with {ex}, Maya shows that she is nervous and has lost track of what she has said. This makes her seem honest and more like an ordinary teenager.",
           feedback: "In a prepared speech, repetition is almost always a deliberate choice. Think about what the repeated phrase does to the listener." },
         { correct: false,
-          text: "Through the repetition of {ex}, Maya makes the speech longer and gains more time to talk. This gives her a better chance to include all her arguments before the council votes.",
+          text: "By starting several sentences with {ex}, Maya makes the speech longer and gains more time to talk. This gives her a better chance to include all her arguments before the council votes.",
           feedback: "Length is not really the point. Think about how the repeated words build up and stay in the listeners' minds." },
         { correct: false,
-          text: "Through the repetition of {ex}, Maya helps the councillors understand difficult words, because they hear them several times. This makes sure that nobody misunderstands her main point.",
+          text: "By starting several sentences with {ex}, Maya helps the councillors understand difficult words, because they hear them several times. This makes sure that nobody misunderstands her main point.",
           feedback: "The repeated words are actually very simple. Their purpose has more to do with rhythm, emphasis and emotion. Try again." }
       ],
-      model: "Three sentences in a row begin with <span class=\"m-quote\">\"I have seen\"</span>, and near the end of the speech, three sentences begin with <span class=\"m-quote\">\"Keep the doors open\"</span>. <span class=\"m-effect\">The repetition creates a strong rhythm and builds up the examples, so the listeners remember them. As a result, her demand becomes very difficult to ignore.</span>"
+      model: "Three sentences in a row begin with <span class=\"m-quote\">\"I have seen\"</span>, and near the end of the speech, three sentences begin with <span class=\"m-quote\">\"Keep the doors open\"</span>. <span class=\"m-effect\">The anaphora creates a strong rhythm and builds up the examples, so the listeners remember them. As a result, her demand becomes very difficult to ignore.</span>"
     },
     { id: "rq", term: "Rhetorical questions", modelTerm: "rhetorical questions", listName: "rhetorical questions",
+      oneName: "a rhetorical question",
       definition: "A rhetorical question is asked for effect. The speaker does not expect an answer, because the answer seems obvious.",
       tip: "Tip: look for questions that Maya does not expect anyone to answer.",
       effects: [
@@ -323,6 +464,7 @@ const TASKS = [
       model: "Maya often uses <span class=\"m-quote\">\"we\"</span> and <span class=\"m-quote\">\"us\"</span>, as in <span class=\"m-quote\">\"For many of us\"</span>. <span class=\"m-effect\">These words show that she speaks for all the young people who use the centre. They appear as a united group, so the councillors understand that the closure affects many people, not only Maya.</span>"
     },
     { id: "short", term: "Short sentences", modelTerm: "short sentences", listName: "short sentences",
+      oneName: "a short sentence",
       definition: "Short sentences contain only a few words. They stand out when the sentences around them are longer, and they are often used to emphasise a key point.",
       tip: "Tip: look for very short sentences, often only three to five words, that stand out from the longer ones.",
       effects: [
@@ -357,6 +499,158 @@ const TASKS = [
       return "In conclusion, Maya uses " + list + " to persuade the councillors. This language feature makes the speech more convincing and strengthens the message that the youth centre should stay open.";
     }
     return "In conclusion, Maya uses " + list + " to persuade the councillors. Together, these language features make the speech memorable and convincing, and they strengthen the message that the youth centre should stay open.";
+  }
+},
+{
+  id: "every-voice",
+  number: 3,
+  title: "A Democracy Needs Every Voice",
+  type: "Speech",
+  summary: "A Member of Parliament warns young people about what happens to democracy if they stop voting.",
+  context: "The following speech was given by Helen Ashworth, a Member of Parliament in the United Kingdom, at a national conference for young people and teachers in Manchester. The conference was about young people's participation in democracy.",
+  byline: "Speech by Helen Ashworth MP, national youth conference, Manchester",
+  properNouns: ["Helen", "Ashworth"],
+  paragraphs: [
+    "Good morning, and thank you for inviting me. Let me make one thing clear from the start. [con:I am not here to tell you how to vote, but to ask you to vote at all.] Over the past twenty years, I have visited schools and colleges all over the country, and I have learned a great deal from the students I have met. I am deeply worried about what will happen to our democracy if young people stop taking part in it.",
+    "[story=When I was eighteen, I almost did not vote in my first election:When I was eighteen, I almost did not vote in my first election. [three=It was raining, I was tired, and I told myself …:It was raining, I was tired, and I told myself that one vote would never make a difference.] My grandmother, who had grown up at a time when many people still had no vote, simply handed me an umbrella and said, 'Go.' I went. That local election was decided by fourteen votes.]",
+    "Today, too many young people stay at home on election day. Some say that this is because young people are lazy. I do not believe that for a moment. Every week, I meet young people who [three:volunteer, organise and campaign] for the causes they care about. Many of them simply feel that politics is not for them.",
+    "I understand that feeling. Politics can often seem slow and complicated, and politicians do not always speak in a way that young people recognise. However, if young people stay away from elections, politicians will pay even less attention to their needs, and the problem will only become worse.",
+    "[met=a garden that needs care from every generation:[con=not a machine that runs by itself, but a garden:Democracy is not a machine that runs by itself, but a garden that needs care from every generation.]] When young people stop voting, politicians stop listening to them. [rq=Why would a government spend money on schools, housing and jobs for young people …?:Why would a government spend money on [three:schools, housing and jobs] for young people if young people never turn up to vote?]",
+    "At every election, decisions are made [three:about the climate, about the cost of university and about the price of a first home]. [con=your lives for decades, yet … for far fewer years:These decisions will affect your lives for decades, yet they are often made by voters who will live with them for far fewer years.] [rq:If you do not vote, who will speak for you?]",
+    "Next year, many of you will be old enough to vote for the first time. That first vote is a chance to show that young people expect to be taken seriously. [met:Your vote is your voice.] [con:Staying at home is easy, but voting is how change begins.] So, on election day, [three:find your polling station, take ten minutes and make your mark]. My grandmother's generation fought hard for that right. Please use it. Thank you."
+  ],
+
+  mainMessage: [
+    { correct: true,
+      text: "Young people should use their right to vote, because democracy only works when every generation takes part, and those who do not vote risk being ignored.",
+      feedback: "Well done! This answer covers what Ashworth wants (young people should vote) and her main reasons (democracy needs everyone, and politicians listen to those who vote)." },
+    { correct: false,
+      text: "Young people should vote for the parties that care most about schools, housing and the climate, because these issues will affect their lives the most.",
+      feedback: "Look at the first paragraph again. Ashworth says clearly that she is not there to tell anyone how to vote. What is she asking for instead?" },
+    { correct: false,
+      text: "Young people today are lazy and do not care about politics, so politicians must find new ways to make elections more exciting for them.",
+      feedback: "Ashworth actually rejects the idea that young people are lazy. Look at the third paragraph. What does she say about the young people she meets?" },
+    { correct: false,
+      text: "A single vote can decide an election, as the speaker's own first election shows, since it was decided by a difference of only fourteen votes.",
+      feedback: "The story about her first election is an important example, but it is only one part of the speech. She uses it to support a bigger point. What does she want the audience to do?" }
+  ],
+
+  /* In the effect options, {ex} is replaced by the example(s) the student found.
+     All options for one feature start the same way, so the example gives nothing away. */
+  features: [
+    { id: "three", term: "Tricolon", modelTerm: "tricolon", listName: "tricolon",
+      definition: "A tricolon is a list of three words, phrases or ideas placed together. Lists of three sound complete and are easy to remember.",
+      tip: "Tip: look for lists with exactly three parts.",
+      effects: [
+        { correct: true,
+          text: "Through lists of three such as {ex}, the speaker makes her points sound complete and gives the speech a strong rhythm. The audience remembers her words, which makes her message more powerful.",
+          feedback: "Exactly. Three parts feel complete and create a rhythm that sticks in the listener's mind." },
+        { correct: false,
+          text: "Through lists of three such as {ex}, the speaker shows that she has prepared a lot of facts. This makes the speech sound like a scientific report rather than a personal appeal.",
+          feedback: "A list of three is about rhythm and emphasis, not about facts. Read your example aloud. How does it sound?" },
+        { correct: false,
+          text: "Through lists of three such as {ex}, the speaker makes the speech longer, so that she has more time to explain each of her arguments in detail before the conference ends.",
+          feedback: "The lists are actually short and tight. They do not explain things in detail. Think about the effect on the listener instead." },
+        { correct: false,
+          text: "Through lists of three such as {ex}, the speaker shows that young people have too many things to think about. This explains why they often forget to vote on election day.",
+          feedback: "That is not the point Ashworth is making. Think about why a speaker would choose to say things in groups of three." }
+      ],
+      model: "Ashworth says that young people <span class=\"m-quote\">\"volunteer, organise and campaign\"</span> for the causes they care about. Later, she ends her speech with the request <span class=\"m-quote\">\"find your polling station, take ten minutes and make your mark\"</span>. <span class=\"m-effect\">The lists of three give the speech a strong rhythm and make her points sound complete. This helps the audience remember her message and makes her call to action more powerful.</span>"
+    },
+    { id: "con", term: "Contrast", modelTerm: "contrast", listName: "contrast",
+      definition: "Contrast means placing two opposite ideas side by side to make the difference between them clear.",
+      tip: "Tip: look for sentences where two opposite ideas are set against each other, often with words like not, but or yet.",
+      effects: [
+        { correct: true,
+          text: "Through contrasts such as {ex}, the speaker sets two opposite ideas against each other, so the right choice becomes clear. This helps the audience see why voting matters.",
+          feedback: "Yes! When two opposites are placed side by side, the difference becomes impossible to miss." },
+        { correct: false,
+          text: "Through contrasts such as {ex}, the speaker shows that she is unsure what she believes herself. She presents both sides and lets the audience decide for themselves.",
+          feedback: "Ashworth is not unsure at all. Look at which side of the contrast she clearly prefers." },
+        { correct: false,
+          text: "Through contrasts such as {ex}, the speaker makes the speech balanced and neutral. This shows the audience that she respects people who decide not to vote.",
+          feedback: "A contrast in a persuasive speech is rarely neutral. One side is presented as much better than the other. Which one?" },
+        { correct: false,
+          text: "Through contrasts such as {ex}, the speaker shows that young and old people will never agree. The audience understands that there is little point in trying to change things.",
+          feedback: "That would work against her own message. Ashworth wants the audience to take action. How does the contrast help her do that?" }
+      ],
+      model: "Ashworth says, <span class=\"m-quote\">\"Staying at home is easy, but voting is how change begins.\"</span> <span class=\"m-effect\">The contrast sets the easy choice against the important one, so the right choice becomes clear. This makes it easier for the audience to see what they lose by not voting.</span>"
+    },
+    { id: "met", term: "Metaphor", modelTerm: "metaphor", listName: "metaphor",
+      definition: "A metaphor describes something as if it were something else, without using \"like\" or \"as\". It creates a picture in the listener's mind.",
+      tip: "Tip: look for words and phrases that should not be taken literally.",
+      effects: [
+        { correct: true,
+          text: "Through metaphors such as {ex}, the speaker turns abstract ideas about democracy into clear pictures. Voting seems personal and important, which shows the audience that taking part really matters.",
+          feedback: "Exactly. Democracy is an abstract idea, and the metaphor makes it concrete and personal." },
+        { correct: false,
+          text: "Through metaphors such as {ex}, the speaker makes the speech sound poetic and old-fashioned. This shows that she is an experienced politician who has given many speeches.",
+          feedback: "The metaphors are simple and clear, not old-fashioned. What do they make the audience understand about voting?" },
+        { correct: false,
+          text: "Through metaphors such as {ex}, the speaker shows that democracy is a difficult system. Only experts and politicians can fully understand it and take care of it.",
+          feedback: "That is the opposite of Ashworth's point. Who does she say democracy needs?" },
+        { correct: false,
+          text: "Through metaphors such as {ex}, the speaker gives the audience practical information about how voting works, such as where to vote and what to bring.",
+          feedback: "A metaphor does not give practical information. It compares one thing to another to create a picture. Try again." }
+      ],
+      model: "Ashworth describes democracy as <span class=\"m-quote\">\"a garden that needs care from every generation\"</span>. <span class=\"m-effect\">The metaphor turns an abstract idea into a clear picture and shows that democracy will not survive without effort. This makes the audience understand that their participation really matters.</span>"
+    },
+    { id: "rq", term: "Rhetorical questions", modelTerm: "rhetorical questions", listName: "rhetorical questions",
+      oneName: "a rhetorical question",
+      definition: "A rhetorical question is asked for effect. The speaker does not expect an answer, because the answer seems obvious.",
+      tip: "Tip: look for questions that Ashworth does not expect anyone to answer.",
+      effects: [
+        { correct: true,
+          text: "By asking {ex}, the speaker makes the audience think about the question themselves instead of just listening. They are led towards her conclusion, which is more convincing than simply being told.",
+          feedback: "Spot on. The question leads the listeners to Ashworth's conclusion, which is often more convincing than simply telling them." },
+        { correct: false,
+          text: "By asking {ex}, the speaker shows that she does not know the answer herself. She hopes that the young people in the audience will explain it to her after the speech.",
+          feedback: "A rhetorical question is not asked to get an answer. Ashworth already knows what she thinks. What does she want the listeners to realise?" },
+        { correct: false,
+          text: "By asking {ex}, the speaker invites the audience to answer out loud during the conference. This turns the speech into a discussion between her and the young people.",
+          feedback: "Close. The question does involve the audience, but nobody is expected to answer out loud. It is meant to make the listeners think." },
+        { correct: false,
+          text: "By asking {ex}, the speaker keeps the speech neutral and avoids giving her own opinion. The audience is free to decide without feeling any pressure from her.",
+          feedback: "The question is not neutral. It is designed so that there is only one reasonable answer, and that answer supports Ashworth's view." }
+      ],
+      model: "Ashworth asks, <span class=\"m-quote\">\"If you do not vote, who will speak for you?\"</span> The answer is obvious, since nobody will. <span class=\"m-effect\">The question makes the young listeners reach the same conclusion as Ashworth on their own, which makes her argument more convincing than if she had simply stated it.</span>"
+    },
+    { id: "story", term: "Personal anecdote", modelTerm: "a personal anecdote", listName: "a personal anecdote",
+      oneName: "a personal anecdote",
+      definition: "A personal anecdote is a short story from the speaker's own life that is used to support a point.",
+      tip: "Tip: look for a short story about something that happened to the speaker.",
+      effects: [
+        { correct: true,
+          text: "By sharing the story that begins {ex}, the speaker shows that she once felt like many young people. Her experience proves that one vote can matter, making her message more believable.",
+          feedback: "Excellent. The story makes Ashworth easy to relate to, and it gives real proof of her point." },
+        { correct: false,
+          text: "By sharing the story that begins {ex}, the speaker shows that she has always been more responsible than young people today, so the audience should feel ashamed of themselves.",
+          feedback: "Look closely at the story. Was Ashworth more responsible than young people today, or did she almost stay at home too?" },
+        { correct: false,
+          text: "By sharing the story that begins {ex}, the speaker entertains the audience with a funny memory, so that the speech feels lighter before she moves on to the serious part.",
+          feedback: "The story may be personal, but it is not there just to entertain. What does the ending of the story prove?" },
+        { correct: false,
+          text: "By sharing the story that begins {ex}, the speaker shows that bad weather is the main reason why young people do not vote, so polling stations should be easier to reach.",
+          feedback: "The rain is a detail in the story, not the point. Why does Ashworth tell the audience about her first election?" }
+      ],
+      model: "Ashworth tells the audience that she almost did not vote in her first election, until her grandmother sent her out in the rain. That election was decided by only fourteen votes. <span class=\"m-effect\">The story shows that she once felt the same way as many young people. It also proves that one vote can matter, which makes her message more believable and personal.</span>"
+    }
+  ],
+
+  modelIntro: "The attached text is a <span class=\"m-term\">speech</span> by Helen Ashworth, a Member of Parliament, to an audience of young people. <span class=\"m-msg\">The main message is that young people should use their right to vote, because democracy only works when every generation takes part, and those who do not vote risk being ignored.</span>",
+
+  /* Opening sentence of each model paragraph, chosen by position. {X} = feature name. */
+  modelOpeners: [
+    "One language feature that strengthens the message is the use of {X}.",
+    "Another important language feature in the speech is the use of {X}."
+  ],
+  modelLastOpener: "Finally, the speaker also makes effective use of {X}.",
+
+  modelConclusion: function(list, n){
+    if (n === 1) {
+      return "In conclusion, Ashworth uses " + list + " to persuade her audience. This language feature makes the speech more convincing and strengthens the message that young people should use their right to vote.";
+    }
+    return "In conclusion, Ashworth uses " + list + " to persuade her audience. Together, these language features make the speech memorable and convincing, and they strengthen the message that young people should use their right to vote.";
   }
 }
 ];
@@ -441,19 +735,18 @@ function renderHome() {
 
     <div class="grid2">
       <div class="card">
-        <h2>The exam task</h2>
-        <p class="muted small">This is how the task is usually worded:</p>
+        <h2>The task</h2>
         <div class="examtask">
-          <p><b>Task 1</b> (recommended length: 200–300 words)</p>
-          <p><b>1a</b> State the main message in the attached text. Write 1–3 sentences.</p>
-          <p><b>1b</b> Explain how language features are used to enhance the message in the attached text. Use relevant terminology and refer to examples from the text in your answer.</p>
+          <p>Recommended length: 200–300 words</p>
+          <p><b>A</b> State the main message in the attached text. Write 1–3 sentences.</p>
+          <p><b>B</b> Explain how language features are used to enhance the message in the attached text. Use relevant terminology and refer to examples from the text in your answer.</p>
         </div>
       </div>
       <div class="card">
         <h2>A strong answer follows a pattern</h2>
         <ol class="structure">
-          <li><b>Short introduction.</b> Present the text and state the main message (task 1a).</li>
-          <li><b>Three body paragraphs.</b> Each paragraph explains one language feature. Name it with the correct <b>term</b>, give an <b>example or quote</b> from the text, and, most importantly, explain the <b>effect</b>: how does it make the message stronger?</li>
+          <li><b>Short introduction.</b> Present the text and state the main message. (A)</li>
+          <li><b>Three body paragraphs.</b> Each paragraph explains one language feature. Name it with the correct <b>term</b>, give an <b>example or quote</b> from the text, and, most importantly, explain the <b>effect</b>: how does it make the message stronger? (B)</li>
           <li><b>Very short conclusion.</b> Point out that, together, the language features strengthen the message.</li>
         </ol>
       </div>
@@ -465,7 +758,7 @@ function renderHome() {
         <div><b>1. Main message</b>Read the text and choose the best description of its main message.</div>
         <div><b>2. Find examples</b>Choose a language feature from the list and click on an example of it in the text.</div>
         <div><b>3. Explain the effect</b>Choose the most precise explanation of how the feature strengthens the message.</div>
-        <div><b>4. Write your answer</b>Use your findings to write a full answer, save it as a PDF and compare it with a model answer.</div>
+        <div><b>4. Write your answer</b>Use your findings to write a full answer, save it as a PDF and use a model answer as a guide or for comparison.</div>
       </div>
       <p class="small muted" style="margin:14px 0 0">If you choose a wrong answer, you will get a hint and can try again. You will not be given the answer, so you have to work it out yourself. Your progress is saved in this browser.</p>
     </div>
@@ -479,7 +772,6 @@ function renderHome() {
           <p class="muted small" style="margin:0">${esc(t.summary)}</p>
           <span class="go">Start task →</span>
         </a>`).join("")}
-      <div class="card taskcard soon"><div><b>More tasks coming soon</b><br><span class="small">New speeches and opinion pieces will be added here.</span></div></div>
     </div>
     <footer>Made for exam practice in English 1. All texts are fictional and written for practice.</footer>
   </main>`;
@@ -499,11 +791,6 @@ const feat = id => T.features.find(f => f.id === id);
 const clean = s => s.replace(/\s+/g, " ").trim();
 const newCur = f => ({ f: f || null, stage: f ? "click" : null, spans: [], items: [], quotes: [], effects: [], tried: [], msg: null, solvedEffect: null });
 
-/* Short version of a long quote, for cards and lists */
-function shortQuote(q) {
-  const w = q.split(" ");
-  return w.length > 24 ? w.slice(0, 12).join(" ") + " … " + w.slice(-6).join(" ") : q;
-}
 /* The student's example(s), formatted for use inside an explanation */
 const inlineQuote = t => {
   t = t.replace(/\.$/, "");
@@ -511,7 +798,7 @@ const inlineQuote = t => {
   const keep = first === "I" || (T.properNouns || []).includes(first);
   return keep ? t : t.charAt(0).toLowerCase() + t.slice(1);
 };
-const fmtEx = items => joinList(items.map(t => '"' + inlineQuote(t) + '"'));
+const fmtEx = (items, keepCase) => joinList(items.map(t => '"' + (keepCase ? t.replace(/\.$/, "") : inlineQuote(t)) + '"'));
 const effText = d => feat(d.id).effects.find(x => x.correct).text.replace("{ex}", d.ex);
 
 function buildParagraph(src) {
@@ -523,10 +810,12 @@ function buildParagraph(src) {
     if (c === "[") {
       flush();
       const k = src.indexOf(":", i);
-      const [id, label] = src.slice(i + 1, k).split("=");
+      const [id, rest] = src.slice(i + 1, k).split("=");
+      const [label, display] = (rest || "").split("|");
       const span = document.createElement("span");
       span.className = "seg"; span.dataset.f = id;
       if (label) span.dataset.l = label;
+      if (display) span.dataset.d = display;
       stack[stack.length - 1].appendChild(span); stack.push(span); i = k;
     } else if (c === "]") { flush(); stack.pop(); }
     else buf += c;
@@ -563,6 +852,8 @@ function sentenceAround(span) {
 }
 const exampleItem = span => span.dataset.l || (cur.f.auto ? sentenceAround(span) : clean(span.textContent));
 const quoteOf = span => (cur.f.auto || cur.f.quoteSentence) ? sentenceAround(span) : clean(span.textContent);
+/* Quote shown to the student: the whole example, or its short reference (label) if the example is longer than 24 words */
+const displayQuote = span => { if (span.dataset.d) return span.dataset.d; const q = quoteOf(span); return (q.split(" ").length > 24 && span.dataset.l) ? span.dataset.l : q; };
 const exampleCount = fid => $$(`#srcText [data-f="${fid}"]`).length;
 
 function renderTask(task) {
@@ -580,9 +871,16 @@ function renderTask(task) {
         <h1>Task ${T.number}: ${esc(T.title)}</h1>
         <button class="btn ghost" id="resetBtn" title="Delete your choices and your text, and start again">↺ Reset task</button>
       </div>
+      <div class="fb bad" id="resetBox" style="display:none;margin:0 0 12px;max-width:820px">
+        <b>Reset this task?</b>Your choices and your text will be deleted.
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <button class="btn" id="resetYes">Yes, reset</button>
+          <button class="btn ghost" id="resetNo">Cancel</button>
+        </div>
+      </div>
       <div class="examtask">
-        <p><b>1a</b> State the main message in the attached text. Write 1–3 sentences.</p>
-        <p><b>1b</b> Explain how language features are used to enhance the message in the attached text. Use relevant terminology and refer to examples from the text in your answer.</p>
+        <p><b>A</b> State the main message in the attached text. Write 1–3 sentences.</p>
+        <p><b>B</b> Explain how language features are used to enhance the message in the attached text. Use relevant terminology and refer to examples from the text in your answer.</p>
       </div>
     </div>
 
@@ -614,11 +912,9 @@ function renderTask(task) {
   T.features.forEach(f => { if (f.auto) autoTag(src, f.id, new RegExp(f.auto.source, "g")); });
   src.addEventListener("click", onTextClick);
 
-  $("#resetBtn").addEventListener("click", () => {
-    if (confirm("Reset this task? Your choices and your text will be deleted.")) {
-      store.del(storeKey()); renderTask(T); window.scrollTo(0, 0);
-    }
-  });
+  $("#resetBtn").addEventListener("click", () => { $("#resetBox").style.display = "block"; });
+  $("#resetNo").addEventListener("click", () => { $("#resetBox").style.display = "none"; });
+  $("#resetYes").addEventListener("click", () => { store.del(storeKey()); renderTask(T); window.scrollTo(0, 0); });
 
   renderMM(); renderFeatures(); renderAnalysis(); renderInvite(); renderWriting();
 }
@@ -628,12 +924,12 @@ function renderMM() {
   const box = $("#stepMM");
   const correct = T.mainMessage.find(o => o.correct);
   if (S.mm) {
-    box.innerHTML = `<div class="label">Step 1 · Task 1a</div><h3>Main message</h3>
+    box.innerHTML = `<div class="label">Step 1 · A</div><h3>Main message</h3>
       <div class="solved"><span class="tick">✓</span><div>${esc(correct.text)}</div></div>`;
     return;
   }
   const opts = shuffle(T.mainMessage);
-  box.innerHTML = `<div class="label">Step 1 · Task 1a</div>
+  box.innerHTML = `<div class="label">Step 1 · A</div>
     <h3>What is the main message of the ${esc(T.type.toLowerCase())}?</h3>
     <p class="muted small" style="margin:0">Read the whole text first. Then choose the answer that describes the main message most precisely.</p>
     <div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}">${esc(o.text)}</button>`).join("")}</div>
@@ -663,7 +959,7 @@ function renderFeatures() {
   $("#srcText").classList.toggle("locked", !S.mm);
   if (!S.mm) { box.style.display = "none"; box.innerHTML = ""; return; }
   box.style.display = "";
-  box.innerHTML = `<div class="label">Step 2 · Task 1b</div>
+  box.innerHTML = `<div class="label">Step 2 · B</div>
     <h3>Language features</h3>
     <p class="muted small" style="margin:0">Choose a feature. Then find an example of it in the text and explain its effect. Work with as many features as you like.</p>
     <div class="flist">${T.features.map(f => {
@@ -686,15 +982,18 @@ function selectFeature(id) {
 function clearHighlight() { $$("#srcText .hl").forEach(e => e.classList.remove("hl")); }
 function showHighlights() { clearHighlight(); cur.spans.forEach(s => s.classList.add("hl")); }
 
+/* "a rhetorical question" if the feature has a singular name, otherwise "an example of metaphor" */
+const oneOf = f => f.oneName || "an example of " + f.term.toLowerCase();
+const anotherOf = f => f.oneName ? "another " + f.oneName.replace(/^an? /, "") : "another example of " + f.term.toLowerCase();
 const wrongMsgs = [
-  "Not quite. That part is not an example of {T}. Have another look, or choose a different feature from the list.",
-  "Good try, but that is not an example of {T}. Try again, or pick another feature if you prefer.",
-  "Hmm, not this time. That part does not show {T}. Look again, or choose a different feature."
+  "Not quite. That part is not {X}. Have another look, or choose a different feature from the list.",
+  "Good try, but that is not {X}. Try again, or pick another feature if you prefer.",
+  "Hmm, not this time. That part is not {X}. Look again, or choose a different feature."
 ];
 
 function goEffect() {
   cur.items = cur.spans.map(exampleItem);
-  cur.quotes = cur.spans.map(quoteOf);
+  cur.quotes = cur.spans.map(displayQuote);
   cur.stage = "effect"; cur.effects = shuffle(cur.f.effects); cur.tried = []; cur.msg = null;
   renderPanel();
 }
@@ -708,11 +1007,14 @@ function onTextClick(e) {
     el = el.parentElement;
   }
   if (cur.stage === "more") { toast("Choose whether you want to find another example."); return; }
-  if (cur.stage === "effect" || cur.stage === "solved") {
-    toast("You have already found your example. Now choose the best explanation of the effect."); return;
+  if (cur.stage === "effect") {
+    toast("You have already found your example. Choose the best explanation of the effect, or click \"Choose a different example\"."); return;
+  }
+  if (cur.stage === "solved") {
+    toast("You have found your example and chosen the right explanation. Click \"Save to my analysis\" to continue."); return;
   }
   if (!match) {
-    const m = wrongMsgs[Math.floor(Math.random() * wrongMsgs.length)].replace("{T}", cur.f.term.toLowerCase());
+    const m = wrongMsgs[Math.floor(Math.random() * wrongMsgs.length)].replace("{X}", oneOf(cur.f));
     cur.msg = { kind: "bad", text: m, tip: cur.f.tip };
     renderPanel(); toast(m); return;
   }
@@ -741,17 +1043,17 @@ function renderPanel() {
   const f = cur.f, name = f.term.toLowerCase();
   const tryAgain = cur.msg && cur.msg.kind === "bad" && cur.msg.tip
     ? `<div class="fb bad"><b>Try again</b>${esc(cur.msg.text)}<div class="small" style="margin-top:6px">${esc(cur.msg.tip)}</div></div>` : "";
-  const quoteBoxes = () => cur.spans.map(s => `<div class="quote">"${esc(shortQuote(quoteOf(s)))}"</div>`).join("");
+  const quoteBoxes = () => cur.spans.map(s => `<div class="quote">"${esc(displayQuote(s))}"</div>`).join("");
 
   if (cur.stage === "click") {
     p.innerHTML = `<h3>${esc(f.term)}</h3>
       <div class="def">${esc(f.definition)}</div>
-      <p class="instr">👉 Click on an example of ${esc(name)} in the text.</p>${tryAgain}`;
+      <p class="instr">👉 Click on ${esc(oneOf(f))} in the text.</p>${tryAgain}`;
     return;
   }
   if (cur.stage === "more") {
     p.innerHTML = `<h3>${esc(f.term)}</h3>
-      <div class="fb good"><b>Well spotted!</b>That is an example of ${esc(name)}.</div>
+      <div class="fb good"><b>Well spotted!</b>That is ${esc(oneOf(f))}.</div>
       ${quoteBoxes()}
       <p class="instr">There is more than one example in the text. Can you find another one?</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
@@ -766,13 +1068,13 @@ function renderPanel() {
     p.innerHTML = `<h3>${esc(f.term)}</h3>
       <p class="small muted" style="margin:0">Your first example:</p>
       ${quoteBoxes()}
-      <p class="instr">👉 Click on another example of ${esc(name)} in the text.</p>${tryAgain}
+      <p class="instr">👉 Click on ${esc(anotherOf(f))} in the text.</p>${tryAgain}
       <div style="margin-top:10px"><button class="btn ghost" id="oneOnly">Continue with one example</button></div>`;
     $("#oneOnly").addEventListener("click", goEffect);
     return;
   }
   // effect or solved stage
-  const ex = fmtEx(cur.items);
+  const ex = fmtEx(cur.items, cur.f.keepCase);
   p.innerHTML = `<h3>${esc(f.term)}</h3>
     <p class="small muted" style="margin:0">Your example${cur.spans.length > 1 ? "s" : ""}:</p>
     ${quoteBoxes()}
@@ -783,7 +1085,10 @@ function renderPanel() {
       return `<button class="opt ${cls}" data-i="${i}" ${dis ? "disabled" : ""}>${esc(o.text.replace("{ex}", ex))}</button>`;
     }).join("")}</div>
     <div id="effFb">${cur.msg ? `<div class="fb ${cur.msg.kind}"><b>${cur.msg.kind === "good" ? "Correct!" : "Not quite. Try again!"}</b>${esc(cur.msg.text)}</div>` : ""}</div>
-    ${cur.stage === "solved" ? `<div style="margin-top:12px"><button class="btn" id="saveF">Save to my analysis ✓</button></div>` : ""}`;
+    ${cur.stage === "solved" ? `<div style="margin-top:12px"><button class="btn" id="saveF">Save to my analysis ✓</button></div>` : ""}
+    ${cur.stage === "effect" ? `<div style="margin-top:12px"><button class="btn ghost" id="changeEx">Choose a different example</button></div>` : ""}`;
+  const ce = $("#changeEx");
+  if (ce) ce.addEventListener("click", () => { clearHighlight(); cur = newCur(cur.f); renderPanel(); });
   $$(".opt", p).forEach(b => b.addEventListener("click", () => {
     const i = +b.dataset.i, o = cur.effects[i];
     if (o.correct) { cur.stage = "solved"; cur.solvedEffect = i; cur.msg = { kind: "good", text: o.feedback }; }
@@ -793,7 +1098,6 @@ function renderPanel() {
   const sb = $("#saveF");
   if (sb) sb.addEventListener("click", () => {
     S.done.push({ id: f.id, quotes: cur.quotes, ex: ex });
-    if (S.writing && !S.include.includes(f.id) && S.include.length < MAX_WRITE) S.include.push(f.id);
     save();
     clearHighlight();
     cur = newCur();
@@ -814,7 +1118,7 @@ function renderAnalysis() {
         const f = feat(d.id);
         return `<div class="acard">
           <div class="row"><span class="k">Feature</span><span class="v"><b>${esc(f.term)}</b></span></div>
-          <div class="row"><span class="k">Example${d.quotes.length > 1 ? "s" : ""}</span><span class="v q">${d.quotes.map(q => `"${esc(shortQuote(q))}"`).join("<br>")}</span></div>
+          <div class="row"><span class="k">Example${d.quotes.length > 1 ? "s" : ""}</span><span class="v q">${d.quotes.map(q => `"${esc(q)}"`).join("<br>")}</span></div>
           <div class="row"><span class="k">Effect</span><span class="v">${esc(effText(d))}</span></div>
         </div>`;
       }).join("") : `<p class="empty">Your analysed language features will appear here.</p>`}
@@ -827,14 +1131,20 @@ function renderInvite() {
   if (S.done.length < 2 || S.writing) { box.innerHTML = ""; return; }
   box.innerHTML = `<div class="invite">
       <div><h3 style="margin:0 0 4px">Ready to write?</h3>
-      <span class="muted">You have analysed ${S.done.length} language features. You can keep analysing more, or start building your answer now.</span></div>
-      <button class="btn" id="startW">Start writing my answer →</button>
+      <span class="muted">You have analysed ${S.done.length} language features. You can keep analysing more, or start building your answer now. Do you want to write your own answer first, or read a model answer first and use it as a guide?</span></div>
+      <span style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="startW">Write my own answer first →</button>
+        <button class="btn ghost" id="startM">See the model answer first</button>
+      </span>
     </div>`;
-  $("#startW").addEventListener("click", () => {
-    S.writing = true; S.include = S.done.map(d => d.id).slice(0, MAX_WRITE); save();
+  const open = showModel => {
+    S.writing = true; S.include = []; save();
     renderInvite(); renderWriting();
-    $("#writing").scrollIntoView({ block: "start" });
-  });
+    if (showModel) { $("#writing").scrollIntoView({ block: "start" }); toast("First choose which language features you want to include. Then click \"Show model answer\"."); }
+    else $("#writing").scrollIntoView({ block: "start" });
+  };
+  $("#startW").addEventListener("click", () => open(false));
+  $("#startM").addEventListener("click", () => open(true));
 }
 
 /* ---------- Writing ---------- */
@@ -864,8 +1174,8 @@ function renderWriting() {
 
       <div class="wbox">
         <h3>Introduction <span class="wc" data-wc="intro"></span></h3>
-        <p class="hint">Present the text (text type, speaker, situation) and state the main message in 1–3 sentences.</p>
-        <textarea data-k="intro" placeholder="The attached text is a speech by ...">${esc(S.texts.intro || "")}</textarea>
+        <p class="hint">Present the text (text type, speaker or writer, situation) and state the main message in 1–3 sentences.</p>
+        <textarea data-k="intro" placeholder="The attached text is ${/^[aeiou]/i.test(T.type) ? "an" : "a"} ${esc(T.type.toLowerCase())} by ...">${esc(S.texts.intro || "")}</textarea>
       </div>
 
       ${S.include.map((id, idx) => {
@@ -873,7 +1183,7 @@ function renderWriting() {
         return `<div class="wbox">
           <h3>Paragraph ${idx + 1}: ${esc(f.term)} <span class="wc" data-wc="${id}"></span></h3>
           <details class="ref"><summary>Show my analysis of this feature</summary>
-            <div><b>Example${d.quotes.length > 1 ? "s" : ""}:</b> <i>${d.quotes.map(q => `"${esc(shortQuote(q))}"`).join(" · ")}</i></div>
+            <div><b>Example${d.quotes.length > 1 ? "s" : ""}:</b> <i>${d.quotes.map(q => `"${esc(q)}"`).join(" · ")}</i></div>
             <div><b>Effect:</b> ${esc(effText(d))}</div>
           </details>
           <div class="checklist"><span>☐ Name the feature (terminology)</span><span>☐ Quote or refer to an example</span><span>☐ Explain the effect on the message</span></div>
@@ -894,7 +1204,7 @@ function renderWriting() {
           <button class="btn" id="modelBtn">Show model answer</button>
         </span>
       </div>
-      <p class="small muted" id="modelNote" style="margin:10px 0 0"></p>
+      <p class="small muted" id="modelNote" style="margin:10px 0 0">You decide: write your own answer first and compare it with the model answer afterwards, or read the model answer first and use it as a guide.</p>
     </div>`;
 
   $("#nameIn").addEventListener("input", e => { S.name = e.target.value; save(); });
@@ -906,7 +1216,11 @@ function renderWriting() {
   $("#printBtn").addEventListener("click", savePdf);
   $("#modelBtn").addEventListener("click", () => { renderModel(); $("#model").scrollIntoView({ block: "start" }); });
   updateCounts();
-  if ($("#model").innerHTML) renderModel();
+  if (!S.include.length) {
+    $("#modelBtn").disabled = true;
+    $("#modelNote").textContent = "Choose at least one language feature above to see the model answer.";
+    $("#model").innerHTML = "";
+  } else if ($("#model").innerHTML) renderModel();
 }
 function updateCounts() {
   $$("[data-wc]").forEach(s => { const n = words(S.texts[s.dataset.wc] || ""); s.textContent = n ? n + " words" : ""; });
@@ -914,9 +1228,6 @@ function updateCounts() {
   const c = $("#wcount");
   c.className = "count" + (n >= 200 && n <= 300 ? " ok" : "");
   c.innerHTML = `<b>${n}</b> words <span class="muted small">· recommended 200–300</span>`;
-  const mb = $("#modelBtn"), need = 100;
-  mb.disabled = n < need;
-  $("#modelNote").textContent = n < need ? `Write at least ${need} words of your own before you compare with the model answer (${need - n} to go).` : "";
 }
 
 /* ---------- Model answer ---------- */
@@ -938,11 +1249,13 @@ function renderModel() {
   const n = all.reduce((a, h) => a + words(stripTags(h)), 0);
   $("#model").innerHTML = `<h2>Model answer</h2>
     <div class="card model">
-      <p class="mwc" style="font-family:var(--sans)">This model answer uses the same language features that you chose. Compare it with your own text. Did you include terminology, examples and a clear explanation of the effect?</p>
+      <p class="mwc" style="font-family:var(--sans)">This model answer uses the same language features that you chose. Notice how each paragraph includes terminology, an example from the text and a clear explanation of the effect. Use it as a guide for your own text, or compare it with what you have already written.</p>
       <div class="legend"><span><span class="m-msg">Main message</span></span><span><span class="m-term">Terminology</span></span><span><span class="m-quote">Example from the text</span></span><span><span class="m-effect">Effect on the message</span></span></div>
       ${all.map(h => `<p>${h}</p>`).join("")}
       <p class="mwc">${n} words</p>
+      <div style="margin-top:14px"><button class="btn ghost" id="toWriting">↑ Go to the start of my answer</button></div>
     </div>`;
+  $("#toWriting").addEventListener("click", () => $("#writing").scrollIntoView({ block: "start" }));
 }
 
 /* ---------- Print / PDF ---------- */
@@ -958,7 +1271,7 @@ function buildPrint() {
     <div class="pcard"><p><b>Main message:</b> ${esc(correct.text)}</p></div>
     ${S.done.map(d => {
       const f = feat(d.id);
-      return `<div class="pcard"><p><b>${esc(f.term)}</b></p><p><i>Example${d.quotes.length > 1 ? "s" : ""}:</i> ${d.quotes.map(q => `"${esc(shortQuote(q))}"`).join(" · ")}</p><p><i>Effect:</i> ${esc(effText(d))}</p></div>`;
+      return `<div class="pcard"><p><b>${esc(f.term)}</b></p><p><i>Example${d.quotes.length > 1 ? "s" : ""}:</i> ${d.quotes.map(q => `"${esc(q)}"`).join(" · ")}</p><p><i>Effect:</i> ${esc(effText(d))}</p></div>`;
     }).join("")}
 
     <h2>Part 2: My answer</h2>
@@ -1017,7 +1330,7 @@ async function savePdf() {
     S.done.forEach(d => {
       const f = feat(d.id);
       write(f.term, { style: "bold", size: 10.5 });
-      write((d.quotes.length > 1 ? "Examples: " : "Example: ") + d.quotes.map(q => `"${shortQuote(q)}"`).join("  ·  "), { size: 10.5, style: "italic", indent: 4 });
+      write((d.quotes.length > 1 ? "Examples: " : "Example: ") + d.quotes.map(q => `"${q}"`).join("  ·  "), { size: 10.5, style: "italic", indent: 4 });
       write("Effect: " + effText(d), { size: 10.5, indent: 4, after: 4 });
     });
 
