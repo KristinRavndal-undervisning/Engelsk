@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formal or Informal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday learning: friendly, clear, calm enough for a classroom
+   IDEA a school letter on lined notebook paper, marked up with five highlighter pens
+   PICTURE the letter itself on lined paper; on the front page a strip going from informal to formal
+   COLOUR white ground, ink-blue band, one highlighter colour per category, green/amber/red only for feedback
+   TYPE Lexend for headings + Atkinson Hyperlegible for reading
+   LAYOUT laptop: blue band with title and strip, content column up to 1040px; phone: everything stacks */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#13151d);--ink:light-dark(#1a1d2b,#eceef6);--muted:light-dark(#585d6e,#a6abbb);
+--line:light-dark(#dde0ea,#2d3142);--card:light-dark(#f7f7f9,#1a1d27);
+--brand:light-dark(#2433a8,#a3adff);--band:light-dark(#2433a8,#1d2572);--onbrand:light-dark(#ffffff,#13151d);
+--paper:light-dark(#ffffff,#1b1e2a);--rule:light-dark(#d5e1f4,#283149);--margin:light-dark(#f0a0a0,#7a3a3a);
+--mark:light-dark(#fff07a,#6b5f00);
+--ok:light-dark(#1e7d32,#74d98c);--okbg:light-dark(#e3f5e6,#17361f);
+--bad:light-dark(#c62828,#ff8f87);--badbg:light-dark(#fde6e4,#3d1a1a);
+--close:light-dark(#a35f00,#ffc46e);--closebg:light-dark(#fff1dc,#3b2a10)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+.c-ab{--c:light-dark(#1d63d6,#86b4ff);--hl:light-dark(#d2e3ff,#1f3c73)}
+.c-do{--c:light-dark(#7a3fd1,#c3a3ff);--hl:light-dark(#e8dbff,#43296e)}
+.c-con{--c:light-dark(#c25e00,#ffb066);--hl:light-dark(#ffe1bf,#5e3612)}
+.c-vag{--c:light-dark(#0e8577,#6fdccb);--hl:light-dark(#c9f1ea,#164a44)}
+.c-sm{--c:light-dark(#c2185b,#ff8fbb);--hl:light-dark(#ffd5e4,#5c1e38)}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.55 'Atkinson Hyperlegible',system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Lexend,system-ui,sans-serif;line-height:1.1;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5vw,50px);font-weight:700}
+h2{font-size:clamp(24px,3vw,30px);font-weight:700;margin-bottom:10px}
+h3{font-size:19px;font-weight:500}
+p{margin:0 0 12px}
+a{color:var(--brand)}
+.wrap{max-width:1040px;margin:0 auto}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}
+.top{background:var(--band);color:#fff}
+.top a{color:#fff}
+.top .lead{font-size:18px;max-width:34em;opacity:.92}
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:center}
+.strip{background:var(--paper);color:var(--ink);border-radius:8px;padding:20px 22px;box-shadow:0 18px 40px -20px rgb(0 0 0/.5)}
+.strip .lab{font:500 14px Lexend,sans-serif;color:var(--muted);margin-bottom:4px}
+.strip p{font-size:19px;line-height:1.7;margin:0}
+.strip .arrow{font:700 24px Lexend,sans-serif;color:var(--brand);margin:6px 0}
+.hl{background:var(--hl);border-radius:3px;padding:1px 3px;box-shadow:inset 0 -2px 0 var(--c)}
+.fx{text-decoration:underline 3px var(--c);text-underline-offset:4px}
+.chip{display:inline-block;background:var(--hl);color:var(--ink);border-radius:4px;padding:3px 8px;font:500 16px Lexend,sans-serif}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-top:18px}
+.cat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.cat p{color:var(--muted);font-size:16px;margin:10px 0 12px}
+.cat dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 12px;margin:0;font-size:16px}
+.cat dt{font:500 14px Lexend,sans-serif;padding-top:2px}
+.cat dd{margin:0}
+.dt-f{color:var(--ok)}.dt-i{color:var(--close)}.dt-n{color:var(--bad)}
+.key{background:var(--paper);border:2px dashed var(--line);border-radius:12px;padding:18px}
+.key p{font-size:16px}
+.badge{display:inline-block;font:500 13px Lexend,sans-serif;border-radius:20px;padding:2px 10px;white-space:nowrap;vertical-align:2px}
+.b-inf{border:1.5px solid var(--close);color:var(--close)}
+.b-nev{background:var(--bad);color:var(--bg)}
+.tasks{display:grid;gap:14px;margin-top:16px}
+.task{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--paper)}
+.task .num{width:56px;height:56px;border-radius:50%;background:var(--band);color:#fff;display:grid;place-items:center;font:700 24px Lexend,sans-serif}
+.task p{margin:4px 0 0;color:var(--muted);font-size:16px}
+.dots{display:inline-flex;gap:4px;vertical-align:middle;margin-right:6px}
+.dots i{width:10px;height:10px;border-radius:50%;border:2px solid var(--brand)}
+.dots i.f{background:var(--brand)}
+.status{font:500 14px Lexend,sans-serif}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:500 16px/1 Lexend,sans-serif;min-height:44px;padding:0 18px;border-radius:10px;border:2px solid var(--brand);background:var(--brand);color:var(--onbrand);cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--brand)}
+.btn.arm{background:var(--bad);border-color:var(--bad);color:var(--bg)}
+.btn:focus-visible,.opt:focus-visible,input:focus-visible,.w:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.top .btn.ghost{color:#fff;border-color:#fff}
+.back{font:500 16px Lexend,sans-serif;text-decoration:none;display:inline-block;margin-bottom:14px}
+.meta{margin-top:10px;opacity:.92}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between;border-bottom:1px solid var(--line);padding-block:18px}
+.tools label{display:block;font:500 14px Lexend,sans-serif;color:var(--muted);margin-bottom:4px}
+.tools input{font:inherit;font-size:16px;min-height:44px;width:min(320px,100%);padding:8px 12px;border:2px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.tools .grp{display:flex;gap:10px;flex-wrap:wrap}
+.part{padding-block:30px;border-bottom:1px solid var(--line)}
+.sit{background:var(--card);border-radius:12px;padding:16px 18px;margin:14px 0}
+.sit ol{margin:8px 0 0;padding-left:22px}
+.bar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin:16px 0}
+.count{font:500 16px Lexend,sans-serif}
+.sheet{--ml:52px;background-color:var(--paper);border:1px solid var(--line);border-radius:6px;padding:34px 24px 0 calc(var(--ml) + 18px);background-image:linear-gradient(90deg,transparent var(--ml),var(--margin) var(--ml),var(--margin) calc(var(--ml) + 2px),transparent calc(var(--ml) + 2px)),repeating-linear-gradient(transparent 0 33px,var(--rule) 33px 34px);box-shadow:0 10px 30px -22px rgb(0 0 0/.45)}
+.sheet p{font-size:19px;line-height:34px;margin:0 0 34px}
+.sheet p.ttl{font-family:Lexend,sans-serif;font-weight:700;font-size:23px}
+.sheet p.sub{font-family:Lexend,sans-serif;font-weight:700;margin-bottom:0}
+.w{cursor:pointer;border-radius:3px;padding:3px 1px}
+.w:hover{background:color-mix(in srgb,var(--mark) 55%,transparent)}
+.w.on{background:var(--mark)}
+.done .w{cursor:default}
+.done .w:hover{background:none}
+.w.wrong{color:var(--muted);text-decoration:line-through 2px var(--bad)}
+.tg.hit{background:var(--hl);border-radius:3px;box-shadow:inset 0 -3px 0 var(--c);padding:3px 2px}
+.tg.miss{outline:2px dashed var(--c);outline-offset:1px;border-radius:3px;padding:2px 1px}
+sup.n{font:700 11px Lexend,sans-serif;background:var(--c);color:var(--bg);border-radius:9px;padding:1px 5px;margin-left:3px}
+.res{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center;background:var(--card);border-radius:12px;padding:18px;margin-top:20px}
+.big{font:700 clamp(36px,6vw,52px)/1 Lexend,sans-serif;color:var(--brand);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px;font-size:15px}
+.legend span{white-space:nowrap}
+.lock{color:var(--muted);background:var(--card);border-radius:12px;padding:16px 18px}
+.qs{display:grid;gap:18px;margin-top:16px}
+.q{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--paper)}
+.qh{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.qn{width:32px;height:32px;border-radius:50%;background:var(--c);color:var(--bg);display:grid;place-items:center;font:700 15px Lexend,sans-serif;flex:none}
+.why{color:var(--muted);font-size:16px;margin:10px 0}
+.orig{font-size:18px;margin:0 0 12px}
+.orig .lab,.ask{font:500 14px Lexend,sans-serif;color:var(--muted);display:block;margin-bottom:4px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;min-height:48px;padding:11px 14px;border:2px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:17px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt:disabled{cursor:default;opacity:1;color:var(--ink)}
+.opt .mk{flex:none;width:1.2em;font-weight:700}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.opt.close{border-color:var(--close);background:var(--closebg)}
+.opt.alt{border-color:var(--ok);border-style:dashed}
+.opt.ok .mk,.opt.alt .mk{color:var(--ok)}.opt.bad .mk{color:var(--bad)}.opt.close .mk{color:var(--close)}
+.rw{border-radius:3px;padding:3px 2px;background:color-mix(in srgb,var(--okbg) 75%,transparent)}
+.fb{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:16px}
+.fb.ok{background:var(--okbg)}
+.jumps{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.jumps .btn{min-height:40px;font-size:15px;padding:0 14px}.fb.bad{background:var(--badbg)}.fb.close{background:var(--closebg)}
+.fb b{font-family:Lexend,sans-serif;font-weight:500}
+.final{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px;margin:16px 0}
+.final div{background:var(--card);border-radius:12px;padding:16px}
+.final .big{font-size:40px}
+.msg{min-height:1.5em;margin-top:10px;font-weight:700}
+.note{color:var(--muted);font-size:15px}
+@media(max-width:800px){.hero{grid-template-columns:minmax(0,1fr);gap:24px}}
+@media(max-width:600px){.task{grid-template-columns:auto minmax(0,1fr)}.task .btn{grid-column:1/-1}.sheet{--ml:30px;padding-right:14px}.sheet p{font-size:18px}.res{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:no-preference){.opt,.w{transition:background-color .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+{
+const CATS={
+ ab:{name:'And / But at the start',rgb:[29,99,214],desc:'A sentence that starts with And or But sounds like speech. Use a linking word instead, or join the two sentences.',f:'However, … / In addition, … / Therefore, …',i:'But it can be harmful. / And it is expensive.',n:'–'},
+ do:{name:'Do for emphasis',rgb:[122,63,209],desc:'Do can make a sentence stronger. In a formal text, use a strong adverb instead.',f:'This is clearly a problem. / I strongly believe …',i:'I do love summer! / I did tell you!',n:'–'},
+ con:{name:'Contractions',rgb:[194,94,0],desc:'A contraction is two words squeezed into one, often with an apostrophe.',f:'do not, cannot, it is, I am',i:"don't, can't, it's, I'm",n:"gonna, wanna, dunno, ain't"},
+ vag:{name:'Vague words',rgb:[14,133,119],desc:'Vague words do not say exactly what you mean.',f:'factors, reasons, equipment, information',i:'things, stuff, … and stuff',n:'–'},
+ sm:{name:'Yes/no words and fillers',rgb:[194,24,91],desc:'Small words from spoken English: short answers and filler words.',f:'yes, no, certainly',i:'yeah, OK, sure, well',n:'yep, nope, um, like (as a filler)'}
+};
+/* To add a task: copy the object below, give it a new id (task-2, task-3 …) and mark each informal word or phrase in the text as [tN:word]. */
+const TASKS=[{
+ id:'task-1',num:1,title:'An email to the principal',level:1,levelName:'Easy',writer:'Emma',doc:'email',
+ desc:'Emma writes to her principal about a school trip. The informal words are easy to spot.',
+ situation:'Emma is writing to the principal at her school. This is a formal situation, but Emma uses informal language 10 times. Find the words that are too informal for a formal text.',
+ text:[
+  'Dear Ms Johnson,',
+  'I am writing to ask about the school trip to London in March. [t1:Yeah], I know that the deadline was last Friday. I was ill all week, and I did not see the letter in time. [t2:But] I hope it is not too late to sign up.',
+  'I would very much like to join the trip. I [t3:do] believe it will help me with my English. My parents [t4:can\'t] pay the full price at the moment. Is it possible to pay in two parts? I [t5:dunno] if other students have asked about this.',
+  'Could you also tell me what [t6:stuff] we need to bring? We are [t7:gonna] stay for four nights. [t8:And] I want to pack the right clothes. I also have some questions about food [t9:and things like that].',
+  '[t10:OK], those are all my questions. Thank you for your help.',
+  'Yours sincerely,',
+  'Emma Hansen'],
+ targets:{
+  t1:{cat:'sm',kind:'inf',why:'Yeah is spoken English. Leave it out, or use a formal phrase.',s:'[Yeah], I know that the deadline was last Friday.',o:[
+   ['Yep, I know that the deadline was last Friday.',0,'Yep is even more informal than yeah. It is never used in school texts.'],
+   ['I know that the deadline was last Friday.',1,'The word yeah is not needed. The sentence works well without it.'],
+   ['Like, I know that the deadline was last Friday.',0,'Like is a filler word from spoken English. It is never used like this in school texts.'],
+   ['I am aware that the deadline was last Friday.',1,'"I am aware that" is a formal way to say "I know that".']]},
+  t2:{cat:'ab',kind:'inf',why:'Starting a sentence with But is informal. Use a linking word, like However.',s:'[But] I hope it is not too late to sign up.',o:[
+   ['However, I hope it is not too late to sign up.',1,'However is a formal linking word. Remember the comma after it.'],
+   ['But yeah, I hope it is not too late to sign up.',0,'Now there are two informal words: But and yeah.'],
+   ['And I hope it is not too late to sign up.',0,'And at the start is just as informal as But. It also changes the meaning.'],
+   ['I hope, however, that it is not too late to sign up.',1,'However can also stand in the middle of the sentence.']]},
+  t3:{cat:'do',kind:'inf',why:'Do for emphasis sounds like speech. A strong adverb works better in a formal text.',s:'I [do] believe it will help me with my English.',o:[
+   ['I strongly believe it will help me with my English.',1,'Strongly is an adverb that makes the sentence stronger in a formal way.'],
+   ['I totally believe it will help me with my English.',0,'Totally is informal. It is mostly used in spoken English.'],
+   ['I do really believe it will help me with my English.',0,'Do is still there, and really makes the sentence sound even more like speech.'],
+   ['I am certain that it will help me with my English.',1,'"I am certain that" is clear and formal.']]},
+  t4:{cat:'con',kind:'inf',why:"Can't is a contraction. Write the full form in a formal text.",s:"My parents [can't] pay the full price at the moment.",o:[
+   ['My parents cannot pay the full price at the moment.',1,'Cannot is the full form. It is written as one word.'],
+   ["My parents can't afford to pay the full price at the moment.",0,"Can't is still a contraction. Changing the other words does not help."],
+   ["My parents ain't able to pay the full price at the moment.",0,"Ain't is never correct in school texts."],
+   ['My parents are not able to pay the full price at the moment.',1,'"Are not able to" is a formal way to say "cannot".']]},
+  t5:{cat:'con',kind:'nev',why:"Dunno means \"don't know\". It is spoken English and never correct in school texts.",s:'I [dunno] if other students have asked about this.',o:[
+   ["I don't know if other students have asked about this.",0,"Don't is a contraction, so this is still not formal. In a formal text, write do not."],
+   ['I do not know if other students have asked about this.',1,'Do not is the full form. Good!'],
+   ['I am not sure whether other students have asked about this.',1,'"I am not sure whether" is a formal way to say "I don\'t know if".'],
+   ["I kinda don't know if other students have asked about this.",0,"Kinda is never used in school texts, and don't is a contraction."]]},
+  t6:{cat:'vag',kind:'inf',why:'Stuff is a vague word. Use a more exact word – or leave it out.',s:'Could you also tell me what [stuff] we need to bring?',o:[
+   ['Could you also tell me what equipment we need to bring?',1,'Equipment is more exact than stuff.'],
+   ['Could you also tell me what stuff and things we need to bring?',0,'Two vague words are not better than one!'],
+   ['Could you also tell me what things we need to bring?',0,'Things is just as vague as stuff.'],
+   ['Could you also tell me what we need to bring?',1,'Sometimes the best solution is to remove the vague word.']]},
+  t7:{cat:'con',kind:'nev',why:'Gonna means "going to". It is never correct in school texts.',s:'We are [gonna] stay for four nights.',o:[
+   ["We're gonna stay for four nights.",0,"Gonna is never correct in school texts, and we're is a contraction."],
+   ['We are going to stay for four nights.',1,'Going to is the correct written form.'],
+   ['We will stay for four nights.',1,'Will also works well here.'],
+   ["We're going to stay for four nights.",0,"Going to is correct, but we're is a contraction."]]},
+  t8:{cat:'ab',kind:'inf',why:'Starting a sentence with And is informal. Use a linking word, like Therefore.',s:'[And] I want to pack the right clothes.',o:[
+   ['Therefore, I want to pack the right clothes.',1,'Therefore shows that this follows from the sentence before.'],
+   ['And then I want to pack the right clothes.',0,'"And then" at the start is still informal.'],
+   ['For this reason, I want to pack the right clothes.',1,'"For this reason" works the same way as therefore.'],
+   ['But I want to pack the right clothes.',0,'But at the start is just as informal as And. It also changes the meaning.']]},
+  t9:{cat:'vag',kind:'inf',why:'"And things like that" is vague. Say exactly what you mean.',s:'I also have some questions about food [and things like that].',o:[
+   ['I also have some questions about food and stuff.',0,'"And stuff" is just as vague.'],
+   ['I also have some questions about food or something.',0,'"Or something" is vague, too.'],
+   ['I also have some questions about meals and food allergies.',1,'Now the reader knows exactly what Emma means.'],
+   ['I also have some questions about food.',1,'The vague ending is simply removed. That works fine.']]},
+  t10:{cat:'sm',kind:'inf',why:'OK is spoken English. Leave it out in a formal text.',s:'[OK], those are all my questions.',o:[
+   ['K, those are all my questions.',0,'K is chat language. It is never used in school texts.'],
+   ['Those are all my questions.',1,'The sentence works well without OK.'],
+   ['Okay, those are all my questions.',0,'Okay is the same word as OK, just written in full.'],
+   ['I have no further questions.',1,'This is a formal way to say that you are finished.']]}
+ }
+},{
+ id:'task-2',num:2,title:'An article about sleep',level:2,levelName:'Medium',writer:'Jonas',doc:'article',
+ desc:'Jonas writes an article about teenagers and sleep. The language is a bit informal all the way through, so the words are harder to spot.',
+ situation:'Jonas has written an article for a school assignment. The task says that the article must be formal. The article is not very informal, but Jonas uses informal language in many small places. Find 17 words or phrases that are too informal for a formal article.',
+ text:[
+  '# Why Teenagers Need More Sleep',
+  'Most teenagers [t1:don\'t] get enough sleep. According to experts, young people need eight to ten hours every night. [t2:But] many students sleep for only six or seven hours. This lack of sleep is a problem, as it affects both school and health.',
+  'Teenagers are tired for several reasons. The first reason is screen use. Many young people use their phones in bed, and the light from the screen makes it harder to fall asleep. [t4:Well], social media is designed to keep users scrolling. As a result, [t5:it\'s] easy to lose track of time.',
+  'A second reason is the time spent on homework, sports, part-time jobs and [t6:things like that]. Because of their busy days, many students feel that they [t7:can\'t] finish everything before bedtime. [t8:And] when they finally go to bed, their brains are still active.',
+  'Lack of sleep [t9:does] affect learning. Teachers [t10:do] notice this in the classroom. For example, tired students find it harder to concentrate, and they remember less of what they learn. [t11:They\'re] also more likely to feel stressed. Some studies even show a link between poor sleep and [t12:stuff] like anxiety and low mood.',
+  '[t13:OK], there are ways to solve this problem. One solution is for schools to start later in the morning. This has been tested in several countries, and the results are [t14:kind of] positive. Students can also help themselves. [t15:Yeah], it is hard to put the phone away. [t16:But] a phone-free hour before bed can make a big difference.',
+  'In conclusion, sleep [t17:isn\'t] a waste of time. Therefore, [t18:it\'s] time to take teenagers\' sleep seriously.'],
+ targets:{
+  t1:{cat:'con',kind:'inf',why:"Don't is a contraction. Write the full form in a formal text.",s:"Most teenagers [don't] get enough sleep.",o:[
+   ['Most teenagers do not get enough sleep.',1,'Do not is the full form.'],
+   ['Most teenagers dont get enough sleep.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.'],
+   ["Most teenagers don't really get enough sleep.",0,"Don't is still a contraction, and really adds nothing."],
+   ['Most teenagers fail to get enough sleep.',1,'"Fail to" is a formal way to say "do not".']]},
+  t2:{cat:'ab',kind:'inf',why:'Starting a sentence with But is informal. Use a linking word, like However.',s:'[But] many students sleep for only six or seven hours.',o:[
+   ['And many students sleep for only six or seven hours.',0,'And at the start is just as informal as But.'],
+   ['However, many students sleep for only six or seven hours.',1,'However is a formal linking word. Remember the comma after it.'],
+   ['Plus, many students sleep for only six or seven hours.',0,'Plus is informal, and it also changes the meaning.'],
+   ['In reality, many students sleep for only six or seven hours.',1,'"In reality" shows the contrast in a formal way.']]},
+  t4:{cat:'sm',kind:'inf',why:'Well is a filler word from spoken English. Leave it out, or use a linking word.',s:'[Well], social media is designed to keep users scrolling.',o:[
+   ['Well, social media is, like, designed to keep users scrolling.',0,'Like as a filler is never used in school texts.'],
+   ['Social media is designed to keep users scrolling.',1,'The sentence works well without Well.'],
+   ['In addition, social media is designed to keep users scrolling.',1,'"In addition" links this sentence to the one before.'],
+   ['OK, social media is designed to keep users scrolling.',0,'OK is just as informal as Well.']]},
+  t5:{cat:'con',kind:'inf',why:"It's is a contraction. Write the full form in a formal text.",s:"As a result, [it's] easy to lose track of time.",o:[
+   ['As a result, it is easy to lose track of time.',1,'It is is the full form.'],
+   ['As a result, its easy to lose track of time.',0,'Its without an apostrophe means "belonging to it". This is a spelling mistake.'],
+   ['As a result, users can easily lose track of time.',1,'This is a good formal rewrite.'],
+   ["As a result, it's so easy to lose track of time.",0,"It's is still a contraction."]]},
+  t6:{cat:'vag',kind:'inf',why:'"Things like that" is vague. Say exactly what you mean – or leave it out.',s:'A second reason is the time spent on homework, sports, part-time jobs and [things like that].',o:[
+   ['A second reason is the time spent on homework, sports, part-time jobs and stuff.',0,'"And stuff" is just as vague.'],
+   ['A second reason is the time spent on homework, sports and part-time jobs.',1,'The vague ending is removed. The list works well without it.'],
+   ['A second reason is the time spent on homework, sports, part-time jobs and whatever.',0,'Whatever is vague, and it sounds careless.'],
+   ['A second reason is the time spent on homework, sports, part-time jobs and other activities.',1,'"Other activities" is more exact.']]},
+  t7:{cat:'con',kind:'inf',why:"Can't is a contraction. Write the full form in a formal text.",s:"Because of their busy days, many students feel that they [can't] finish everything before bedtime.",o:[
+   ['Because of their busy days, many students feel that they cannot finish everything before bedtime.',1,'Cannot is the full form. It is written as one word.'],
+   ["Because of their busy days, many students feel like they can't finish everything before bedtime.",0,"Can't is still a contraction, and \"feel like\" is informal."],
+   ["Because of their busy days, many students feel that they ain't able to finish everything before bedtime.",0,"Ain't is never correct in school texts."],
+   ['Because of their busy days, many students feel that they are not able to finish everything before bedtime.',1,'"Are not able to" is a formal way to say "cannot".']]},
+  t8:{cat:'ab',kind:'inf',why:'Starting a sentence with And is informal. Leave it out, or use a linking word.',s:'[And] when they finally go to bed, their brains are still active.',o:[
+   ['But when they finally go to bed, their brains are still active.',0,'But at the start is informal, too.'],
+   ['When they finally go to bed, their brains are still active.',1,'The sentence works well without And.'],
+   ['Furthermore, when they finally go to bed, their brains are still active.',1,'Furthermore is a formal linking word.'],
+   ['And then, when they finally go to bed, their brains are still active.',0,'"And then" at the start is still informal.']]},
+  t9:{cat:'do',kind:'inf',why:'Does for emphasis sounds like speech. A strong adverb works better in a formal text.',s:'Lack of sleep [does] affect learning.',o:[
+   ['Lack of sleep clearly affects learning.',1,'Clearly makes the sentence strong in a formal way. Notice the -s in affects.'],
+   ['Lack of sleep does really affect learning.',0,'Does is still there, and really sounds like speech.'],
+   ['Lack of sleep totally affects learning.',0,'Totally is informal.'],
+   ['Lack of sleep has a clear effect on learning.',1,'This is a good formal rewrite.']]},
+  t10:{cat:'do',kind:'inf',why:'Do for emphasis sounds like speech. Use an adverb instead.',s:'Teachers [do] notice this in the classroom.',o:[
+   ['Teachers certainly notice this in the classroom.',1,'Certainly is a formal adverb that makes the sentence stronger.'],
+   ['Teachers, like, notice this in the classroom.',0,'Like as a filler is never used in school texts.'],
+   ['Teachers notice this in the classroom, yeah.',0,'Yeah is spoken English.'],
+   ['Teachers often notice this in the classroom.',1,'Often is a good adverb here.']]},
+  t11:{cat:'con',kind:'inf',why:"They're is a contraction. Write the full form in a formal text.",s:"[They're] also more likely to feel stressed.",o:[
+   ['Their also more likely to feel stressed.',0,'Their means "belonging to them". This is a spelling mistake.'],
+   ['They are also more likely to feel stressed.',1,'They are is the full form.'],
+   ["They're also kind of more likely to feel stressed.",0,"They're is a contraction, and kind of is vague."],
+   ['In addition, they are more likely to feel stressed.',1,'This is formal, and In addition links it to the sentence before.']]},
+  t12:{cat:'vag',kind:'inf',why:'Stuff is a vague word. Use a more exact word.',s:'Some studies even show a link between poor sleep and [stuff] like anxiety and low mood.',o:[
+   ['Some studies even show a link between poor sleep and problems such as anxiety and low mood.',1,'Problems is more exact, and "such as" is more formal than like.'],
+   ['Some studies even show a link between poor sleep and things like anxiety and low mood.',0,'Things is just as vague as stuff.'],
+   ['Some studies even show a link between poor sleep and stuff such as anxiety and low mood.',0,'"Such as" is good, but stuff is still vague.'],
+   ['Some studies even show a link between poor sleep and mental health problems, such as anxiety and low mood.',1,'"Mental health problems" says exactly what Jonas means.']]},
+  t13:{cat:'sm',kind:'inf',why:'OK is spoken English. Leave it out in a formal text.',s:'[OK], there are ways to solve this problem.',o:[
+   ['K, there are ways to solve this problem.',0,'K is chat language. It is never used in school texts.'],
+   ['There are ways to solve this problem.',1,'The sentence works well without OK.'],
+   ['Okay, there are ways to solve this problem.',0,'Okay is just as informal as OK.'],
+   ['Fortunately, there are ways to solve this problem.',1,'Fortunately is a formal word that fits well here.']]},
+  t14:{cat:'vag',kind:'inf',why:'"Kind of" is vague. Use a more exact word.',s:'This has been tested in several countries, and the results are [kind of] positive.',o:[
+   ['This has been tested in several countries, and the results are quite positive.',1,'Quite is more formal than kind of.'],
+   ['This has been tested in several countries, and the results are kinda positive.',0,'Kinda is never used in school texts.'],
+   ['This has been tested in several countries, and the results are mostly positive.',1,'Mostly is exact and formal.'],
+   ['This has been tested in several countries, and the results are sort of positive.',0,'"Sort of" is just as vague as "kind of".']]},
+  t15:{cat:'sm',kind:'inf',why:'Yeah is spoken English. Leave it out, or use a formal word.',s:'[Yeah], it is hard to put the phone away.',o:[
+   ['Yep, it is hard to put the phone away.',0,'Yep is even more informal than yeah.'],
+   ['Admittedly, it is hard to put the phone away.',1,'Admittedly is a formal way to say that something is true.'],
+   ['Sure, it is hard to put the phone away.',0,'Sure is spoken English, just like yeah.'],
+   ['It is hard to put the phone away.',1,'The sentence works well without Yeah.']]},
+  t16:{cat:'ab',kind:'inf',why:'Starting a sentence with But is informal. Use a linking word, like However.',s:'[But] a phone-free hour before bed can make a big difference.',o:[
+   ['However, a phone-free hour before bed can make a big difference.',1,'However is a formal linking word.'],
+   ['And a phone-free hour before bed can make a big difference.',0,'And at the start is informal, and it changes the meaning.'],
+   ['Nevertheless, a phone-free hour before bed can make a big difference.',1,'Nevertheless is a formal way to say "but still".'],
+   ['But, like, a phone-free hour before bed can make a big difference.',0,'Now there are two informal words: But and like.']]},
+  t17:{cat:'con',kind:'inf',why:"Isn't is a contraction. Write the full form in a formal text.",s:"In conclusion, sleep [isn't] a waste of time.",o:[
+   ["In conclusion, sleep ain't a waste of time.",0,"Ain't is never correct in school texts."],
+   ['In conclusion, sleep is not a waste of time.',1,'Is not is the full form.'],
+   ['In conclusion, sleep isnt a waste of time.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.'],
+   ['In conclusion, sleep is by no means a waste of time.',1,'"By no means" is a strong and formal way to say "not".']]},
+  t18:{cat:'con',kind:'inf',why:"It's is a contraction. Write the full form in a formal text.",s:"Therefore, [it's] time to take teenagers' sleep seriously.",o:[
+   ["Therefore, it is time to take teenagers' sleep seriously.",1,'It is is the full form.'],
+   ["Therefore, it's about time to take teenagers' sleep seriously.",0,"It's is still a contraction."],
+   ["Therefore, teenagers' sleep should be taken seriously.",1,'This is a good formal ending.'],
+   ["Therefore, its time to take teenagers' sleep seriously.",0,'Its without an apostrophe means "belonging to it". This is a spelling mistake.']]}
+ }
+},{
+ id:'task-3',num:3,title:'A report on the school canteen',level:3,levelName:'Hard',writer:'Sara',doc:'report',
+ desc:'Sara writes a report for the student council. The text is well organised, so the informal words are hard to spot.',
+ situation:'Sara is a member of the student council. She has written a report about a student survey on the school canteen. A report must be formal, and Sara\'s text is well organised. However, she uses informal language in many small places – especially contractions and vague words. Find 19 words or phrases that are too informal for a formal report.',
+ text:[
+  '# Report on the School Canteen Survey',
+  '## Introduction',
+  'This report presents the results of a survey about the school canteen. The survey was carried out in October, and 214 students from all three year groups took part. The aim was to find out what students think about the food, the prices [t1:and other stuff] in the canteen. In addition, the report gives some recommendations for the future.',
+  '## Findings',
+  'Overall, the results [t2:weren\'t] very positive. Only 38 per cent of the students said that they were satisfied with the canteen. The main complaint was the price. A hot meal costs 65 kroner, which many students find [t3:sort of] expensive. Furthermore, [t4:there\'s] a lack of healthy options. According to many students, the canteen mostly sells pizza, buns [t5:and stuff like that].',
+  '[t6:But] the students were more positive about the staff. More than 70 per cent said that the staff are friendly and helpful. In particular, the staff [t7:do] make an effort to help students with allergies.',
+  'The biggest problem, however, is the queue. During the lunch break, students often wait for fifteen minutes, so they [t8:don\'t] have much time left to eat. [t9:Basically], the canteen is too small for the number of students. Some students also mentioned [t10:things] like dirty tables and broken chairs.',
+  '## Recommendations',
+  'Based on these findings, the student council suggests the following changes. First, the canteen should offer a cheaper meal of the day, since many students [t11:can\'t] afford the current prices. Second, the canteen should sell more fruit, salads and [t12:other healthy stuff]. Third, the school should introduce [t13:some kind of] system that splits the lunch break into two parts. Such a change [t14:wouldn\'t] cost much, and it would reduce the queues considerably.',
+  '[t15:And] the canteen could ask students for feedback more often. The student council [t16:does] believe that these changes are realistic.',
+  '## Conclusion',
+  '[t17:Anyway], the survey shows that the canteen needs to improve. Most importantly, students [t18:aren\'t] satisfied with the prices or the queues. However, with a few simple changes, [t19:it\'s] possible to make the canteen a better place for everyone.'],
+ targets:{
+  t1:{cat:'vag',kind:'inf',why:'"Other stuff" is vague. Say exactly what you mean.',s:'The aim was to find out what students think about the food, the prices [and other stuff] in the canteen.',o:[
+   ['The aim was to find out what students think about the food, the prices and other things in the canteen.',0,'"Other things" is just as vague as "other stuff".'],
+   ['The aim was to find out what students think about the food, the prices and other aspects of the canteen.',1,'"Aspects" is a precise, formal word.'],
+   ['The aim was to find out what students think about the food, the prices and the atmosphere in the canteen.',1,'"The atmosphere" says exactly what Sara means.'],
+   ['The aim was to find out what students think about the food, the prices and stuff in the canteen.',0,'Stuff is still vague.']]},
+  t2:{cat:'con',kind:'inf',why:"Weren't is a contraction. Write the full form in a formal text.",s:"Overall, the results [weren't] very positive.",o:[
+   ['Overall, the results were not very positive.',1,'Were not is the full form.'],
+   ['Overall, the results werent very positive.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.'],
+   ['Overall, the results were rather negative.',1,'This is a good formal rewrite.'],
+   ["Overall, the results weren't that positive.",0,"Weren't is still a contraction, and \"that positive\" sounds like speech."]]},
+  t3:{cat:'vag',kind:'inf',why:'"Sort of" is vague. Use a more exact word.',s:'A hot meal costs 65 kroner, which many students find [sort of] expensive.',o:[
+   ['A hot meal costs 65 kroner, which many students find kinda expensive.',0,'Kinda is never used in school texts.'],
+   ['A hot meal costs 65 kroner, which many students find too expensive.',1,'"Too expensive" is clear and exact.'],
+   ['A hot meal costs 65 kroner, which many students find kind of expensive.',0,'"Kind of" is just as vague as "sort of".'],
+   ['A hot meal costs 65 kroner, which many students find rather expensive.',1,'Rather is more formal than "sort of".']]},
+  t4:{cat:'con',kind:'inf',why:"There's is a contraction. Write the full form in a formal text.",s:"Furthermore, [there's] a lack of healthy options.",o:[
+   ['Furthermore, there is a lack of healthy options.',1,'There is is the full form.'],
+   ["Furthermore, there's kind of a lack of healthy options.",0,"There's is still a contraction, and \"kind of\" is vague."],
+   ['Furthermore, theres a lack of healthy options.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.'],
+   ['Furthermore, the canteen offers few healthy options.',1,'This is a good formal rewrite.']]},
+  t5:{cat:'vag',kind:'inf',why:'"And stuff like that" is vague. Say exactly what you mean.',s:'According to many students, the canteen mostly sells pizza, buns [and stuff like that].',o:[
+   ['According to many students, the canteen mostly sells pizza, buns and other unhealthy food.',1,'"Other unhealthy food" says exactly what Sara means.'],
+   ['According to many students, the canteen mostly sells pizza, buns and whatever.',0,'Whatever is vague, and it sounds careless.'],
+   ['According to many students, the canteen mostly sells pizza and buns.',1,'The vague ending is removed. The sentence works well without it.'],
+   ['According to many students, the canteen mostly sells pizza, buns and things like that.',0,'"Things like that" is just as vague.']]},
+  t6:{cat:'ab',kind:'inf',why:'Starting a sentence with But is informal. Use a linking word, like However.',s:'[But] the students were more positive about the staff.',o:[
+   ['And the students were more positive about the staff.',0,'And at the start is informal, and it changes the meaning.'],
+   ['However, the students were more positive about the staff.',1,'However is a formal linking word.'],
+   ['But yeah, the students were more positive about the staff.',0,'Now there are two informal words: But and yeah.'],
+   ['On the other hand, the students were more positive about the staff.',1,'"On the other hand" shows the contrast in a formal way.']]},
+  t7:{cat:'do',kind:'inf',why:'Do for emphasis sounds like speech. A strong adverb works better in a formal text.',s:'In particular, the staff [do] make an effort to help students with allergies.',o:[
+   ['In particular, the staff clearly make an effort to help students with allergies.',1,'Clearly makes the sentence strong in a formal way.'],
+   ['In particular, the staff do really make an effort to help students with allergies.',0,'Do is still there, and really sounds like speech.'],
+   ['In particular, the staff make a real effort to help students with allergies.',1,'"A real effort" is a formal way to make the sentence stronger.'],
+   ['In particular, the staff totally make an effort to help students with allergies.',0,'Totally is informal.']]},
+  t8:{cat:'con',kind:'inf',why:"Don't is a contraction. Write the full form in a formal text.",s:"During the lunch break, students often wait for fifteen minutes, so they [don't] have much time left to eat.",o:[
+   ["During the lunch break, students often wait for fifteen minutes, so they don't really have much time left to eat.",0,"Don't is still a contraction, and really adds nothing."],
+   ['During the lunch break, students often wait for fifteen minutes, so they do not have much time left to eat.',1,'Do not is the full form.'],
+   ['During the lunch break, students often wait for fifteen minutes, so they have little time left to eat.',1,'"Have little time" is a short and formal rewrite.'],
+   ['During the lunch break, students often wait for fifteen minutes, so they dont have much time left to eat.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.']]},
+  t9:{cat:'sm',kind:'inf',why:'Basically is a filler word from spoken English. Leave it out, or use a formal phrase.',s:'[Basically], the canteen is too small for the number of students.',o:[
+   ['In short, the canteen is too small for the number of students.',1,'"In short" is a formal way to sum up.'],
+   ['Like, the canteen is too small for the number of students.',0,'Like as a filler is never used in school texts.'],
+   ['OK, so the canteen is too small for the number of students.',0,'"OK, so" is spoken English.'],
+   ['The canteen is simply too small for the number of students.',1,'Simply makes the point clear in a formal way.']]},
+  t10:{cat:'vag',kind:'inf',why:'Things is a vague word. Use a more exact word.',s:'Some students also mentioned [things] like dirty tables and broken chairs.',o:[
+   ['Some students also mentioned problems such as dirty tables and broken chairs.',1,'Problems is more exact, and "such as" is more formal than like.'],
+   ['Some students also mentioned stuff like dirty tables and broken chairs.',0,'Stuff is just as vague as things.'],
+   ['Some students also mentioned things such as dirty tables and broken chairs.',0,'"Such as" is good, but things is still vague.'],
+   ['Some students also mentioned issues such as dirty tables and broken chairs.',1,'Issues is a precise, formal word.']]},
+  t11:{cat:'con',kind:'inf',why:"Can't is a contraction. Write the full form in a formal text.",s:"First, the canteen should offer a cheaper meal of the day, since many students [can't] afford the current prices.",o:[
+   ['First, the canteen should offer a cheaper meal of the day, since many students cannot afford the current prices.',1,'Cannot is the full form. It is written as one word.'],
+   ['First, the canteen should offer a cheaper meal of the day, since many students cant afford the current prices.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.'],
+   ["First, the canteen should offer a cheaper meal of the day, since many students can't really afford the current prices.",0,"Can't is still a contraction, and really adds nothing."],
+   ['First, the canteen should offer a cheaper meal of the day, since many students are unable to afford the current prices.',1,'"Are unable to" is a formal way to say "cannot".']]},
+  t12:{cat:'vag',kind:'inf',why:'"Other healthy stuff" is vague. Use a more exact word.',s:'Second, the canteen should sell more fruit, salads and [other healthy stuff].',o:[
+   ['Second, the canteen should sell more fruit, salads and other healthy things.',0,'Things is just as vague as stuff.'],
+   ['Second, the canteen should sell more fruit, salads and other healthy food.',1,'Food is more exact than stuff.'],
+   ['Second, the canteen should sell more fruit, salads and other healthy options.',1,'Options is a precise, formal word here.'],
+   ['Second, the canteen should sell more fruit, salads and other healthy stuff like that.',0,'"Stuff like that" is even more vague.']]},
+  t13:{cat:'vag',kind:'inf',why:'"Some kind of" is vague. Be more exact.',s:'Third, the school should introduce [some kind of] system that splits the lunch break into two parts.',o:[
+   ['Third, the school should introduce a system that splits the lunch break into two parts.',1,'"A system" is clear. The vague words are not needed.'],
+   ['Third, the school should introduce some sort of system that splits the lunch break into two parts.',0,'"Some sort of" is just as vague as "some kind of".'],
+   ['Third, the school should introduce a new system that splits the lunch break into two parts.',1,'"A new system" is clear and formal.'],
+   ['Third, the school should introduce some kinda system that splits the lunch break into two parts.',0,'Kinda is never used in school texts.']]},
+  t14:{cat:'con',kind:'inf',why:"Wouldn't is a contraction. Write the full form in a formal text.",s:"Such a change [wouldn't] cost much, and it would reduce the queues considerably.",o:[
+   ["Such a change wouldn't cost loads, and it would reduce the queues considerably.",0,"Loads is informal, and wouldn't is still a contraction."],
+   ['Such a change would not cost much, and it would reduce the queues considerably.',1,'Would not is the full form.'],
+   ['Such a change wouldnt cost much, and it would reduce the queues considerably.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.'],
+   ['Such a change would be inexpensive, and it would reduce the queues considerably.',1,'Inexpensive is a formal way to say "not expensive".']]},
+  t15:{cat:'ab',kind:'inf',why:'Starting a sentence with And is informal. Use a linking word instead.',s:'[And] the canteen could ask students for feedback more often.',o:[
+   ['Finally, the canteen could ask students for feedback more often.',1,'Finally is a formal linking word for the last point.'],
+   ['But the canteen could ask students for feedback more often.',0,'But at the start is informal, and it changes the meaning.'],
+   ['In addition, the canteen could ask students for feedback more often.',1,'"In addition" is a formal linking word.'],
+   ['And also, the canteen could ask students for feedback more often.',0,'"And also" at the start is still informal.']]},
+  t16:{cat:'do',kind:'inf',why:'Does for emphasis sounds like speech. Use a strong adverb or another formal phrase.',s:'The student council [does] believe that these changes are realistic.',o:[
+   ['The student council does really believe that these changes are realistic.',0,'Does is still there, and really sounds like speech.'],
+   ['The student council firmly believes that these changes are realistic.',1,'Firmly is a formal adverb that makes the sentence stronger.'],
+   ['The student council totally believes that these changes are realistic.',0,'Totally is informal.'],
+   ['The student council is confident that these changes are realistic.',1,'"Is confident that" is clear and formal.']]},
+  t17:{cat:'sm',kind:'inf',why:'Anyway is a filler word from spoken English. Use a formal phrase to start a conclusion.',s:'[Anyway], the survey shows that the canteen needs to improve.',o:[
+   ['In conclusion, the survey shows that the canteen needs to improve.',1,'"In conclusion" is the classic formal way to start a conclusion.'],
+   ['So yeah, the survey shows that the canteen needs to improve.',0,'"So yeah" is spoken English.'],
+   ['To sum up, the survey shows that the canteen needs to improve.',1,'"To sum up" is a formal way to start a conclusion.'],
+   ['Anyways, the survey shows that the canteen needs to improve.',0,'Anyways is even more informal than anyway.']]},
+  t18:{cat:'con',kind:'inf',why:"Aren't is a contraction. Write the full form in a formal text.",s:"Most importantly, students [aren't] satisfied with the prices or the queues.",o:[
+   ["Most importantly, students ain't satisfied with the prices or the queues.",0,"Ain't is never correct in school texts."],
+   ['Most importantly, students are not satisfied with the prices or the queues.',1,'Are not is the full form.'],
+   ['Most importantly, students are dissatisfied with the prices and the queues.',1,'Dissatisfied is a precise, formal word.'],
+   ['Most importantly, students arent satisfied with the prices or the queues.',0,'Without the apostrophe, this is a spelling mistake – and it is still a contraction.']]},
+  t19:{cat:'con',kind:'inf',why:"It's is a contraction. Write the full form in a formal text.",s:"However, with a few simple changes, [it's] possible to make the canteen a better place for everyone.",o:[
+   ['However, with a few simple changes, it is possible to make the canteen a better place for everyone.',1,'It is is the full form.'],
+   ['However, with a few simple changes, its possible to make the canteen a better place for everyone.',0,'Its without an apostrophe means "belonging to it". This is a spelling mistake.'],
+   ['However, with a few simple changes, the canteen can become a better place for everyone.',1,'This is a good formal rewrite.'],
+   ["However, with a few simple changes, it's totally possible to make the canteen a better place for everyone.",0,"It's is still a contraction, and totally is informal."]]}
+ }
+}];
+
+/* Note under the task list on the front page. Write e.g. 'More tasks will be added.' to show it; leave empty to hide it. */
+const MORE_NOTE='';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const hot=window.claude&&window.claude.hot;
+const states=(hot&&hot.data&&typeof hot.data==='object')?hot.data:{};
+if(hot&&hot.snapshot){try{hot.snapshot(()=>states)}catch(e){}}
+const fresh=name=>({name:name||'',marks:[],checked:false,answers:{},fixes:{}});
+function st(id){
+ if(!states[id]){const s=store.get('fi-'+id);states[id]=s&&typeof s==='object'?{name:String(s.name||''),marks:Array.isArray(s.marks)?s.marks.filter(Number.isInteger):[],checked:!!s.checked,answers:(s.answers&&typeof s.answers==='object')?s.answers:{},fixes:(s.fixes&&typeof s.fixes==='object')?s.fixes:{}}:fresh()}
+ if(!states[id].fixes)states[id].fixes={};
+ return states[id];
+}
+const save=id=>store.set('fi-'+id,states[id]);
+
+function split(s,tid,words){const out=[];const re=/([A-Za-z0-9'’]+)|(\s+)|([^A-Za-z0-9'’\s]+)/g;let m;while((m=re.exec(s))){if(m[1]){out.push({w:words.length});words.push({text:m[1],tid})}else out.push({t:m[0]})}return out}
+function parse(task){
+ if(task._p)return task._p;
+ const words=[],order=[],surf={};
+ const paras=task.text.map(p=>{p=p.replace(/^#{1,2} /,'');
+  const parts=[];const re=/\[(t\d+):([^\]]+)\]/g;let last=0,m;
+  while((m=re.exec(p))){if(m.index>last)parts.push({tid:null,s:p.slice(last,m.index)});parts.push({tid:m[1],s:m[2]});last=re.lastIndex}
+  if(last<p.length)parts.push({tid:null,s:p.slice(last)});
+  return parts.map(pt=>{if(pt.tid){order.push(pt.tid);surf[pt.tid]=pt.s}return{tid:pt.tid,toks:split(pt.s,pt.tid,words)}});
+ });
+ return task._p={paras,words,order,surf};
+}
+function stats(task,s){
+ const P=parse(task),marks=new Set(s.marks);
+ const found=id=>P.words.some((w,i)=>w.tid===id&&marks.has(i));
+ const hits=P.order.filter(found).length;
+ const wrong=s.marks.filter(i=>P.words[i]&&!P.words[i].tid).map(i=>P.words[i].text);
+ const answered=P.order.filter(id=>s.answers[id]!==undefined).length;
+ const good=P.order.filter(id=>{const a=s.answers[id];return a!==undefined&&task.targets[id].o[a]&&task.targets[id].o[a][1]===1}).length;
+ const final=id=>{const q=task.targets[id],a=s.answers[id];if(a===undefined||!q.o[a])return undefined;if(q.o[a][1]===1)return a;const f=s.fixes[id];return f!==undefined&&q.o[f]&&q.o[f][1]===1?f:undefined};
+ const complete=P.order.every(id=>final(id)!==undefined);
+ return{P,found,hits,wrong,answered,good,final,complete,total:P.order.length};
+}
+const hcls=p=>p.startsWith('## ')?'sub':p.startsWith('# ')?'ttl':'';
+function version(t,s){const x=stats(t,s),P=x.P;return t.text.map(p=>{const ttl=hcls(p);p=p.replace(/^#{1,2} /,'');const txt=p.replace(/\[t\d+:([^\]]+)\]/g,'$1');let html=esc(txt),out=txt;
+ P.order.forEach((id,k)=>{const q=t.targets[id],a=x.final(id);if(a===undefined)return;const from=plain(q.s);if(!txt.includes(from))return;const o=q.o[a];
+  html=html.replace(esc(from),()=>`<span class="rw">${esc(o[0])}</span>`);out=out.replace(from,()=>o[0])});
+ return{html,text:out,ttl}})}
+const sentHTML=s=>esc(s).replace(/\[([^\]]+)\]/,'<span class="hl">$1</span>');
+const plain=s=>s.replace(/\[|\]/g,'');
+const dots=n=>'<span class="dots" aria-hidden="true">'+[1,2,3].map(i=>`<i class="${i<=n?'f':''}"></i>`).join('')+'</span>';
+
+function renderHome(){
+ const cats=Object.entries(CATS).map(([k,c])=>`<article class="cat c-${k}"><h3><span class="chip">${c.name}</span></h3><p>${c.desc}</p><dl><dt class="dt-f">Formal</dt><dd>${esc(c.f)}</dd><dt class="dt-i">Informal</dt><dd>${esc(c.i)}</dd><dt class="dt-n">Never</dt><dd>${esc(c.n)}</dd></dl></article>`).join('');
+ const tasks=TASKS.map(t=>{const s=st(t.id),x=stats(t,s);const status=s.checked&&x.complete?'Finished':(s.marks.length||x.answered?'Started':'Not started');
+  return `<div class="task"><div class="num">${t.num}</div><div><h3>Task ${t.num}: ${esc(t.title)}</h3><p>${dots(t.level)}Level ${t.level} – ${t.levelName} · ${x.total} words and phrases to find · <span class="status">${status}</span></p><p>${esc(t.desc)}</p></div><a class="btn" href="#${t.id}">${status==='Not started'?'Start':'Open'}</a></div>`}).join('');
+ app.innerHTML=`<header class="band top"><div class="wrap hero"><div><h1>Formal or informal?</h1><p class="lead" style="margin-top:14px">Some words are fine in a message to a friend, but wrong in a formal text. Learn to find them – and choose better words.</p></div>
+ <div class="strip"><div class="lab">Informal</div><p><span class="hl c-sm">Yeah</span>, I <span class="hl c-con">dunno</span>. <span class="hl c-ab">But</span> I <span class="hl c-do">do</span> think it is about money and <span class="hl c-vag">stuff</span>.</p><div class="arrow" aria-hidden="true">↓</div><div class="lab">Formal</div><p><span class="fx c-con">I am not sure</span>. <span class="fx c-ab">However</span>, I <span class="fx c-do">strongly</span> believe it is about money and <span class="fx c-vag">time</span>.</p></div></div></header>
+ <section class="band"><div class="wrap"><h2>Five things to look for</h2><p class="note">Each type has its own colour. You will see the same colours in the tasks.</p><div class="cats">${cats}
+ <div class="key"><h3>Informal or never?</h3><p style="margin-top:10px"><span class="badge b-inf">Informal</span> Fine in a message to a friend or a personal blog, but not in a formal text.</p><p style="margin:0"><span class="badge b-nev">Never</span> Wrong in all school texts. These words belong in spoken English and chat.</p></div></div></div></section>
+ <section class="band" style="padding-top:0"><div class="wrap"><h2>Tasks</h2><p class="note">Start with Task 1. Each task has two parts: first you find the informal words, then you choose better ones.</p><div class="tasks">${tasks}</div>${MORE_NOTE?`<p class="note" style="margin-top:14px">${MORE_NOTE}</p>`:''}</div></section>
+ <section class="band" style="padding-top:0"><div class="wrap"><h2>All results</h2><p class="note">Download one PDF with your results from all the tasks you have worked on.</p><div class="tools" style="border:0;padding-top:4px;justify-content:flex-start"><div><label for="allname">Your name</label><input id="allname" autocomplete="name" placeholder="Write your name"></div><button class="btn" data-act="pdfall">Download all results as one PDF</button></div><p class="msg" id="msg" role="status"></p></div></section>`;
+ const an=store.get('fi-allname');document.getElementById('allname').value=typeof an==='string'&&an?an:(TASKS.map(x=>st(x.id).name).find(n=>n&&n.trim())||'');
+}
+
+function renderTask(t){
+ const s=st(t.id),x=stats(t,s),P=x.P,marks=new Set(s.marks);
+ const num=id=>P.order.indexOf(id)+1;
+ const sheet=P.paras.map((p,pi)=>'<p class="'+hcls(t.text[pi])+'">'+p.map(pt=>{
+  const inner=pt.toks.map(tk=>{if(tk.t!==undefined)return esc(tk.t);const w=P.words[tk.w];let c='w';if(marks.has(tk.w))c+=s.checked?(w.tid?'':' wrong'):' on';return `<span class="${c}" data-i="${tk.w}">${esc(w.text)}</span>`}).join('');
+  if(!pt.tid||!s.checked)return inner;
+  return `<span class="tg c-${t.targets[pt.tid].cat} ${x.found(pt.tid)?'hit':'miss'}">${inner}<sup class="n">${num(pt.tid)}</sup></span>`;
+ }).join('')+'</p>').join('');
+ const usedCats=[...new Set(P.order.map(id=>t.targets[id].cat))];
+ const part1res=s.checked?`<div class="res"><div class="big">${x.hits} / ${x.total}</div><div><p style="margin:0 0 4px"><b>You found ${x.hits} of ${x.total} informal words.</b> ${x.wrong.length?`You also marked ${x.wrong.length} word${x.wrong.length>1?'s':''} that ${x.wrong.length>1?'are':'is'} fine in a formal text.`:''}</p>
+  <div class="legend">${usedCats.map(k=>`<span><span class="chip c-${k}" style="font-size:14px">${CATS[k].name}</span></span>`).join('')}</div>
+  <div class="legend"><span><span class="tg miss c-ab" style="--c:var(--muted)">dashed line</span> = you missed it</span><span><span class="w wrong">line through</span> = this word is fine</span></div></div></div>`:'';
+ const qs=P.order.map((id,k)=>{
+  const q=t.targets[id],a=s.answers[id],done=a!==undefined,f=s.fixes[id],needFix=done&&q.o[a]&&q.o[a][1]!==1&&f===undefined;
+  const opts=q.o.map((o,j)=>{let c='',mk='',dis=done;if(done){if(j===a){c=['bad','ok','close'][o[1]];mk=['✗','✓','~'][o[1]]}else if(j===f){c='ok';mk='✓'}else if(o[1]===1){c='alt';mk='✓';if(needFix)dis=false}}
+   return `<button class="opt ${c}" data-tid="${id}" data-opt="${j}" ${dis?'disabled':''}><span class="mk">${mk}</span><span>${esc(o[0])}</span></button>`}).join('');
+  let fb='';if(done&&q.o[a]){const o=q.o[a];fb=`<div class="fb ${['bad','ok','close'][o[1]]}"><b>${['Not quite.','Good choice!','Almost!'][o[1]]}</b> ${esc(o[2])}${o[1]!==1?'':(q.o.filter(z=>z[1]===1).length>1?' The other good answer is marked with ✓.':'')}</div>`;
+  if(o[1]!==1)fb+=f===undefined?`<div class="fb close"><b>Your turn:</b> Choose one of the good answers marked with ✓. That sentence goes into your ${t.doc}.</div>`:`<div class="fb ok"><b>Good.</b> This sentence goes into your ${t.doc}.</div>`}
+  return `<article class="q c-${q.cat}" id="q-${id}"><div class="qh"><span class="qn">${k+1}</span><span class="chip">${CATS[q.cat].name}</span><span class="badge ${q.kind==='nev'?'b-nev':'b-inf'}">${q.kind==='nev'?'Never':'Informal'}</span></div><p class="why">${esc(q.why)}</p><p class="orig"><span class="lab">${esc(t.writer)} wrote:</span>${sentHTML(q.s)}</p><span class="ask">Choose a sentence that fits a formal text:</span><div class="opts">${opts}</div>${fb}</article>`;
+ }).join('');
+ const todo=(sty)=>{if(!s.checked)return `<div class="fb close" style="${sty}"><b>Not finished yet.</b> Do Part 1 first. Then choose a good sentence for every question in Part 2. After that, you will see your own version of ${esc(t.writer)}'s ${t.doc}.</div>`;
+  if(x.complete)return '';
+  const open=P.order.map((id,k)=>({id,k})).filter(o=>x.final(o.id)===undefined);
+  return `<div class="fb close todo" style="${sty}"><b>Not finished yet.</b> You must choose a good sentence (✓) for every question before you can see your own version of ${esc(t.writer)}'s ${t.doc}. Go back to:<div class="jumps">${open.map(o=>`<button class="btn ghost" data-act="goto" data-q="${o.id}">Question ${o.k+1}${s.answers[o.id]!==undefined?' – choose a ✓':''}</button>`).join('')}</div></div>`};
+ const ver=x.complete?`<h3 style="margin:30px 0 8px;font-size:24px;font-weight:700">Your version of ${esc(t.writer)}'s ${t.doc}</h3><p class="note">This is ${esc(t.writer)}'s ${t.doc} with the sentences you chose. The new sentences have a light green background.</p><div class="sheet done">${version(t,s).map(v=>'<p class="'+v.ttl+'">'+v.html+'</p>').join('')}</div>`:todo('margin-top:24px');
+ app.innerHTML=`<header class="band top"><div class="wrap"><a class="back" href="#home">← Front page</a><h1>Task ${t.num}: ${esc(t.title)}</h1><p class="meta">${dots(t.level)}Level ${t.level} – ${t.levelName}</p></div></header>
+ <div class="band" style="padding-block:0"><div class="wrap">
+ <div class="tools"><div><label for="name">Your name</label><input id="name" autocomplete="name" placeholder="Write your name"></div><div class="grp"><button class="btn ghost" data-act="reset" id="reset">Reset task</button></div></div>
+ <section class="part"><h2>Part 1 – Find the informal words</h2><div class="sit"><p style="margin:0">${esc(t.situation)}</p><ol><li>Click a word to mark it. It turns yellow.</li><li>Click the word again to remove the mark.</li><li>Click <b>Check</b> when you are done.</li></ol></div>
+ <div class="sheet ${s.checked?'done':''}" id="sheet">${sheet}</div>
+ <div class="bar"><span class="count" id="count">${s.checked?'Checked':'Words marked: '+s.marks.length}</span>${s.checked?'':'<button class="btn" data-act="check">Check</button>'}</div>${part1res}</section>
+ <section class="part"><h2>Part 2 – Choose a formal alternative</h2>${s.checked?`<p>Now make ${esc(t.writer)}'s ${t.doc} formal. Choose one sentence for each question. There can be more than one good answer, but some answers are not good at all. You only get one try! At the end, you will see the ${t.doc} with your own choices.</p><div class="qs">${qs}</div>${ver}`:'<p class="lock">Finish Part 1 first. Then you can start Part 2.</p>'}</section>
+ <section class="part" style="border:0"><h2>Your results</h2><div class="final"><div><div class="big">${s.checked?x.hits+' / '+x.total:'–'}</div>Part 1: informal words found</div><div><div class="big">${x.answered?x.good+' / '+x.total:'–'}</div>Part 2: right on the first try</div></div>
+ ${todo('margin-bottom:16px')}<p>Save your results as a PDF file. It goes to your Downloads folder.</p><button class="btn" data-act="pdf">Download results (PDF)</button><p class="msg" id="msg" role="status"></p></section>
+ </div></div>`;
+ document.getElementById('name').value=s.name;
+}
+
+/* ---------- PDF ---------- */
+const HW=[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584];
+const cw=c=>{const k=c.charCodeAt(0);return k>=32&&k<=126?HW[k-32]:556};
+const tw=(s,size,b)=>{let w=0;for(const c of s)w+=cw(c);return w*size/1000*(b?1.08:1)};
+function wrap(s,size,b,max){const out=[];let line='';for(const word of s.split(' ')){const t=line?line+' '+word:word;if(tw(t,size,b)>max&&line){out.push(line);line=word}else line=t}out.push(line);return out}
+const WIN={'–':150,'—':151,'‘':145,'’':146,'“':147,'”':148,'•':149,'…':133};
+function pesc(s){let o='';for(const c of s){let k=c in WIN?WIN[c]:c.charCodeAt(0);if(k>255||k<32){o+='?';continue}if(c==='\\'||c==='('||c===')'){o+='\\'+c;continue}o+=k<128?c:'\\'+k.toString(8).padStart(3,'0')}return o}
+function makePDF(){
+ const PW=595,PH=842,M=50,pages=[];let ops,y;
+ const col=c=>c.map(v=>(v/255).toFixed(3)).join(' ');
+ const newPage=()=>{ops=[];pages.push(ops);y=PH-M};newPage();
+ const d={PW,PH,M,
+  page(){newPage()},
+  get y(){return y},set y(v){y=v},
+  space(h){y-=h},
+  rect(x,yy,w,h,c){ops.push(`${col(c)} rg ${x} ${yy} ${w} ${h} re f`)},
+  at(x,yy,s,size,b,c){ops.push(`BT /${b?'F2':'F1'} ${size} Tf ${col(c)} rg ${x} ${yy} Td (${pesc(s)}) Tj ET`)},
+  text(s,o={}){const size=o.size||11,b=!!o.bold,ind=o.indent||0,lh=size*1.45;wrap(String(s),size,b,PW-2*M-ind).forEach((ln,i)=>{if(y-lh<M)newPage();y-=lh;if(i===0&&o.sw)d.rect(M+ind-14,y-1,9,9,o.sw);d.at(M+ind,y.toFixed(1),ln,size,b,o.color||[26,29,43])})},
+  out(){const objs=[];objs[1]='<< /Type /Catalog /Pages 2 0 R >>';
+   objs[2]=`<< /Type /Pages /Kids [${pages.map((_,i)=>`${5+2*i} 0 R`).join(' ')}] /Count ${pages.length} >>`;
+   objs[3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
+   objs[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+   pages.forEach((p,i)=>{const c=p.join('\n');objs[5+2*i]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${6+2*i} 0 R >>`;objs[6+2*i]=`<< /Length ${c.length} >>\nstream\n${c}\nendstream`});
+   let pdf='%PDF-1.4\n';const off=[];
+   for(let i=1;i<objs.length;i++){off.push(pdf.length);pdf+=`${i} 0 obj\n${objs[i]}\nendobj\n`}
+   const xr=pdf.length;
+   pdf+=`xref\n0 ${objs.length}\n0000000000 65535 f \n`+off.map(o=>String(o).padStart(10,'0')+' 00000 n \n').join('')+`trailer\n<< /Size ${objs.length} /Root 1 0 R >>\nstartxref\n${xr}\n%%EOF`;
+   return pdf}};
+ return d;
+}
+const PC={BR:[36,51,168],GR:[88,93,110],OK:[30,125,50],BAD:[198,40,40],CL:[163,95,0],W:[255,255,255],INK:[26,29,43]};
+function pdfHead(d,title,name){
+ d.rect(0,d.PH-100,d.PW,100,PC.BR);
+ d.at(d.M,d.PH-42,'Formal or informal?',12,false,PC.W);
+ d.at(d.M,d.PH-72,title,20,true,PC.W);
+ d.y=d.PH-112;
+ d.text('Name: '+(name.trim()||'–'),{size:13,bold:true});
+ d.text('Date: '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),{color:PC.GR});
+}
+function pdfTask(d,t,s){
+ const x=stats(t,s),P=x.P,{BR,GR,OK,BAD,CL}=PC;
+ d.space(16);d.text('Part 1 – Find the informal words',{size:15,bold:true,color:BR});d.space(4);
+ if(!s.checked)d.text('Part 1 is not finished.',{color:GR});
+ else{
+  d.text(`You found ${x.hits} of ${x.total} informal words.`,{bold:true});d.space(4);
+  P.order.forEach((id,k)=>{const q=t.targets[id],f=x.found(id);d.text(`${k+1}. "${P.surf[id]}" – ${CATS[q.cat].name} – ${f?'found':'missed'}`,{indent:14,sw:CATS[q.cat].rgb,color:f?PC.INK:BAD})});
+  if(x.wrong.length){d.space(4);d.text('Words you marked that are fine in a formal text: '+x.wrong.join(', '),{color:GR})}
+ }
+ d.space(16);d.text('Part 2 – Choose a formal alternative',{size:15,bold:true,color:BR});d.space(4);
+ if(!x.answered)d.text('Part 2 has not been started.',{color:GR});
+ else{
+  d.text(`You chose a good sentence on the first try in ${x.good} of ${x.total} questions.`,{bold:true});
+  P.order.forEach((id,k)=>{const q=t.targets[id],a=s.answers[id];d.space(8);
+   d.text(`${k+1}. ${CATS[q.cat].name}`,{bold:true,indent:14,sw:CATS[q.cat].rgb});
+   d.text(t.writer+' wrote: '+plain(q.s),{indent:14,color:GR});
+   if(a===undefined||!q.o[a]){d.text('Not answered.',{indent:14,color:GR});return}
+   const o=q.o[a];d.text(`Your answer: ${o[0]} (${['not a good choice','good','almost'][o[1]]})`,{indent:14,color:[BAD,OK,CL][o[1]]});
+   if(o[1]!==1){const f=x.final(id);d.text(f!==undefined?'Then you chose: '+q.o[f][0]:'Good answers: '+q.o.filter(z=>z[1]===1).map(z=>z[0]).join(' / '),{indent:14,color:OK})}
+  });
+ }
+ if(x.complete){d.space(16);d.text(`Your version of ${t.writer}'s ${t.doc}`,{size:15,bold:true,color:BR});d.space(4);version(t,s).forEach(v=>{d.text(v.text,v.ttl?{bold:true,size:13}:{});d.space(6)})}
+}
+function buildPDF(t,s){const d=makePDF();pdfHead(d,`Task ${t.num}: ${t.title}`,s.name);pdfTask(d,t,s);return d.out()}
+const started=s=>s.checked||s.marks.length>0||Object.keys(s.answers).length>0;
+function buildAllPDF(name){
+ const d=makePDF();pdfHead(d,'All results',name);
+ d.space(16);d.text('Overview',{size:15,bold:true,color:PC.BR});d.space(4);
+ TASKS.forEach(t=>{const s=st(t.id),x=stats(t,s);
+  d.text(`Task ${t.num}: ${t.title} (Level ${t.level} – ${t.levelName})`,{bold:true});
+  d.text(!started(s)?'Not started.':`Part 1: ${s.checked?`${x.hits} of ${x.total} found`:'not finished'}   ·   Part 2: ${x.answered?`${x.good} of ${x.total} right on the first try`:'not started'}${x.complete?'   ·   Finished':''}`,{indent:14,color:started(s)?PC.INK:PC.GR});d.space(6)});
+ TASKS.forEach(t=>{const s=st(t.id);if(!started(s))return;d.page();d.text(`Task ${t.num}: ${t.title}`,{size:18,bold:true,color:PC.BR});d.text(`Level ${t.level} – ${t.levelName}`,{color:PC.GR});pdfTask(d,t,s)});
+ return d.out();
+}
+const slugify=n=>n.toLowerCase().replace(/æ/g,'ae').replace(/ø/g,'o').replace(/å/g,'a').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const fileName=(t,n)=>{const slug=n.toLowerCase().replace(/æ/g,'ae').replace(/ø/g,'o').replace(/å/g,'a').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');return `formal-informal-task-${t.num}${slug?'-'+slug:''}.pdf`};
+const dlP=(window.claude&&window.claude.use?Promise.resolve(window.claude.use('downloads')):Promise.resolve(null)).catch(()=>null);
+
+/* ---------- events ---------- */
+const app=document.getElementById('app');
+const cur=()=>TASKS.find(x=>x.id===location.hash.slice(1));
+function draw(){const t=cur();if(t)renderTask(t);else renderHome()}
+function redraw(){const y=window.scrollY;draw();window.scrollTo(0,y)}
+let armT=null;
+const msg=m=>{const e=document.getElementById('msg');if(e)e.textContent=m};
+app.addEventListener('click',async e=>{
+ const t=cur();
+ if(!t){const b=e.target.closest('[data-act=pdfall]');if(!b)return;
+  const n=document.getElementById('allname'),name=n.value.trim();
+  if(!name){msg('Write your name first.');n.focus();return}
+  if(!TASKS.some(x=>started(st(x.id)))){msg('You have not started any tasks yet.');return}
+  const slug=slugify(name);await saveFile(`formal-informal-all-results${slug?'-'+slug:''}.pdf`,()=>buildAllPDF(name));return}
+ const s=st(t.id);
+ const w=e.target.closest('.w');
+ if(w&&!s.checked&&w.closest('#sheet')){const i=+w.dataset.i,k=s.marks.indexOf(i);if(k<0)s.marks.push(i);else s.marks.splice(k,1);w.classList.toggle('on',k<0);document.getElementById('count').textContent='Words marked: '+s.marks.length;save(t.id);return}
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.act==='goto'){const q=document.getElementById('q-'+b.dataset.q);if(q){q.scrollIntoView({behavior:'smooth',block:'center'});const f=q.querySelector('.opt:not(:disabled)');if(f)f.focus({preventScroll:true})}return}
+ if(b.dataset.act==='check'){s.checked=true;save(t.id);redraw();return}
+ if(b.dataset.opt!==undefined&&!b.disabled){const id=b.dataset.tid,j=+b.dataset.opt;if(s.answers[id]===undefined)s.answers[id]=j;else if(t.targets[id].o[j]&&t.targets[id].o[j][1]===1)s.fixes[id]=j;save(t.id);redraw();return}
+ if(b.dataset.act==='reset'){
+  if(!b.classList.contains('arm')){b.classList.add('arm');b.textContent='Click again to reset';clearTimeout(armT);armT=setTimeout(()=>{b.classList.remove('arm');b.textContent='Reset task'},3500);return}
+  clearTimeout(armT);states[t.id]=fresh(s.name);save(t.id);draw();window.scrollTo(0,0);return}
+ if(b.dataset.act==='pdf'){
+  if(!s.name.trim()){msg('Write your name at the top first.');const n=document.getElementById('name');n.focus();n.scrollIntoView({block:'center'});return}
+  await saveFile(fileName(t,s.name.trim()),()=>buildPDF(t,s));
+ }
+});
+async function saveFile(filename,make){
+ if(!window.claude){/* outside Claude (e.g. GitHub Pages): normal browser download */
+  try{const url=URL.createObjectURL(new Blob([make()],{type:'application/pdf'}));const l=document.createElement('a');l.href=url;l.download=filename;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);msg('Saved! Look in your Downloads folder.')}
+  catch(err){msg('The download did not work. Try again.')}
+  return}
+ const d=await dlP;
+ if(!d){msg('Download is not available here. Open the page in a browser on a computer.');return}
+ msg('');
+ try{await d.save({filename,data:make()});msg('Saved! Look in your Downloads folder.')}
+ catch(err){const c=err&&err.code;msg(c==='declined'?'The download was cancelled.':c==='rate_limited'?'Wait a moment and try again.':c==='host_unavailable'||c==='unavailable'?'Download is not available here. Open the page in a browser on a computer.':'The download did not work. Try again.')}
+}
+app.addEventListener('input',e=>{if(e.target.id==='allname'){store.set('fi-allname',e.target.value);return}if(e.target.id==='name'){const t=cur();if(t){st(t.id).name=e.target.value;save(t.id)}}});
+addEventListener('hashchange',()=>{draw();window.scrollTo(0,0)});
+draw();
+}
+</script>
+</body>
+</html>
