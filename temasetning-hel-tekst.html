@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temasetning og konklusjon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&family=Fredoka:wght@600&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a calm, encouraging writing teacher; Norwegian instructions, English text.
+   IDEA: a page from a ruled exercise book, marked up with highlighters and red pen.
+   PICTURE: the paragraph itself on ruled paper, its sentences changing as the student chooses.
+   COLOUR and TYPE: white paper, black ink, red-pen accent, yellow marker for TS, green marker for CS; Literata + Figtree.
+   LAYOUT: one column: steps, the paper, the choices, feedback; stacks naturally on phones. */
+:root{color-scheme:light;
+--bg:#eceae4;--paper:#ffffff;--ink:#1b1b1d;
+--soft:#5d5d63;--rule:#dfe6ee;--red:#d1291f;
+--ts:#ffe76a;--cs:#b9f0c9;--ok:#18794e;
+--okbg:#e7f6ee;--badbg:#fdecea;--line:#d6d3cb}
+
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:1360px;margin:0 auto;padding:clamp(18px,3vw,40px) max(3vw,14px) 56px}
+.main{display:block}
+.main.full{display:block}#fullhead:empty{display:none}
+.etitle{font:600 clamp(22px,2.4vw,28px)/1.2 Literata,Georgia,serif;margin:0 0 18px}
+.right{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.reset{font:600 14px Figtree,sans-serif;min-height:44px;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);background:transparent;color:var(--soft);cursor:pointer}.reset:hover{color:var(--red);border-color:var(--red)}.reset.yes{background:var(--red);border-color:var(--red);color:#fff}
+.confirm{font-size:14px;color:var(--red);font-weight:600}
+h1{font:600 clamp(32px,5vw,50px)/1.08 Fredoka,Figtree,system-ui,sans-serif;margin:0 0 22px;text-wrap:balance;letter-spacing:.005em;text-shadow:3px 3px 0 var(--ts),0 6px 14px #0002}
+.sharp{background:linear-gradient(transparent 55%,var(--ts) 55%,var(--ts) 92%,transparent 92%);padding:0 4px}
+.sub{margin:6px 0 12px;font-size:clamp(17px,1.8vw,20px);font-weight:600;color:var(--soft)}
+.assign{margin:6px 0 16px;padding:10px 16px;border:2px solid var(--ink);border-radius:10px;background:var(--paper);max-width:80ch}.assign span{display:block;font:600 13px Figtree,sans-serif;color:var(--soft)}.assign p{margin:2px 0 0;font:600 17px/1.4 Figtree,system-ui,sans-serif}
+.pickl{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:15px}.pickl small{font-weight:400;font-size:13px;color:var(--soft)}
+.lead{color:var(--soft);margin:0 0 20px;max-width:80ch}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;justify-content:space-between;margin-bottom:14px}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{font-size:14px;padding:6px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--soft)}
+.step.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.step.done{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+select{font:inherit;font-size:16px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);min-height:44px}
+.paper{position:relative;background:var(--paper);border-radius:6px;box-shadow:0 1px 0 var(--line),0 18px 40px -24px #0005;
+padding:30px clamp(18px,4vw,40px) 30px clamp(44px,8vw,78px);
+background-image:linear-gradient(var(--paper) 28px,transparent 28px),repeating-linear-gradient(to bottom,transparent 0 33px,var(--rule) 33px 34px)}
+.paper::before{content:"";position:absolute;top:0;bottom:0;left:clamp(30px,6vw,58px);width:2px;background:var(--red);opacity:.55}
+.ptitle{font:600 13px/1 Figtree,sans-serif;color:var(--soft);margin:0 0 12px}
+.para{font:17.5px/34px Literata,Georgia,serif;margin:0}.para+.para{margin-top:34px}.para.fixed{text-indent:0}
+.s{transition:background .4s}
+.ts{background:linear-gradient(transparent 12%,var(--ts) 12%,var(--ts) 88%,transparent 88%);padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.cs{background:linear-gradient(transparent 12%,var(--cs) 12%,var(--cs) 88%,transparent 88%);padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.bad{text-decoration:line-through wavy var(--red);text-decoration-thickness:1.5px}
+.orig{text-decoration:underline wavy var(--red);text-decoration-thickness:1.5px;text-underline-offset:5px}
+.pen{margin:0 0 14px;border-left:5px solid var(--red);background:var(--badbg);border-radius:10px;padding:14px 16px}.pen b{display:block;margin-bottom:4px;color:var(--red)}.pen p{margin:0}.pen.warn{margin-top:20px}.pen.warn p+p{margin-top:8px}.pen.warn .acts{margin-top:12px}.origq{display:block;margin:0 0 8px;font:italic 16.5px/1.45 Literata,Georgia,serif;text-decoration:underline wavy var(--red);text-decoration-thickness:1.5px;text-underline-offset:5px}
+.chg{border-bottom:2px dotted var(--red)}
+.slot{display:inline-block;border:1.5px dashed var(--soft);border-radius:4px;padding:0 8px;line-height:26px;color:var(--soft);font:italic 15px Figtree,sans-serif}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:16px;font-size:13px;color:var(--soft)}
+.legend .sw{font:15px/1.6 Literata,Georgia,serif;font-style:normal;margin-right:6px}
+.legend i{display:inline-block;width:18px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.task{margin:28px 0 10px;font-size:20px;font-weight:800}
+.hint{color:var(--soft);margin:0 0 14px;font-size:15px}
+.opts{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.opt{width:100%;text-align:left;font:16px/1.45 Literata,Georgia,serif;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:13px 16px 13px 48px;cursor:pointer;position:relative;min-height:44px}
+.opt::before{content:attr(data-k);position:absolute;left:14px;top:12px;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--soft);font:600 13px/21px Figtree,sans-serif;text-align:center;color:var(--soft)}
+.opt:hover{border-color:var(--ink)}
+.opt:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.opt[aria-pressed=true]{border-color:var(--ink);border-width:2px}
+.opt.g[aria-pressed=true]{border-color:var(--ok);background:var(--okbg)}
+.opt.b[aria-pressed=true]{border-color:var(--red);background:var(--badbg)}
+.opt.g[aria-pressed=true]::before{content:"✓";background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.b[aria-pressed=true]::before{content:"✕";background:var(--red);border-color:var(--red);color:#fff}
+.opt.tried{opacity:.6}
+.fb{margin-top:14px;border-radius:10px;padding:14px 16px;border-left:5px solid}
+.fb.g{background:var(--okbg);border-color:var(--ok)}.fb.b{background:var(--badbg);border-color:var(--red)}
+.fb b{display:block;margin-bottom:4px}
+.fb p{margin:0}
+.fixedfb{margin-top:20px}
+.changes{margin-top:14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper)}
+.changes summary{cursor:pointer;padding:12px 16px;font-weight:600;min-height:44px}
+.changes ol{margin:0;padding:0 16px 14px 36px;display:grid;gap:12px}
+.changes del{color:var(--soft);text-decoration-color:var(--red)}
+.changes ins{text-decoration:none;display:block;font-family:Literata,Georgia,serif}
+.changes small{display:block;color:var(--soft);font-size:14px;margin-top:2px}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{font:600 16px Figtree,sans-serif;min-height:44px;padding:10px 18px;border-radius:99px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn[disabled]{opacity:.35;cursor:not-allowed}
+.note{font-size:13px;color:var(--soft);margin-top:30px}
+.pop{animation:pop .5s ease}
+@keyframes pop{from{background-color:var(--ts)}}
+@media(prefers-reduced-motion:reduce){.pop{animation:none}.s{transition:none}}
+@media(max-width:600px){.para{font-size:16.5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Temasetning og konkluderende setning</h1>
+  <div class="assign"><span>Oppgavetekst</span><p>Explain why American politics matters to Norway and other European countries.</p></div>
+  <p class="lead">Velg den beste temasetningen. Avsnittet skrives om så det passer, og så mye som mulig av den opprinnelige teksten beholdes. Etterpå velger du en konkluderende setning som fører leseren tilbake til hovedpoenget.</p>
+  <div class="bar">
+    <label class="pickl"><span>Gå gjennom avsnittene, ett om gangen:</span><select id="pick" aria-describedby="pickhelp"></select><small id="pickhelp">Innledning og avslutning er ferdig skrevet. Avsnitt 1–3 utgjør hoveddelen, som du skal jobbe med.</small></label>
+    <div class="right"><div class="steps" id="steps"></div><div class="right" id="resetbox"></div></div>
+  </div>
+  <div class="main" id="main">
+  <div id="fullhead"></div>
+  <div class="paper" id="paper"></div>
+  <div id="work"></div>
+  </div>
+</div>
+<script>
+{
+const P=[
+{title:"Avsnitt 1: Økonomi og handel",
+ ts0:"The USA is the most powerful country in the world.",
+ why0:"Temasetningen er for vag. Den sier at USA er mektig, men ikke hvorfor amerikansk politikk betyr noe for Norge og Europa. Leseren vet derfor ikke hva avsnittet skal bevise.",
+ body0:[
+  "The American economy is larger than any other economy in the world, even with the increasing competition from China.",
+  "Therefore, when American politicians make decisions about trade, the effects spread to every country that trades with the USA.",
+  "Tariffs show clearly how this works.",
+  "They make imported goods more expensive for American buyers, which can reduce sales and cost jobs in other countries.",
+  "The Norwegian seafood industry, which exports large amounts of fish to the USA, is a good example.",
+  "If the USA raises tariffs on fish, Norwegian salmon becomes more expensive for American customers.",
+  "As a result, they may buy less of it, and jobs along the Norwegian coast may be at risk.",
+  "Relying heavily on the American market, European car manufacturers face the same risk."],
+ ts:[
+  {t:"Because the USA has the world's largest economy, American political decisions have direct consequences for Norway and the rest of Europe.",ok:1,
+   fb:"Hovedpoenget står i setningen: USAs politikk får konsekvenser for Norge og Europa, og årsaken (økonomien) nevnes også. Leseren vet nå hva avsnittet skal bevise.",
+   body:[
+    {t:"No other economy comes close, even with the increasing competition from China.",from:0,why:"Temasetningen «stjal» opplysningen om at økonomien er størst. Setningen bygger derfor videre i stedet for å gjenta."},
+    1,2,3,4,5,6,7]},
+  {t:"American politics matters to Norway and other European countries because decisions made in Washington affect European economies.",ok:1,
+   fb:"Setningen svarer direkte på oppgaven og nevner både påstanden og hvilket område avsnittet handler om (økonomi). Resten av avsnittet kan da forklare og gi eksempler.",
+   body:[
+    {t:"The main reason is the size of the American economy. It is larger than any other economy in the world, even with the increasing competition from China.",from:0,why:"Delt i to setninger. «The main reason is» knytter forklaringen til temasetningen."},
+    1,2,3,4,5,6,7]},
+  {t:"Tariffs are a clear example of how American politics affects the economies of Norway and other European countries.",ok:1,
+   fb:"Fungerer, men gjør avsnittet smalere: Nå handler det først og fremst om handel og toll. Da blir setningene om økonomiens størrelse bakgrunn for tollpoenget.",
+   body:[
+    {t:"The background is the size of the American economy. It is larger than any other economy in the world, even with the increasing competition from China.",from:0,why:"«The background is» viser at økonomiens størrelse nå er bakgrunn, ikke hovedpoeng."},
+    1,
+    {del:1,from:2,why:"Temasetningen sier allerede at tollen er et eksempel. Setningen ville bare gjentatt den."},
+    {t:"Tariffs make imported goods more expensive for American buyers, which can reduce sales and cost jobs in other countries.",from:3,why:"Setningen foran er fjernet, så «They» viser ikke lenger til noe. Ordet er byttet ut med «Tariffs»."},
+    4,5,6,7]},
+  {t:"Norway exports a lot of seafood to the USA.",ok:0,
+   fb:"For smalt. Dette er et eksempel, ikke et hovedpoeng. Temasetningen skal dekke hele avsnittet, og her ville setningene om økonomi, toll og bilindustrien falle utenfor."},
+  {t:"In this paragraph, I will explain why American politics is important.",ok:0,
+   fb:"Setningen kunngjør bare hva du skal gjøre. En temasetning skal si selve poenget, altså hvorfor amerikansk politikk er viktig for Norge og Europa."},
+  {t:"American politics is often chaotic and difficult to understand.",ok:0,
+   fb:"Bom på oppgaven. Setningen sier noe om USA, men ingenting om hvorfor amerikansk politikk betyr noe for Norge og Europa. Resten av avsnittet ville ikke støtte påstanden."}],
+ cs:[
+  {t:"Therefore, what happens in American politics matters not only to Americans, but also to Norway and the rest of Europe.",ok:1,
+   fb:"«Therefore» viser at dette er en følge av det som er sagt, og setningen går tilbake fra eksemplene til hovedpoenget. Men «Therefore» står allerede tidlig i avsnittet, så der er bindeordet byttet ut.",
+   edit:{find:"Therefore, when",to:"Consequently, when",why:"Konklusjonen begynner med «Therefore», så bindeordet her er byttet ut for å unngå gjentakelse."}},
+  {t:"This shows that decisions made in Washington can affect jobs and prices far beyond the USA, in Norway as well as in the rest of Europe.",ok:1,
+   fb:"«This shows» binder sammen eksemplene og påstanden. Setningen løfter blikket fra fiskeriene og bilindustrien til det generelle poenget."},
+  {t:"As a result, no European country can afford to ignore American politics.",ok:1,
+   fb:"God avrunding. Men «As a result» står allerede i avsnittet, så der er en setning justert for å unngå gjentakelse.",
+   edit:{find:"As a result, they may buy less of it, and",to:"They may then buy less of it, and",why:"Konklusjonen begynner med «As a result», så setningen her er formulert om."}},
+  {t:"Norwegian salmon is also very popular in American restaurants.",ok:0,
+   fb:"Dette er ny informasjon, ikke en konklusjon. Avsnittet slutter fortsatt på et eksempel i stedet for å gå tilbake til hovedpoenget."},
+  {t:"In conclusion, the USA is the most powerful country in the world.",ok:0,
+   fb:"Setningen gjentar bare den vage påstanden fra den opprinnelige temasetningen, den som ble forkastet, og svarer ikke på oppgaven. «In conclusion» hører dessuten hjemme i avslutningen av hele teksten, ikke i et avsnitt i hoveddelen."}]},
+{title:"Avsnitt 2: Sikkerhet og NATO",
+ ts0:"NATO was founded in 1949.",
+ why0:"Temasetningen er en faktaopplysning: Den forteller når NATO ble grunnlagt. Det er nyttig bakgrunn, men ingen kan være uenige i et årstall, og det trenger ikke forklares eller underbygges. En temasetning bør være en påstand som resten av avsnittet forklarer og støtter, her om hvorfor amerikansk politikk betyr noe for europeisk sikkerhet.",
+ body0:[
+  "The USA spends more money on defence than all the other NATO countries combined.",
+  "Many European countries therefore rely on American military support.",
+  "This means that the security of Europe depends partly on decisions made by American politicians.",
+  "When American presidents have questioned the value of the alliance, European governments have become worried.",
+  "Many of them have responded by spending more on defence.",
+  "In 2025, the NATO countries even agreed to raise their defence and security spending to five per cent of GDP by 2035.",
+  "Once again, Norway is a good example.",
+  "Sharing a border with Russia, Norway would depend on help from its allies in a crisis.",
+  "For this reason, the USA stores military equipment in caves in Trøndelag, and American soldiers regularly train in Norway."],
+ ts:[
+  {t:"American politics also matters to European security because many European countries depend on the USA through NATO.",ok:1,
+   fb:"Klar påstand som svarer på oppgaven og forteller hva avsnittet handler om: at Europas sikkerhet avhenger av USA gjennom NATO. Legg også merke til at «also» viser at dette er et nytt argument i tillegg til økonomien i avsnittet foran.",
+   body:[
+    {t:"Since NATO was founded in 1949, the USA has been its most important member.",add:1,why:"Årstallet fra den opprinnelige temasetningen er tatt vare på i en ny setning."},
+    {t:"Today it spends more money on defence than all the other members combined.",from:0,why:"«Today it» knytter setningen til setningen foran."},
+    {del:1,from:1,why:"At Europa er avhengig av USA, står nå i temasetningen. Setningen ville bare gjentatt den."},
+    2,3,4,5,6,7,8]},
+  {t:"In addition to the economy, American politics affects the safety of Norway and the rest of Europe.",ok:1,
+   fb:"Setningen sier tydelig hva avsnittet skal vise: at amerikansk politikk påvirker sikkerheten i Norge og resten av Europa. NATO nevnes ikke, så avsnittet må selv forklare koblingen. Det gjør den nye setningen nedenfor. Legg også merke til at «In addition to the economy» knytter avsnittet til avsnittet foran.",
+   body:[
+    {t:"Since NATO was founded in 1949, the USA has been the leading member of the alliance.",add:1,why:"Ny setning bygget på den opprinnelige temasetningen, så historien om NATO ikke går tapt."},
+    {t:"Today it spends more money on defence than all the other NATO countries combined.",from:0,why:"«Today it» knytter setningen til setningen foran."},
+    1,2,3,4,5,6,7,8]},
+  {t:"Another reason why American politics matters to Europe is that the USA plays a leading role in NATO.",ok:1,
+   fb:"Setningen sier hvorfor amerikansk politikk betyr noe for Europa, nemlig USAs ledende rolle i NATO, og leder rett inn i forklaringen av den. Legg også merke til at «Another reason» viser at et nytt argument begynner.",
+   body:[
+    {t:"NATO was founded in 1949, and its members have promised that an attack on one of them is an attack on all.",add:1,why:"Den opprinnelige temasetningen er utvidet og flyttet ned i avsnittet. Der fungerer den som bakgrunn."},
+    {t:"In fact, the USA spends more money on defence than all the other NATO countries combined.",from:0,why:"«In fact» viser at setningen underbygger påstanden om at USA har en ledende rolle."},
+    1,2,3,4,5,6,7,8]},
+  {t:"NATO is an important organisation.",ok:0,
+   fb:"For vag. Setningen sier ikke hvorfor NATO er viktig, og heller ikke hva det har med amerikansk politikk og Europa å gjøre."},
+  {t:"In this paragraph I will write about NATO.",ok:0,
+   fb:"Setningen kunngjør bare emnet. En temasetning skal si hva du mener om emnet, ikke at du skal skrive om det."},
+  {t:"Norway shares a border with Russia.",ok:0,
+   fb:"For smalt. Dette er eksempelet i avsnittet, ikke hovedpoenget. Setningene om amerikanske forsvarsutgifter og presidenter ville falle utenfor."}],
+ cs:[
+  {t:"Therefore, the choices made by American politicians can be a question of security for Norway and other European countries.",ok:1,
+   fb:"«Therefore» viser sammenhengen, og setningen fører leseren fra Norge-eksempelet tilbake til hovedpoenget om sikkerhet."},
+  {t:"This shows that a debate about NATO in American politics is also a debate about the safety of Europe.",ok:1,
+   fb:"«This shows» gjør eksemplene til bevis for påstanden i temasetningen. Setningen løfter blikket fra Norge til hele Europa."},
+  {t:"In short, European security cannot be separated from American politics.",ok:1,
+   fb:"«In short» oppsummerer avsnittet i én kort og tydelig setning som går tilbake til hovedpoenget."},
+  {t:"Russia is the largest country in the world.",ok:0,
+   fb:"Ny og uvedkommende informasjon. En konkluderende setning skal ikke åpne et nytt tema."},
+  {t:"That is why NATO was founded in 1949.",ok:0,
+   fb:"Setningen henger ikke logisk sammen med det som står foran, og den går ikke tilbake til hovedpoenget om amerikansk politikk og europeisk sikkerhet."}]}
+,
+{title:"Avsnitt 3: Debatt og sosiale medier",
+ ts0:"Have you ever thought about how much American culture we see every day?",
+ why0:"Temasetningen er et retorisk spørsmål. Det kan vekke interesse, men et spørsmål er ingen påstand: Det sier ikke hva du mener, og leseren må selv gjette hvilket svar du vil frem til. Spørsmålet handler dessuten om kultur generelt, ikke om hvorfor amerikansk politikk betyr noe for Europa.",
+ body0:[
+  "Most Europeans use social media every day, and many of them, especially young people, follow American news, influencers and debates in English.",
+  "As a result, American political debates reach European users directly, often within minutes.",
+  "This means that issues that start in the USA can quickly become part of the public debate in Europe.",
+  "Debates about topics such as immigration, climate and freedom of speech are often influenced by arguments first used in American politics.",
+  "The protests after the death of George Floyd in 2020 are a good example.",
+  "Within days, thousands of people gathered in cities such as London, Paris, Berlin and Oslo.",
+  "Using slogans from the American movement, many of them called for a debate about racism in their own countries."],
+ ts:[
+  {t:"American politics also matters to Europe because American debates and ideas spread quickly to European countries.",ok:1,
+   fb:"Setningen sier tydelig hva avsnittet skal vise: at amerikanske debatter og ideer sprer seg til Europa. Resten av avsnittet forklarer hvordan, og gir et eksempel. Legg også merke til at «also» viser at dette er et nytt argument.",
+   body:[0,1,
+    {del:1,from:2,why:"Temasetningen sier allerede at debattene sprer seg raskt til Europa. Setningen ville bare gjentatt den."},
+    3,4,5,6]},
+  {t:"Through social media, American politics has a strong influence on public debate in Europe.",ok:1,
+   fb:"Setningen gir en klar påstand og sier både hva som påvirkes (debatten i Europa) og hvordan (sosiale medier). Leseren vet nå hva avsnittet skal underbygge.",
+   body:[
+    {t:"Most Europeans use these platforms every day, and many of them, especially young people, follow American news, influencers and debates in English.",from:0,why:"«social media» står nå i temasetningen, så ordet er tatt ut her for å unngå gjentakelse."},
+    1,2,3,4,5,6]},
+  {t:"A third reason why American politics matters to Europe is its influence on how Europeans discuss political issues.",ok:1,
+   fb:"Setningen sier hvorfor amerikansk politikk betyr noe, nemlig at den påvirker hvordan europeere diskuterer politikk, og avsnittet kan deretter forklare hvordan det skjer. Legg også merke til at «A third reason» viser at dette er det tredje argumentet i teksten.",
+   body:[
+    {t:"This influence comes largely through social media, which most Europeans use every day. Many of them, especially young people, follow American news, influencers and debates in English.",from:0,why:"Setningen er delt i to og begynner nå med «This influence», som knytter forklaringen til temasetningen."},
+    1,2,3,4,5,6]},
+  {t:"Many Europeans use Facebook and Instagram every day.",ok:0,
+   fb:"For smalt. Setningen er en opplysning om bruk av sosiale medier, men sier ingenting om amerikansk politikk. Eksempelet om protestene i 2020 ville falle utenfor."},
+  {t:"American culture is popular all over the world.",ok:0,
+   fb:"For vag og litt på siden. Setningen handler om kultur, ikke om politikk, og den sier ikke noe om Europa spesielt. Leseren vet ikke hva avsnittet skal bevise."},
+  {t:"Racism is a serious problem in many countries.",ok:0,
+   fb:"Bom på oppgaven. Setningen plukker ut temaet fra eksempelet og gjør det til hovedpoeng. Avsnittet handler om hvordan amerikansk politikk påvirker debatten i Europa, ikke om rasisme i seg selv."}],
+ cs:[
+  {t:"Therefore, events and debates in American politics can shape political discussions in Norway and the rest of Europe.",ok:1,
+   fb:"«Therefore» viser at dette følger av det som er sagt, og setningen går fra protestene tilbake til hovedpoenget om debatten i Europa."},
+  {t:"This shows that the influence of American politics on Europe goes far beyond the economy and defence.",ok:1,
+   fb:"«This shows» gjør eksempelet til bevis. Setningen knytter dessuten avsnittet til de to forrige, og fungerer godt i en hel tekst."},
+  {t:"In other words, what is debated in the USA today may well be debated in Europe tomorrow.",ok:1,
+   fb:"«In other words» oppsummerer poenget med egne ord, kort og tydelig, og fører leseren tilbake til temasetningen."},
+  {t:"Instagram was launched in 2010.",ok:0,
+   fb:"Ny og uvedkommende faktaopplysning. En konkluderende setning skal ikke åpne et nytt tema, men gå tilbake til hovedpoenget."},
+  {t:"In conclusion, have you ever thought about how much American culture we see every day?",ok:0,
+   fb:"Setningen gjentar det retoriske spørsmålet fra den opprinnelige temasetningen, den som ble forkastet, og svarer ikke på oppgaven. «In conclusion» hører dessuten hjemme i avslutningen av hele teksten, ikke i et avsnitt i hoveddelen."}]}
+];
+const L="ABCDEFGH";
+const shuf=n=>{const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const INTRO={title:"Innledning",thesis:3,s:[
+  "When Americans elect a new president, the result is discussed in Norwegian homes, schools and newsrooms the very next morning.",
+  "This interest is not surprising.",
+  "The USA is an economic and military superpower, and its culture and media reach far beyond its own borders.",
+  "American politics matters to Norway and other European countries because it affects their economies, their security and the way they discuss political issues."],
+ note:"Innledningen er ferdig skrevet. Den siste setningen er problemstillingen. Den er en påstand, ikke et spørsmål, og den bruker ordlyden fra oppgaven. Den nevner også de tre punktene som avsnittene i hoveddelen tar for seg: økonomi, sikkerhet og debatt."};
+const OUTRO={title:"Avslutning",thesis:0,s:[
+  "In conclusion, American politics matters to Norway and other European countries in several ways.",
+  "Decisions about trade can affect prices and jobs, as the Norwegian seafood industry shows.",
+  "Decisions about defence and NATO affect the safety of the whole continent.",
+  "In addition, American debates spread quickly to Europe through social media.",
+  "Even though the USA is far away, what happens in Washington is never really a foreign affair for Europeans."],
+ note:"Avslutningen er ferdig skrevet. Den første setningen gjentar svaret på oppgaven, og deretter oppsummeres de tre hovedpunktene. Det kommer ingen ny informasjon. Her passer «In conclusion», fordi dette er avslutningen av hele teksten."};
+const PARTS=[{k:"f",d:INTRO},...P.map((_,i)=>({k:"p",i})),{k:"f",d:OUTRO}];
+let st={},saved={},confirming=false;
+
+function bodyOf(pi,tsI,csI,withCs){
+  const p=P[pi],ts=p.ts[tsI];
+  let b=(ts&&ts.ok?ts.body:p.body0.map((_,i)=>i)).map(x=>typeof x==="number"?{t:p.body0[x],same:1}:{...x});
+  const cs=p.cs[csI];
+  if(withCs&&cs&&cs.ok&&cs.edit){
+    b=b.map(s=>s.t&&s.t.includes(cs.edit.find)?{...s,t:s.t.replace(cs.edit.find,cs.edit.to),csEdit:cs.edit.why,prev:s.t,same:0}:s);
+  }
+  return b;
+}
+function body(){return bodyOf(st.p,st.ts,st.cs,st.step>0);}
+function textOf(pi,tsI,csI){
+  const p=P[pi];
+  return [p.ts[tsI].t,...bodyOf(pi,tsI,csI,true).filter(s=>!s.del).map(s=>s.t),p.cs[csI].t].join(" ");
+}
+const stOf=i=>saved[PARTS.findIndex(x=>x.k==="p"&&x.i===i)];
+const isDone=i=>{const x=stOf(i);return !!(x&&x.step>=1&&x.ts!=null&&x.cs!=null&&P[i].ts[x.ts].ok&&P[i].cs[x.cs].ok);};
+const allDone=()=>P.every((_,i)=>isDone(i));
+const fullBtn=()=>`<button class="btn ghost" id="fulltext" ${allDone()?"":"disabled"} title="${allDone()?"":"Blir aktiv når alle avsnittene er ferdige"}">Se ferdig tekst</button>`;
+const legend=`<div class="legend"><span><em class="sw ts">tekst</em>Temasetning</span><span><em class="sw cs">tekst</em>Konkluderende setning</span><span><em class="sw chg">tekst</em>Endret for å passe</span><span><em class="sw bad">tekst</em>Fungerer ikke</span></div>`;
+function renderPaper(){
+  const p=P[st.p],ts=p.ts[st.ts],cs=p.cs[st.cs];
+  let h=`<p class="ptitle">${esc(p.title)}</p><p class="para">`;
+  if(st.step===0&&ts==null) h+=`<span class="s ts orig">${esc(p.ts0)}</span> `;
+  else h+=`<span class="s ts ${ts.ok?"":"bad"}${st.flash?" pop":""}">${esc(ts.t)}</span> `;
+  h+=body().filter(s=>!s.del).map(s=>`<span class="s${s.same?"":" chg"}">${esc(s.t)}</span>`).join(" ");
+  if(st.step===0) h+=` <span class="slot">konkluderende setning mangler</span>`;
+  else if(cs==null) h+=` <span class="slot">velg konkluderende setning nedenfor</span>`;
+  else h+=` <span class="s cs ${cs.ok?"":"bad"}">${esc(cs.t)}</span>`;
+  h+=`</p>`+legend;
+  $("paper").innerHTML=h;
+}
+function fixedPara(d,mark){
+  return `<p class="para fixed">${d.s.map((x,i)=>`<span class="s${mark&&i===d.thesis?" ts":""}">${esc(x)}</span>`).join(" ")}</p>`;
+}
+function changeList(){
+  const p=P[st.p],items=body().filter(s=>!s.same).map(s=>{
+    let old="";
+    if(s.csEdit) old=`<del>${esc(s.prev)}</del>`;
+    else if(s.add) old=`<del style="text-decoration:none">(ny setning)</del>`;
+    else if(s.del) return `<li><del>${esc(p.body0[s.from])}</del><ins>(fjernet)</ins><small>${esc(s.why)}</small></li>`;
+    else old=[].concat(s.from).map(i=>`<del>${esc(p.body0[i])}</del>`).join(" ");
+    return `<li>${old}<ins>${esc(s.t)}</ins><small>${esc(s.csEdit||s.why)}</small></li>`;
+  });
+  if(!items.length) return "";
+  return `<details class="changes" open><summary>Hva ble endret i avsnittet? (${items.length})</summary><ol>${items.join("")}</ol></details>`;
+}
+function opts(list,sel,key,ord){
+  return `<ul class="opts">${ord.map((i,n)=>[list[i],i,n]).map(([o,i,n])=>`<li><button class="opt ${sel===i?(o.ok?"g":"b"):""}${st.tried.includes(key+i)&&sel!==i?" tried":""}" data-k="${L[n]}" data-i="${i}" aria-pressed="${sel===i}">${esc(o.t)}</button></li>`).join("")}</ul>`;
+}
+function fb(o){
+  return o?`<div class="fb ${o.ok?"g":"b"}" role="status"><b>${o.ok?"Bra valg!":"Ikke helt."}</b><p>${esc(o.fb)}</p></div>`:"";
+}
+const nextBtn=()=>st.part<PARTS.length-1?`<button class="btn ghost" id="nextp">Neste del</button>`:"";
+function render(){
+  const part=PARTS[st.part];
+  $("steps").innerHTML=part.k==="p"&&!st.full?["1 Temasetning","2 Konkluderende setning"].map((s,i)=>`<span class="step ${i===st.step?"on":i<st.step?"done":""}">${s}</span>`).join(""):"";
+  if(st.full){
+    $("main").classList.add("full");
+    $("fullhead").innerHTML=`<p class="task" style="margin-top:0">Ferdig tekst</p><p class="hint">Les teksten som en helhet. Henger avsnittene godt sammen? Legg merke til hvordan problemstillingen i innledningen blir besvart avsnitt for avsnitt.</p>`;
+    $("paper").innerHTML=`<h2 class="etitle">Why American Politics Matters to Europe</h2>`+fixedPara(INTRO)+P.map((p,i)=>{const x=stOf(i);return `<p class="para"><span class="s ts">${esc(p.ts[x.ts].t)}</span> ${bodyOf(i,x.ts,x.cs,true).filter(s=>!s.del).map(s=>esc(s.t)).join(" ")} <span class="s cs">${esc(p.cs[x.cs].t)}</span></p>`;}).join("")+fixedPara(OUTRO)+`<div class="legend"><span><i style="background:var(--ts)"></i>Temasetning</span><span><i style="background:var(--cs)"></i>Konkluderende setning</span></div>`;
+    const leads=P.map((p,i)=>{const t=p.cs[stOf(i).cs].t,w=t.split(" ");const c=w.slice(0,4).join(" ").indexOf(",");return c>=0?t.slice(0,c):w.slice(0,2).join(" ");});
+    const groups={};leads.forEach((l,i)=>(groups[l]=groups[l]||[]).push(i));
+    const reps=Object.entries(groups).filter(([,v])=>v.length>1);
+    const nums=v=>v.map(i=>i+1).join(v.length>2?", ":" og ").replace(/, (\d+)$/," og $1");
+    const warn=reps.length?`<div class="pen warn"><b>Obs! Samme innledning flere ganger</b>${reps.map(([l,v])=>`<p>De konkluderende setningene i avsnitt ${nums(v)} begynner ${v.length===2?"begge":"alle"} med «${esc(l)}».</p>`).join("")}<p>Hver for seg passer de fint, men i en hel tekst blir det ensformig når samme uttrykk går igjen. Gå tilbake og vurder å velge en annen konkluderende setning i ett eller flere av avsnittene.</p><div class="acts">${[...new Set(reps.flatMap(([,v])=>v))].sort().map(i=>`<button class="btn ghost" data-goto="${PARTS.findIndex(x=>x.k==="p"&&x.i===i)}">Gå til avsnitt ${i+1}</button>`).join("")}</div></div>`:"";
+    $("work").innerHTML=warn+`<div class="acts"><button class="btn ghost" id="leave">Tilbake</button></div>`;
+    return;
+  }
+  $("main").classList.remove("full");$("fullhead").innerHTML="";
+  if(part.k==="f"){
+    $("paper").innerHTML=`<p class="ptitle">${esc(part.d.title)} (ferdig skrevet)</p>`+fixedPara(part.d,1)+`<div class="legend"><span><i style="background:var(--ts)"></i>${part.d===INTRO?"Problemstilling":"Svar på problemstillingen"}</span></div>`;
+    $("work").innerHTML=`<div class="fb g"><b>${esc(part.d.title)}</b><p>${esc(part.d.note)}</p></div><div class="acts">${nextBtn()}${part.d===OUTRO?fullBtn():""}</div>`;
+    return;
+  }
+  const p=P[st.p];
+  renderPaper();
+  let h="";
+  if(st.step===0){
+    const o=p.ts[st.ts];
+    h=`<p class="task">Velg en bedre temasetning</p><div class="pen"><b>Lærerens kommentar til originalen</b><q class="origq">${esc(p.ts0)}</q><p>${esc(p.why0)}</p></div><p class="hint">Hvilken av setningene nedenfor får best frem hovedpoenget i avsnittet?</p>${opts(p.ts,st.ts,"t",st.tsOrd)}${fb(o)}${o&&o.ok?changeList():""}
+    <div class="acts"><button class="btn" id="next" ${o&&o.ok?"":"disabled"}>Videre til konkluderende setning</button></div>`;
+  }else if(st.step===1){
+    const o=p.cs[st.cs];
+    h=`<p class="task">Velg konkluderende setning</p><p class="hint">Avsnittet slutter nå på et eksempel. Hvilken setning fører leseren tilbake til hovedpoenget i temasetningen?</p>${opts(p.cs,st.cs,"c",st.csOrd)}${fb(o)}${changeList()}
+    <div class="acts"><button class="btn ghost" id="back">Tilbake til temasetning</button><button class="btn" id="next" ${o&&o.ok?"":"disabled"}>Se ferdig avsnitt</button>${fullBtn()}</div>`;
+  }else{
+    h=`<p class="task">Ferdig avsnitt</p><p class="hint">Sammenlign med originalen: Temasetningen sier nå hva avsnittet skal bevise, og den konkluderende setningen fører leseren tilbake dit.</p>${changeList()}
+    <div class="acts"><button class="btn ghost" id="redo">Prøv andre valg</button>${nextBtn()}${fullBtn()}</div>`;
+  }
+  $("work").innerHTML=h;
+  st.flash=false;
+}
+$("pick").innerHTML=PARTS.map((x,i)=>`<option value="${i}">${esc(x.k==="p"?P[x.i].title:x.d.title)}</option>`).join("");
+function fresh(n){
+  const part=PARTS[n],i=part.k==="p"?part.i:null;
+  return {part:n,p:i,step:0,ts:null,cs:null,tried:[],flash:false,full:false,
+      tsOrd:i==null?[]:shuf(P[i].ts.length),csOrd:i==null?[]:shuf(P[i].cs.length)};
+}
+function go(n,reset){
+  if(reset||!saved[n]) saved[n]=fresh(n);
+  st=saved[n];st.full=false;st.flash=false;
+  $("pick").value=n;render();renderReset();
+}
+function renderReset(){
+  $("resetbox").innerHTML=confirming
+   ?`<span class="confirm">Slette alle valg i hele oppgaven?</span><button class="reset yes" id="resetyes">Ja, nullstill</button><button class="reset" id="resetno">Avbryt</button>`
+   :`<button class="reset" id="resetask">Nullstill oppgave</button>`;
+}
+$("resetbox").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.id==="resetask")confirming=true;
+  else if(b.id==="resetno")confirming=false;
+  else if(b.id==="resetyes"){confirming=false;saved={};go(0);window.scrollTo({top:0,behavior:"smooth"});return;}
+  renderReset();
+});
+$("pick").addEventListener("change",e=>go(+e.target.value));
+$("work").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b||b.disabled)return;
+  if(b.dataset.goto!=null){go(+b.dataset.goto);window.scrollTo({top:0,behavior:"smooth"});return;}
+  if(b.dataset.i!=null){
+    const i=+b.dataset.i;
+    if(st.step===0){st.ts=i;st.cs=null;st.flash=true;st.tried.push("t"+i);}
+    else{st.cs=i;st.tried.push("c"+i);}
+    render();return;
+  }
+  if(b.id==="next"){st.step++;if(st.step===1)st.csOrd=shuf(P[st.p].cs.length);render();$("paper").scrollIntoView({behavior:"smooth",block:"start"});}
+  else if(b.id==="back"){st.step=0;st.cs=null;st.tsOrd=shuf(P[st.p].ts.length);render();}
+  else if(b.id==="redo"){go(st.part,true);}
+  else if(b.id==="nextp"){go(st.part+1);window.scrollTo({top:0,behavior:"smooth"});}
+  else if(b.id==="fulltext"){st.full=true;render();window.scrollTo({top:0,behavior:"smooth"});}
+  else if(b.id==="leave"){st.full=false;render();}
+});
+go(0);
+}
+</script>
+</body>
+</html>
